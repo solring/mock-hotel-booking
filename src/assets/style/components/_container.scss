@@ -1,0 +1,101 @@
+.container-custom-md {
+    max-width: 330px;
+    margin: 0 auto;
+    @include media-breakpoint-up(md) {
+        max-width: 570px;
+    }
+    @include media-breakpoint-up(lg) {
+        max-width: 920px;
+    }
+}
+
+.container-custom-sm {
+    max-width: 330px;
+    margin: 0 auto;
+    @include media-breakpoint-up(md) {
+        max-width: 690px;
+    }
+    @include media-breakpoint-up(lg) {
+        max-width: 730px;
+    }
+}
+
+.center-sqrt-container {
+    @include fixed-ratio(1, 1);
+}
+
+
+// ----- picture containers -----
+$pic-sizes: (
+    "sm": 175,
+    "md": 265,
+    "lg": 435,
+);
+
+$pic-sizes-sm: (
+    "sm": 150,
+);
+
+@each $key, $h in $pic-sizes {
+    .pic-height-#{$key} {
+        width: 100%;
+        height: #{$h}px;
+        object-fit: cover;
+    }
+}
+
+@each $key, $h in $pic-sizes-sm {
+    @include media-breakpoint-down(sm) {
+        .pic-height-#{key} {
+            height: #{$h}px;
+        }
+    }
+}
+
+.pic-fill-container{
+    @include pic-fill-container;
+}
+
+.pic-cover {
+    @include img-cover;
+}
+
+// ----- card-height -----
+$heights: (
+    "sm": 175,
+    "md": 265,
+    "lg": 435,
+);
+
+$heights-sm: (
+    "sm": 150,
+);
+
+@each $key, $h in $heights{
+    .height-#{$key} {
+        width: 100%;
+        height: #{$h}px;
+    }
+}
+
+@each $key, $h in $heights-sm{
+    @include media-breakpoint-down(sm) {
+        .height-#{$key} {
+            width: 100%;
+            height: #{$h}px;
+        }
+    }
+}
+
+// thumbnail
+.thumbnail-sm {
+    width: 24px;
+    height: 24px;
+    object-fit: cover;
+}
+
+.thumbnail {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+}

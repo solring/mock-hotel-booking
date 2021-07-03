@@ -1,0 +1,40 @@
+.login-background {
+    width: 70%;
+    @include media-breakpoint-down(lg) {
+        width: 100%;
+    }
+    @include media-breakpoint-down(xs) {
+        display: none;
+    }
+}
+
+.login-page-padding {
+    padding-top: 162px;
+    @include media-breakpoint-down(md) {
+        padding-top: 80px;
+    }
+}
+
+.login-page-content {
+    z-index: 1020;
+}
+
+.login-page-right {
+    background: white;
+    @include media-breakpoint-down(lg) {
+        background: none;
+    }
+}
+
+.location-tag {
+    position: absolute;
+    bottom: 24px;
+    left: 0;
+    z-index: 1020;
+    opacity: 0.8;
+
+    @include media-breakpoint-down(md) {
+        left: 50%;
+        transform: translate(-50%, 0);
+    }
+}

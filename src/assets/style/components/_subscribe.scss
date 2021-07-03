@@ -1,0 +1,29 @@
+// ========================================================
+// subscribe section
+// ========================================================
+.subscribe-lg {
+    padding: 92px 0;
+    @include media-breakpoint-down(sm) {
+        padding: 24px 0;
+        h2 {
+            font-size: 22px;
+            line-height: 24px;
+        }
+    }
+    .input-group {
+        width: 100%;
+        @include media-breakpoint-up(md) {
+            width: 570px;
+        }
+        @include media-breakpoint-up(lg) {
+            width: 50%;
+        }
+    }
+}
+
+.subscribe h2 {
+    @include media-breakpoint-down(sm) {
+        font-size: 22px;
+        line-height: 24px;
+    }
+}

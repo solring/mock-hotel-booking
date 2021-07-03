@@ -1,0 +1,19 @@
+.list-divider-white {
+    @include list-w-divider(24px, #ffffff);
+}
+
+.list-divider-info {
+    @include list-w-divider(24px, $info);
+}
+
+.list-row-divider-white {
+    @include list-w-divider(24px, #ffffff, 2px, true);
+}
+
+.list-row-divider-info {
+    @include list-w-divider(24px, $info, 2px, true);
+}
+
+.list-gap-8 {
+    @include list-gap(8px);
+}

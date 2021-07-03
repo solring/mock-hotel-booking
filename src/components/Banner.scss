@@ -1,0 +1,13 @@
+@import '../index.scss';
+
+.banner {
+  margin-bottom: -52px; // search bar offset
+  img {
+      object-fit: cover;
+      height: 320px;
+      filter: brightness(75%);
+      @include media-breakpoint-down(sm) {
+          height: 315px;
+      }
+  }
+}

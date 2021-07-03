@@ -1,0 +1,11 @@
+.booking-detail {
+    border-radius: $border-radius-lg;
+    @include media-breakpoint-down(sm) {
+        border-bottom-left-radius: $border-radius-lg;
+        border-bottom-right-radius: $border-radius-lg;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+
+        box-shadow: 0 4px 2px rgba(0, 0, 0, 0.1);
+    }
+}

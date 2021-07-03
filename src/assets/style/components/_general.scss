@@ -1,0 +1,24 @@
+// ========================================================
+// block display badge
+// ========================================================
+.div-badge {
+    padding: 8px 16px;
+    border-radius: 4px;
+    color: #00000099;
+    margin-right: 8px;
+
+    @include media-breakpoint-down(md) {
+        font-size: 14px;
+    }
+}
+
+// ========================================================
+// Icon sizes
+// ========================================================
+.icon-md {
+    font-size: 20px;
+}
+
+.icon-lg {
+    font-size: 24px;
+}

@@ -1,0 +1,160 @@
+/* layouts */
+.row-start-center {
+    display: flex;
+    align-items: center;
+}
+
+.row-start-end {
+    display: flex;
+    align-items: flex-end;
+}
+
+.row-start-base {
+    display: flex;
+    align-items: baseline;
+}
+
+.row-reverse {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.row-reverse-center {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+}
+
+.row-btw {
+    display: flex;
+    justify-content: space-between;
+}
+
+.row-btw-center {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.row-btw-end {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.row-btw-baseline {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.row-end {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.row-wrap {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.column-btw-start {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.column-btw-end{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.centering-vertical {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.centering-row {
+    display: flex;
+    justify-content: center;
+}
+
+.centering-total {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.centering-total-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fit-centering {
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+// ----- alignment -----
+.align-icons {
+    span, img, .icon {
+        vertical-align: middle;
+    }
+    img {
+        display: inline-block;
+    }
+    line-height: 100%;
+}
+
+// ----- hovers ------
+.hover-shadow {
+    @include hoverShadow;
+}
+
+// ----- clear borders -----
+@include media-breakpoint-down(sm) {
+    .no-divider-down-sm{
+        &>li {
+            border: none;
+            padding: 0;
+            margin-bottom: 4px;
+        }
+    }
+
+}
+
+// responsive rounded border
+$sizes: (
+    "sm",
+    "md",
+    "lg",
+    "xl",
+);
+
+@each $size in $sizes {
+    .rounded-lg-up-#{$size},
+    .rounded-up-#{$size},
+    .rounded-sm-up-#{$size} {
+        border-radius: 0;
+    }
+
+    @include media-breakpoint-up($size) {
+        .rounded-lg-up-#{$size} {
+            border-radius: $border-radius-lg;
+        }
+        .rounded-up-#{$size} {
+            border-radius: $border-radius;
+        }
+        .rounded-sm-up-#{$size} {
+            border-radius: $border-radius-sm;
+        }
+    }
+}

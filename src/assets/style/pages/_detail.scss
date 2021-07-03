@@ -1,0 +1,59 @@
+.hotel-pic-group {
+    height: 435px;
+    @include media-breakpoint-down(lg) {
+        height: 268px;
+    }
+    @include media-breakpoint-down(lg) {
+        height: 247px;
+    }
+    .pic-fill-container {
+        border-radius: 4px;
+    }
+
+    .btn {
+        font-size: 16px;
+        @include media-breakpoint-down(md) {
+            font-size: 12px;
+        }
+    }
+}
+
+.hotel-pic-swiper {
+    height: 247px;
+}
+
+.room-card-img {
+    border-top-left-radius: $border-radius-lg;
+    border-bottom-left-radius: $border-radius-lg;
+    @include media-breakpoint-down(sm) {
+        border-bottom-left-radius: 0;
+        border: 1px solid $info;
+    }
+}
+
+.room-tags-group {
+    height: 120px;
+    font-size: 14px;
+    @include media-breakpoint-down(md) {
+        height: auto;
+    }
+    &>li {
+        margin-bottom: 8px;
+        margin-right: 12px;
+        @include media-breakpoint-down(lg) {
+            margin-right: 8px;
+        }
+    }
+}
+
+.room-card-desc {
+    padding: 8px 16px;
+    @include media-breakpoint-down(md) {
+        padding: 8px 8px;
+    }
+    @include media-breakpoint-down(sm) {
+        border-top: 1px solid $info;
+        border-right: 1px solid $info;
+        border-top-right-radius: 4px;
+    }
+}

@@ -1,0 +1,17 @@
+@import './assets/style/configs/bootstrap/_variables.scss';
+@import '~bootstrap/scss/bootstrap.scss';
+@import './assets/style/configs/bootstrap/_overrides.scss';
+
+@import './assets/style/configs/_fonts.scss';
+@import './assets/style/configs/_variables.scss';
+@import './assets/style/configs/_base.scss';
+
+@import './assets/style/configs/swiper/_overrides.scss';
+
+@import './assets/style/utils/mixins';
+
+@import './assets/style/components/_general.scss';
+@import './assets/style/components/_text.scss';
+@import './assets/style/components/_images.scss';
+@import './assets/style/components/_container.scss';
+

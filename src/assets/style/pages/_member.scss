@@ -1,0 +1,25 @@
+.member-card{
+
+    .member-card-img {
+        border-top-left-radius: $border-radius-lg;
+        border-bottom-left-radius: $border-radius-lg;
+    }
+
+    .card-body {
+        padding: 16px;
+    }
+
+    @include media-breakpoint-down(sm) {
+        background: $info;
+
+        .member-card-img {
+            height: 226px;
+            border-bottom-left-radius: 0;
+            border-top-right-radius: $border-radius-lg;
+        }
+
+        .card-body {
+            padding: 24px;
+        }
+    }
+}

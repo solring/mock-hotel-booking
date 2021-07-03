@@ -1,0 +1,138 @@
+// ---- carousel
+.carousel-caption {
+    bottom: 50%;
+    transform: translateY(50%);
+}
+
+// ---- navbar
+.navbar {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    @include media-breakpoint-down(sm) {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+}
+
+// ---- nav tags
+.nav-link {
+    color: $dark;
+    &:hover{
+        color: $primary;
+    }
+}
+.nav {
+    h1, h2, h3, h4, h5, h6 {
+        margin-bottom: 0;
+    }
+    .nav-link {
+        color: $secondary;
+        &.active, &:hover{
+            color: $primary;
+        }
+    }
+}
+.nav-tags {
+    .nav-link {
+        color: $secondary;
+        border-bottom: 2px solid $info;
+        &.active, &:hover {
+            border-bottom: 2px solid $primary;
+        }
+        @include media-breakpoint-down(sm) {
+            padding-left: 12px;
+            padding-right: 12px;
+        }
+    }
+}
+
+// ---- drop down
+.dropdown-menu a {
+    color: $dark;
+    &:hover{
+        color: $primary;
+    }
+}
+
+.dropdown-item.active {
+    background: none;
+    color: $primary;
+    a {
+        color: $primary;
+    }
+}
+
+// ---- btn
+.btn {
+    h1, h2, h3, h4, h5, h6, p{
+        margin: 0;
+    }
+}
+
+.btn-lg {
+    font-size: $font-size-base;
+}
+
+.btn-primary, .btn-outline-primary {
+    font-weight: bold;
+}
+
+// ---- card
+.card {
+    border: none;
+    border-radius: $border-radius-lg;
+}
+
+
+.card-body {
+    padding: 24px;
+}
+
+.card-subtitle {
+    margin-top: 0;
+    margin-bottom: 4px;
+    color: $secondary;
+    font-size: 14px;
+}
+
+.card-text {
+    color: $secondary;
+    font-size: 12px;
+}
+
+.card-subtitle {
+    @include media-breakpoint-down(sm) {
+        margin-bottom: 0;
+    }
+}
+
+// Pagination
+.page-item {
+    .page-link {
+        border: 0;
+        background: none;
+        font-weight: bold;
+    }
+    &.active, &:hover {
+        .page-link {
+            background-color: $light;
+            color: $dark;
+        }
+    }
+}
+
+// collapse
+.collapse.collapse-absolute, .collapsing.collapse-absolute {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    z-index: 1030;
+}
+
+.collapse.collapse-disabled-md {
+    @include media-breakpoint-up(md) {
+        &:not(.show) {
+            display: block;
+        }
+    }
+}

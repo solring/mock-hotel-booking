@@ -1,0 +1,41 @@
+body {
+    --swiper-navigation-color: #000000;
+    --swiper-navigation-size: 12px;
+}
+
+.swiper-button-prev, .swiper-button-next {
+
+    &:after {
+        font-weight: bold;
+    }
+
+    &.swiper-button-white {
+        color: white;
+    }
+
+    &.swiper-button-round {
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        padding: 8px;
+        background: $info;
+        transform: translateY(-10px);
+    }
+
+    &.t-33 {
+        top: 33%;
+    }
+
+}
+
+.swiper-container.nav-show-hover {
+    .swiper-button-prev, .swiper-button-next {
+        visibility: hidden;
+    }
+
+    &:hover {
+        .swiper-button-prev, .swiper-button-next {
+            visibility: visible;
+        }
+    }
+}

@@ -1,0 +1,46 @@
+$image-prefix: "../../images/";
+
+// ------ logo -----
+.logo {
+    a {
+        display: block;
+        @include hideText;
+
+        background: url("#{$image-prefix}ic-logo-aloha.svg");
+        width: $logo-width;
+        height: $logo-height;
+    }
+
+    margin: 0;
+}
+
+// ----- background image for cities ------
+$cities: (
+     "Osaka",
+     "Kyoto",
+     "Reykjavic",
+     "Paris",
+     "Roma",
+     "Bangkok",
+);
+
+@each $city in $cities {
+    .bg-img-#{$city} {
+        border: none;
+        background: linear-gradient(270deg, #00000000 0%, #000000 100%), center / cover no-repeat url("#{$image-prefix}#{$city}.jpg");
+    }
+}
+
+// ----- login background image -----
+.login-bg {
+    background: center / cover no-repeat url("#{$image-prefix}login.jpg");
+    z-index: 990;
+}
+
+// icons
+.icon-visa {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background: center / cover no-repeat url("#{$image-prefix}cc-visa-brands.svg");
+}
