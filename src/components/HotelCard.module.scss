@@ -1,0 +1,32 @@
+@import '../index.scss';
+
+.cardImg {
+  @include media-breakpoint-up(sm) {
+      border-top-left-radius: $border-radius-lg;
+      border-bottom-left-radius: $border-radius-lg;
+  }
+}
+
+.cardBody {
+  padding: 1rem;
+  @include media-breakpoint-down(lg) {
+      padding: 8px 12px;
+  }
+  @include media-breakpoint-down(md) {
+      padding: 4px 8px;
+  }
+}
+
+.noBorder_sm {
+  @include media-breakpoint-down(sm) {
+      border-radius: 0;
+  }
+}
+
+.oldPrice {
+  color: $secondary;
+  font-size: 16px;
+  @include media-breakpoint-down(md) {
+      font-size: 12px;
+  }
+}

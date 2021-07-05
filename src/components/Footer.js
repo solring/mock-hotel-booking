@@ -15,14 +15,14 @@ function Footer(props) {
   ];
 
   const langItem = (title) => (
-    <Dropdown.Item>
-      <a href="#" tag onClick={(e) => setLang(title)}>{title}</a>
+    <Dropdown.Item key={title} onClick={(e) => setLang(title)}>
+      {title}
     </Dropdown.Item>
   );
 
   const currItem = (title) => (
-    <Dropdown.Item>
-      <a href="#" tag onClick={(e) => setCurr(title)}>{title}</a>
+    <Dropdown.Item key={title} onClick={(e) => setCurr(title)}>
+      {title}
     </Dropdown.Item>
   );
 

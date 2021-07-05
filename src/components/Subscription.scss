@@ -1,6 +1,9 @@
 @import '../index.scss';
 
-.subscribe-lg {
+//NOTE: css module with scss will fail if the nested class is a normal css class
+//In this cass, .input-group inside .subscribeLg cannot be selected.
+
+.subscribeLg {
   padding: 92px 0;
   @include media-breakpoint-down(sm) {
       padding: 24px 0;

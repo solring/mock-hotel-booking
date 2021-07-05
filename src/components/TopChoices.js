@@ -1,25 +1,22 @@
 import { Nav, Tab } from 'react-bootstrap';
+
 import { Swiper, SwiperSlide } from 'swiper/react';
 // swiper react does not include navigation by default
 import SwiperCore, { Navigation } from 'swiper/core';
 import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss';
 
-import pic1 from '../assets/images/top1.jpg';
-import pic2 from '../assets/images/top2.jpg';
-import pic3 from '../assets/images/top3.jpg';
-import pic4 from '../assets/images/top4.jpg';
+import { Stars } from './UtilComponents';
+
+import { top1, top2, top3, top4 } from '../utils/mockdata';
+
 
 SwiperCore.use([Navigation]);
 
 function TopChoices(props) {
 
-  const genStar = (star) => {
-    return "grade ".repeat(star);
-  };
-
   const mock_pics = [
-    pic1, pic2, pic3, pic4
+    top1, top2, top3, top4
   ];
 
   const groups = {
@@ -142,9 +139,7 @@ function TopChoices(props) {
         <a className="d-block text-dark" href="./detail.html">
           <img className="pic-height-sm rounded-lg" src={mock_pics[hotel.pic-1]} alt={`hotel ${idx}`} />
           <h5 className="my-2">{hotel.name}</h5>
-          <span className="material-icons fz-grade">
-            {genStar(hotel.star)}
-          </span>
+            <Stars star={hotel.star} />
           {hotel.star}.0<span className="text-muted small">・{hotel.reviews} reviews</span>
           <p className="text-secondary">TWD {hotel.price}</p>
         </a>
@@ -155,12 +150,12 @@ function TopChoices(props) {
   const genTabs = () => {
 
     return locations.map( (loc) => (
-      <Tab.Pane eventKey={loc}>
+      <Tab.Pane key={loc} eventKey={loc}>
 
         <Swiper className="w-100"
           observer={true}
           observeParents={true}
-          slidesPerView={true}
+          slidesPerView={1}
           spaceBetween={10}
           navigation={{
             nextEl: '#swiperHotelNext',
@@ -189,7 +184,7 @@ function TopChoices(props) {
 
   const genNavs = () => {
     return locations.map((loc) => (
-      <Nav.Item>
+      <Nav.Item key={loc}>
         <Nav.Link eventKey={loc}><h4>{loc}<span className="notation">128</span></h4></Nav.Link>
       </Nav.Item>
     ));

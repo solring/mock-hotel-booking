@@ -1,4 +1,28 @@
-import './SearchBar.scss'
+import { useState } from 'react';
+import './SearchBar.scss';
+import { Dropdown } from 'react-bootstrap';
+
+function NumberPicker(props) {
+  const {number, numSetter} = props;
+
+  const minus = () => {
+    if(number === 0) return;
+    numSetter(number-1);
+  }
+
+  const plus = () => {
+    if(number > 99) return;
+    numSetter(number+1);
+  }
+
+  return (
+    <div className="d-flex justify-content-between align-items-center">
+      <a onClick={minus} className="material-icons text-dark mr-3">remove</a>
+      {number}
+      <a onClick={plus} className="material-icons text-dark ml-3">add</a>
+  </div>
+  );
+};
 
 function SearchBar (props) {
   const {withReturn, simplified} = props;
@@ -10,19 +34,17 @@ function SearchBar (props) {
     ['Reykjavik', 'Iceland'],
   ];
 
-  const numberOptions = [
-    'Adult', 'Child', 'Room'
-  ];
+  const [searchCountry, setSearchCountry] = useState('Bangkok');
+  const [searchCity, setSearchCity] = useState('Thailand');
+  const [numAdult, setNumAdult] = useState(2);
+  const [numChild, setNumChild] = useState(0);
+  const [numRoom, setNumRoom] = useState(1);
 
-  const numberPicker = (number, href, options) => {
-    return (
-      <div className="d-flex justify-content-between align-items-center">
-        <a href={href} className="material-icons text-dark mr-3">remove</a>
-        {number}
-        <a href={href} className="material-icons text-dark ml-3">add</a>
-    </div>
-    );
-  };
+  const numberOptions = [
+    ['Adult', numAdult, setNumAdult],
+    ['Child', numChild, setNumChild],
+    ['Room', numRoom, setNumRoom],
+  ];
 
   const returnBtn = () => {
     if (!withReturn) return;
@@ -30,7 +52,7 @@ function SearchBar (props) {
     return (
     <a href="./search-result.html" className="d-md-none btn container py-3 px-3">
       <span className="material-icons text-dark">arrow_back</span>
-      <span className="text-secondary small">Bangkok・17 June - 19 June・2 adults・1 room</span>
+      <span className="text-secondary small">{searchCity}・17 June - 19 June・2 adults・1 room</span>
     </a>
     );
   };
@@ -40,28 +62,35 @@ function SearchBar (props) {
     formStyle += " d-none d-md-block";
   }
 
+  const _setDestination = (country, city) => {
+    setSearchCountry(country);
+    setSearchCity(city);
+  }
+
   const destinations = () => {
     return locations.map(([country, city]) => (
-          <li className="dropdown-item">
-            <a href="#" className="d-block">
-              <div className="d-flex align-items-center">
-                <div className="material-icons icon-lg mr-2">grade</div>
-                <div>
-                  <p>{country}</p>
-                  <p className="small">{city}</p>
-                </div>
-              </div>
-            </a>
-          </li>
+      <Dropdown.Item key={city}>
+        <a className="d-block"
+          onClick={() => _setDestination(country, city)}
+        >
+          <div className="d-flex align-items-center">
+            <div className="material-icons icon-lg mr-2">grade</div>
+            <div>
+              <p>{country}</p>
+              <p className="small">{city}</p>
+            </div>
+          </div>
+        </a>
+      </Dropdown.Item>
     ));
   };
 
   const visitors = () => {
     return numberOptions.map((option) => (
-      <li className="dropdown-item">
+      <li key={option[0]} className="dropdown-item">
           <div className="d-flex justify-content-between">
-            <p>{option}</p>
-            {numberPicker()}
+            <p>{option[0]}</p>
+            <NumberPicker number={option[1]} numSetter={option[2]} />
           </div>
       </li>
     ));
@@ -72,19 +101,21 @@ function SearchBar (props) {
   <form className="p-4 search-bar bg-info rounded-lg" action="search-result.html" method="get">
     <ul className="search-options flex-column flex-lg-row">
       {/* Field Destination */}
-      <li className="dropdown mb-3 mb-lg-0">
-        <button className="btn btn-light btn-block text-left pl-3" type="button" data-toggle="dropdown" data-offset="0,8">
+      <li key="destination" className="mb-3 mb-lg-0">
+        <Dropdown>
+        <Dropdown.Toggle variant="light"  bsPrefix="no-toggle" className="btn btn-block text-left pl-3" data-offset="0,8">
           <span className="material-icons">location_on</span>
           Destination
-        </button>
-        <ul className="dropdown-menu list-unstyled w-100">
+        </Dropdown.Toggle>
+        <Dropdown.Menu className="list-unstyled w-100">
           {destinations()}
-        </ul>
+        </Dropdown.Menu>
+        </Dropdown>
       </li>
 
       {/* Field 2: Calendar */}
       {/* TODO: import date picker lib */}
-      <li className="mb-3 mb-lg-0">
+      <li key="calendar" className="mb-3 mb-lg-0">
         <button id="searchDatePicker" className="btn btn-light btn-block text-left pl-3" type="button" data-toggle="dropdown">
           <span className="material-icons">date_range</span>
           Check-in / Check-out
@@ -93,16 +124,20 @@ function SearchBar (props) {
 
 
       {/* Field 3: Guests */}
-      <li className="dropdown mb-3 mb-lg-0">
-        <button className="btn btn-light btn-block text-left pl-3" type="button" data-toggle="dropdown" data-offset="0,8">
+      <li key="guest" className="mb-3 mb-lg-0">
+        <Dropdown>
+
+        <Dropdown.Toggle variant="light" bsPrefix="no-toggle" className="btn btn-block text-left pl-3" type="button" data-toggle="dropdown" data-offset="0,8">
           <span className="material-icons">person</span>
           Guests
-        </button>
-        <ul className="dropdown-menu list-unstyled w-100">
+        </Dropdown.Toggle>
+        <Dropdown.Menu className="list-unstyled w-100">
           {visitors()}
-        </ul>
+        </Dropdown.Menu>
+        </Dropdown>
       </li>
-      <li className="flex-grow-0 flex-shrink-0">
+
+      <li key="button" className="flex-grow-0 flex-shrink-0">
         <button className="btn btn-primary search-btn btn-block" type="submit">Search</button>
       </li>
     </ul>
@@ -119,31 +154,32 @@ function SearchBar (props) {
     <ul className="search-options search-collapse-sm">
 
       {/* Field 1: Destination */}
-      <li className="dropdown">
-        <button className="btn btn-light btn-block" type="button" data-toggle="dropdown" data-offset="0,8">
+      <li key="destination">
+        <Dropdown>
+        <Dropdown.Toggle variant="light" bsPrefix="no-toggle" className="btn btn-light btn-block" type="button" data-toggle="dropdown" data-offset="0,8">
           <div className="d-none d-md-block">
             <div className="d-flex align-items-center">
               <div className="material-icons pr-lg-3 pr-2">location_on</div>
               <div className="text-left">
                 <h5 className="search-title">destination</h5>
-                <p className="search-subtitle search-location">Bangkok, Thailand</p>
+                <p className="search-subtitle search-location">{searchCity}, {searchCountry}</p>
               </div>
             </div>
           </div>
           <div className="d-md-none text-secondary">
-            Bangkok
+            {searchCity}
           </div>
-        </button>
+        </Dropdown.Toggle>
 
-
-        <ul className="dropdown-menu list-unstyled w-100">
+        <Dropdown.Menu className="list-unstyled w-100">
           {destinations()}
-        </ul>
+        </Dropdown.Menu>
+        </Dropdown>
       </li>
 
       {/* Field 2: Calendar */}
       {/* TODO: import date picker lib */}
-      <li>
+      <li key="datePicker">
         <a id="searchDatePicker" className="btn btn-light btn-block">
 
           <div className="d-none d-md-flex align-items-center">
@@ -173,26 +209,34 @@ function SearchBar (props) {
 
 
       {/* Field 3: Guests */}
-      <li className="dropdown border-right-0">
-
-        <button className="btn btn-light btn-block" type="button" data-toggle="dropdown" data-offset="0,8">
+      <li key="guests" className="border-right-0">
+        <Dropdown autoClose={false}>
+        <Dropdown.Toggle variant="light" bsPrefix="no-toggle" className="btn btn-block" type="button" data-toggle="dropdown" data-offset="0,8">
           <div className="d-none d-md-flex align-items-center">
             <div className="material-icons pr-lg-3 pr-2">person</div>
             <div className="text-left">
               <h5 className="search-title">guests</h5>
-              <p className="search-subtitle search-n-guests">2 adults・1 room</p>
+              <p className="search-subtitle search-n-guests">
+                {numAdult && `Adult: ${numAdult}`}・
+                {numChild && `Child: ${numChild}`}・
+                {numRoom && `Room: ${numRoom}`}
+              </p>
             </div>
           </div>
           <div className="d-md-none text-secondary">
-            2 adults・1 room
+              {numAdult && `Adult: ${numAdult}`}・
+              {numChild && `Child: ${numChild}`}・
+              {numRoom && `Room: ${numRoom}`}
           </div>
-        </button>
+        </Dropdown.Toggle>
 
-        <ul className="dropdown-menu list-unstyled w-100">
+        <Dropdown.Menu className="list-unstyled w-100">
           {visitors()}
-        </ul>
+        </Dropdown.Menu>
+        </Dropdown>
       </li>
-      <li className="flex-grow-0 flex-shrink-0 d-none d-md-block">
+
+      <li key="buttons" className="flex-grow-0 flex-shrink-0 d-none d-md-block">
         <button className="btn btn-primary search-btn text-uppercase" type="submit">Search</button>
       </li>
     </ul>

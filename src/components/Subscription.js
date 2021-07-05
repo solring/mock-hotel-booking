@@ -1,10 +1,12 @@
+//import styles from './Subscription.module.scss';
+//TODO: check why nested class selector fail in css module
 import './Subscription.scss';
 
 function Subscription(props) {
   const {size} = props;
 
   const formSmall = (
-    <div class="py-4 bg-info subscribe">
+    <div class={`py-4 bg-info subscribe`}>
       <div class="container">
         <div class="row no-gutters justify-content-between align-items-center">
           <div class="col-md-4 col-lg-5 text-center text-md-left">
@@ -24,10 +26,10 @@ function Subscription(props) {
   );
 
   const formLarge = (
-    <section class="subscribe-lg bg-info" data-aos="fade-up">
+    <section class={`subscribeLg bg-info`} data-aos="fade-up">
       <div class="container d-flex flex-column justify-content-center align-items-center">
         <h2 class="fz-title mb-md-4 mb-3">Subscribe for Exclusive Offer</h2>
-        <form action="#" class="input-group input-group-lg w-md-50" method="post">
+        <form action="#" class={`input-group input-group-lg`} method="post">
           <input type="email" class="form-control" name="subscribeEmail" placeholder="Your email address" />
           <div class="input-group-append">
             <button class="btn btn-primary">Subscribe</button>
