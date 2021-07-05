@@ -1,5 +1,3 @@
-import styles from './Banner.module.scss';
-
 import { Carousel } from 'react-bootstrap';
 import SearchBar from './SearchBar';
 import banner1 from '../assets/images/index-banner.jpg';
@@ -26,7 +24,7 @@ function Banner(props) {
 
   return (
 <div>
-  <Carousel id="carouselMain" className={`${styles.banner} carousel slide`} data-ride="carousel" data-aos="fade-in">
+  <Carousel id="carouselMain" className={`Banner`} data-ride="carousel" data-aos="fade-in">
     {carouselItems()}
   </Carousel>
 

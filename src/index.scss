@@ -10,9 +10,15 @@
 
 @import './assets/style/utils/_mixins.scss';
 
+@import './assets/style/components/_container.scss';
 @import './assets/style/components/_general.scss';
 @import './assets/style/components/_text.scss';
 @import './assets/style/components/_images.scss';
 @import './assets/style/components/_list.scss';
 @import './assets/style/components/_container.scss';
 
+@import './components/Banner.scss';
+@import './components/Filter.scss';
+@import './components/SearchBar.scss';
+@import './components/HotelCard.scss';
+@import './components/Subscription.scss';

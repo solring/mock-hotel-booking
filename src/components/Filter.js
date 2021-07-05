@@ -3,8 +3,6 @@ import { Slider } from '@material-ui/core';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import * as constants from '../utils/constants';
 
-import './Filter.scss';
-
 function Filter(props) {
   const {name} = props;
 
@@ -183,10 +181,10 @@ function Filter(props) {
       <li key="maxPrice">
         <p className="title">max price</p>
         <div className="d-flex price">
-          <span className="priceTagNum">
+          <span className="priceTag__Num">
             {priceRange[1]}
           </span>
-          <span className="priceTagLabel">TWD</span>
+          <span className="priceTag__Label">TWD</span>
         </div>
       </li>
     </ul>

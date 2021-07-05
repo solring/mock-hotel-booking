@@ -1,5 +1,3 @@
-@import '../index.scss';
-
 .cardImg {
   @include media-breakpoint-up(sm) {
       border-top-left-radius: $border-radius-lg;

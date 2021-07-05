@@ -5,8 +5,6 @@ import SwiperCore, { Navigation } from 'swiper/core';
 import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss';
 
-import styles from './HotelCard.module.scss';
-
 import { Stars } from './UtilComponents';
 
 SwiperCore.use([Navigation]);
@@ -29,7 +27,7 @@ function HotelCard(props) {
     if (room.oldPrice != undefined) {
       return (
         <div>
-          <p className={styles.oldPrice}><del>TWD {room.oldPrice}</del></p>
+          <p className={`oldPrice`}><del>TWD {room.oldPrice}</del></p>
           <h4 className="fz-hotel-title">TWD <span className="h6-md text-primary">{room.price}</span></h4>
         </div>
       );
@@ -42,7 +40,7 @@ function HotelCard(props) {
     if(images.length < 1) return;
 
     if(images.length === 1)
-      return (<img className={`${styles.cardImg} pic-height-sm`} src={images[0]} alt="hotel picture" />);
+      return (<img className={`cardImg pic-height-sm`} src={images[0]} alt="hotel picture" />);
 
     return (
     <Swiper
@@ -53,7 +51,7 @@ function HotelCard(props) {
     >
       {images.map((image, idx) => (
         <SwiperSlide key={idx}>
-          <img className={`${styles.cardImg} pic-height-sm`} src={image} alt="hotel picture"/>
+          <img className={`cardImg pic-height-sm`} src={image} alt="hotel picture"/>
         </SwiperSlide>
       ))}
     </Swiper>
@@ -64,7 +62,7 @@ function HotelCard(props) {
 
   return (
     <li key={room.name}>
-      <a href="./detail.html" className={`d-block text-dark card w-100 hover-shadow ${styles.noBorder_sm }`}>
+      <a href="./detail.html" className={`d-block text-dark card w-100 hover-shadow noBorder_sm`}>
         <div className="row no-gutters">
 
           <div className="col-5 col-md-4">
@@ -72,7 +70,7 @@ function HotelCard(props) {
           </div>
 
           <div className="col-7 col-md-8">
-            <div className={`row no-gutters ${styles.cardBody}`}>
+            <div className={`row no-gutters cardBody`}>
 
               <div className="col-md-7">
                 <p className="card-text">

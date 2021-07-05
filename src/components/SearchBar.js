@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import './SearchBar.scss';
 import { Dropdown } from 'react-bootstrap';
 
 function NumberPicker(props) {
