@@ -122,7 +122,7 @@
 // ----- clear borders -----
 @include media-breakpoint-down(sm) {
     .no-divider-down-sm{
-        &>li {
+        &>li, &>tr {
             border: none;
             padding: 0;
             margin-bottom: 4px;

@@ -1,27 +1,6 @@
 import { useState } from 'react';
 import { Dropdown } from 'react-bootstrap';
-
-function NumberPicker(props) {
-  const {number, numSetter} = props;
-
-  const minus = () => {
-    if(number === 0) return;
-    numSetter(number-1);
-  }
-
-  const plus = () => {
-    if(number > 99) return;
-    numSetter(number+1);
-  }
-
-  return (
-    <div className="d-flex justify-content-between align-items-center">
-      <a onClick={minus} className="material-icons text-dark mr-3">remove</a>
-      {number}
-      <a onClick={plus} className="material-icons text-dark ml-3">add</a>
-  </div>
-  );
-};
+import NumberPicker from './NumberPicker';
 
 function SearchBar (props) {
   const {withReturn, simplified} = props;

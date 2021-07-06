@@ -1,4 +1,4 @@
-.hotel-pic-group {
+.Hotel__picGroup {
     height: 435px;
     @include media-breakpoint-down(lg) {
         height: 268px;
@@ -18,11 +18,29 @@
     }
 }
 
-.hotel-pic-swiper {
+.Hotel__picSwiper {
     height: 247px;
 }
 
-.room-card-img {
+.Hotel__pageContainer {
+    margin: 0 auto;
+    max-width: 1140px;
+    padding: 0 15px;
+
+    @include media-breakpoint-down(lg) {
+        max-width: 960px;
+    }
+
+    @include media-breakpoint-down(md) {
+        max-width: 720px;
+    }
+    @include media-breakpoint-down(sm) {
+        max-width: 100%;
+        padding: 0;
+    }
+}
+
+.Room__cardImg {
     border-top-left-radius: $border-radius-lg;
     border-bottom-left-radius: $border-radius-lg;
     @include media-breakpoint-down(sm) {
@@ -31,7 +49,7 @@
     }
 }
 
-.room-tags-group {
+.Room__tagsGroup {
     height: 120px;
     font-size: 14px;
     @include media-breakpoint-down(md) {
@@ -46,7 +64,7 @@
     }
 }
 
-.room-card-desc {
+.Room__cardDesc {
     padding: 8px 16px;
     @include media-breakpoint-down(md) {
         padding: 8px 8px;

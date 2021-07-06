@@ -3,6 +3,9 @@ import top2 from '../assets/images/top2.jpg';
 import top3 from '../assets/images/top3.jpg';
 import top4 from '../assets/images/top4.jpg';
 
+import roomA from '../assets/images/roomA.jpg';
+import roomB from '../assets/images/roomB.jpg';
+
 import Rachada1 from "../assets/images/Rachada1.jpg";
 import Rachada2 from "../assets/images/Rachada2.jpg";
 import Rachada3 from "../assets/images/Rachada3.jpg";
@@ -136,6 +139,31 @@ export let hotelData = [
     tags: [],
   }
 ];
+
+// Available rooms
+export let availableRooms =[
+  {
+    name: "Deluxe Double Room A",
+    price: "1,490",
+    oldPrice: "1,600",
+    img: roomA,
+    tags: [0,1,2,3,4,6],
+  },
+  {
+    name: "Deluxe Double Room B",
+    price: "1,600",
+    img: roomB,
+    tags: [0,1,2,3,4,6],
+  },
+  {
+    name: "Deluxe Suite with Pool",
+    price: "1,980",
+    img: Rachada1,
+    tags: [0,1,2,3,4,5,6,7],
+  },
+];
+
+export let hotelPics = [Rachada1, Rachada2, Rachada3, Rachada4];
 
 export { top1, top2, top3, top4 };
 export { Rachada1,Rachada2,Rachada3,Rachada4,Phaya,Bangkapi,Chatuchack1,Chatuchack2,RangRak,Watana1,Watana2,DinDaeng1,DinDaeng2 }
