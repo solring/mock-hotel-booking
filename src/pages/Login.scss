@@ -1,4 +1,4 @@
-.login-background {
+.Login__background {
     width: 70%;
     @include media-breakpoint-down(lg) {
         width: 100%;
@@ -8,25 +8,26 @@
     }
 }
 
-.login-page-padding {
+.Login__padding{
     padding-top: 162px;
+    overflow: visible;
     @include media-breakpoint-down(md) {
         padding-top: 80px;
     }
 }
 
-.login-page-content {
+.Login__content {
     z-index: 1020;
 }
 
-.login-page-right {
+.Login__right {
     background: white;
     @include media-breakpoint-down(lg) {
         background: none;
     }
 }
 
-.location-tag {
+.Login__location {
     position: absolute;
     bottom: 24px;
     left: 0;

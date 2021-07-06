@@ -8,6 +8,7 @@ import DetailPage from './pages/Detail';
 import OrderPage from './pages/Order';
 import ConfirmedOrderPage from './pages/ConfirmedOrder';
 import MemberPage from './pages/Member';
+import LoginPage from './pages/Login';
 
 export default (props) => {
   return (
@@ -20,6 +21,7 @@ export default (props) => {
         <Route path="/order" component={OrderPage} />
         <Route path="/confirmation" component={ConfirmedOrderPage} />
         <Route path="/member" component={MemberPage} />
+        <Route path="/login" component={LoginPage} />
 
       </Switch>
     </Router>
