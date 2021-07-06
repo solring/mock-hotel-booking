@@ -163,6 +163,26 @@ export let availableRooms =[
   },
 ];
 
+// Order detail
+export let orderDetail = {
+  hotelName: "Rachada Hotel",
+  duration: {
+    start: "17 June 2020",
+    end: "19 June 2020",
+    night: 2,
+  },
+  guests: {
+    adult: 2,
+    child: 0,
+    room: 1,
+  },
+  priceItems: [
+    { name: "Deluxe Suite with Pool" , number: 3960 },
+    { name: "VAT (7%)" , number: 277 },
+    { name: "Property service charge" , number: 396 },
+  ],
+}
+
 export let hotelPics = [Rachada1, Rachada2, Rachada3, Rachada4];
 
 export { top1, top2, top3, top4 };

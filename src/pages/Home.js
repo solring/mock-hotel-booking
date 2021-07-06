@@ -12,7 +12,7 @@ function HomePage (){
   return (
     <Layout>
       <Layout.Header>
-        <Header simple={false} member={true} />
+        <Header simple={false} member={false} />
       </Layout.Header>
       <Layout.Content>
         <Banner />

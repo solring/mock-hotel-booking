@@ -5,6 +5,7 @@ import App from './App';
 import HomePage from './pages/Home';
 import SearchPage from './pages/Search';
 import DetailPage from './pages/Detail';
+import OrderPage from './pages/Order';
 
 export default (props) => {
   return (
@@ -14,6 +15,7 @@ export default (props) => {
         <Route path="/index" component={HomePage} />
         <Route path="/search" component={SearchPage} />
         <Route path="/detail" component={DetailPage} />
+        <Route path="/order" component={OrderPage} />
 
       </Switch>
     </Router>

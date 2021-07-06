@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Dropdown } from 'react-bootstrap';
 import NumberPicker from './NumberPicker';
+import { genGuestStr } from '../utils/utils';
 
 function SearchBar (props) {
   const {withReturn, simplified} = props;
@@ -195,16 +196,12 @@ function SearchBar (props) {
             <div className="text-left">
               <h5 className="search-title">guests</h5>
               <p className="search-subtitle search-n-guests">
-                {numAdult && `Adult: ${numAdult}`}・
-                {numChild && `Child: ${numChild}`}・
-                {numRoom && `Room: ${numRoom}`}
+                {genGuestStr(numAdult, numChild, numRoom)}
               </p>
             </div>
           </div>
           <div className="d-md-none text-secondary">
-              {numAdult && `Adult: ${numAdult}`}・
-              {numChild && `Child: ${numChild}`}・
-              {numRoom && `Room: ${numRoom}`}
+              {genGuestStr(numAdult, numChild, numRoom)}
           </div>
         </Dropdown.Toggle>
 
