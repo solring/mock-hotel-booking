@@ -1,6 +1,6 @@
-.member-card{
+.Booking__card{
 
-    .member-card-img {
+    .Booking__card-img {
         border-top-left-radius: $border-radius-lg;
         border-bottom-left-radius: $border-radius-lg;
     }
@@ -12,7 +12,7 @@
     @include media-breakpoint-down(sm) {
         background: $info;
 
-        .member-card-img {
+        .Booking__card-img {
             height: 226px;
             border-bottom-left-radius: 0;
             border-top-right-radius: $border-radius-lg;

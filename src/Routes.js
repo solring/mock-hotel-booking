@@ -7,6 +7,7 @@ import SearchPage from './pages/Search';
 import DetailPage from './pages/Detail';
 import OrderPage from './pages/Order';
 import ConfirmedOrderPage from './pages/ConfirmedOrder';
+import MemberPage from './pages/Member';
 
 export default (props) => {
   return (
@@ -18,6 +19,7 @@ export default (props) => {
         <Route path="/detail" component={DetailPage} />
         <Route path="/order" component={OrderPage} />
         <Route path="/confirmation" component={ConfirmedOrderPage} />
+        <Route path="/member" component={MemberPage} />
 
       </Switch>
     </Router>

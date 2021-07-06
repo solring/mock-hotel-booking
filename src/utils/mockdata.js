@@ -20,6 +20,7 @@ import Watana2 from "../assets/images/Watana2.jpg";
 import DinDaeng1 from "../assets/images/DinDaeng1.jpg";
 import DinDaeng2 from "../assets/images/DinDaeng2.jpg";
 
+import profilePic from "../assets/images/profile.jpg";
 
 // mock data
 export let hotelData = [
@@ -188,9 +189,55 @@ export let memberData = {
   name: "David Lin",
   email: "david0520@mail.com.tw",
   phone: "+886 9 32 456 789",
+  pic: profilePic,
+  payments: [
+    {
+      cardOwner: "DAVID LIN",
+      cardNum: "xxxx-xxxx-7890",
+      expire: "08/2029",
+      type: "visa",
+    }
+  ],
+};
+
+export let bookings = {
+  "Upcoming": [
+    {
+      name: "Rachada Hotel",
+      room: "Deluxe Suite with Pool",
+      startDate: "17 June 2020",
+      endDate: "19 June 2020",
+      nights: 2,
+      adults: 2,
+      price: "4,633",
+      img: Rachada1,
+    },
+    {
+      name: "WOW Life Hotel",
+      startDate: "8 Sep 2020",
+      endDate: "15 Sep 2020",
+      numOfNights: 7,
+      adults: 2,
+      price: "13,084",
+      img: Chatuchack1,
+    },
+  ],
+  "Completed": [
+    {
+      name: "DD Space",
+      room: "Standard Double",
+      startDate: "2 June 2018",
+      endDate: "4 June 2018",
+      nights: 2,
+      adults: 2,
+      price: "3,450",
+      img: DinDaeng1,
+    },
+  ],
 };
 
 export let hotelPics = [Rachada1, Rachada2, Rachada3, Rachada4];
 
 export { top1, top2, top3, top4 };
+export { profilePic };
 export { Rachada1,Rachada2,Rachada3,Rachada4,Phaya,Bangkapi,Chatuchack1,Chatuchack2,RangRak,Watana1,Watana2,DinDaeng1,DinDaeng2 }

@@ -45,7 +45,7 @@ function Content(props) {
   );
 }
 
-function HomePage (){
+function Page (){
   return (
     <Layout>
       <Layout.Header>
@@ -59,4 +59,4 @@ function HomePage (){
   );
 }
 
-export default HomePage;
+export default Page;
