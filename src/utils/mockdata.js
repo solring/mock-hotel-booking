@@ -164,6 +164,15 @@ export let availableRooms =[
   },
 ];
 
+// Hotel description
+export let hotelInfo = {
+  name: "Rachada Hotel",
+  star: 4,
+  review: 283,
+  addr: "318 Phaya Thai Road, Ratchathewi, Phaya Thai, 10400 Bangkok, Thailand",
+  desc: "The Rachada Hotel is an establishment that provides paid lodging on a short-term basis. Facilities provided may range from a modest-quality mattress in a small room to large suites with bigger, higher-quality beds, a dresser, a refrigerator and other kitchen facilities, upholstered chairs, a flat screen television, and en-suite bathrooms.",
+}
+
 // Order detail
 export let orderDetail = {
   hotelName: "Rachada Hotel",

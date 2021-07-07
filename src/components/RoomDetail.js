@@ -10,7 +10,7 @@ import NumberPicker from './NumberPicker';
 import BottomModal from './BottomModal';
 import { genGuestStr } from '../utils/utils';
 
-import { availableRooms, hotelPics, searchOptions } from '../utils/mockdata';
+import { availableRooms, hotelInfo, hotelPics, searchOptions } from '../utils/mockdata';
 
 SwiperCore.use([Navigation])
 
@@ -226,16 +226,16 @@ function RoomDetail(props) {
     {/* Hotel Description */}
     <div className="px-3 px-sm-0" data-aos="fade-up">
       <div className="d-flex flex-column flex-md-row align-items-md-center pt-md-4 pt-3">
-        <h2 className="mr-3">Rachada Hotel</h2>
+        <h2 className="mr-3">{hotelInfo.name}</h2>
         <div className="align-icons">
           <span className="material-icons align-center">
-            star star star star
+            {"star ".repeat(hotelInfo.star)}
           </span>
-          <span className="text-secondary text-sub">4.0(283)</span>
+          <span className="text-secondary text-sub">{hotelInfo.star}.0({hotelInfo.review})</span>
         </div>
       </div>
-      <p className="mb-md-4 mb-3"><a href="#" className="text-primary text-sub">318 Phaya Thai Road, Ratchathewi, Phaya Thai, 10400 Bangkok, Thailand</a></p>
-      <p className="text-secondary mb-6">The Rachada Hotel is an establishment that provides paid lodging on a short-term basis. Facilities provided may range from a modest-quality mattress in a small room to large suites with bigger, higher-quality beds, a dresser, a refrigerator and other kitchen facilities, upholstered chairs, a flat screen television, and en-suite bathrooms.</p>
+      <p className="mb-md-4 mb-3"><a href="#" className="text-primary text-sub">{hotelInfo.addr}</a></p>
+      <p className="text-secondary mb-6">{hotelInfo.desc}</p>
     </div>
 
     {/* Room options */}
