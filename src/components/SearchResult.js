@@ -1,14 +1,17 @@
 import { useState } from 'react';
 import { Nav, Tab, Dropdown } from "react-bootstrap";
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-import { Filter, FilterFullscreen } from './Filter';
+import Filter from './Filter';
 import HotelCard from './HotelCard';
 import NumPagenation from './NumPagenation.js'
 
+import * as constants from '../utils/constants';
 import { hotelData } from '../utils/mockdata';
 
 function SearchResult(props) {
 
+  const isSmallScreen = useMediaQuery(`(max-width:${constants.BS_BREAKPOINT_MD})`);
   const [filterOn, setFilterOn] = useState(false);
 
   const groups = {
@@ -57,6 +60,22 @@ function SearchResult(props) {
         ))}
     </Nav>
   );
+
+  const genFilter = () => {
+    if (isSmallScreen) {
+      return <Filter toggle={filterOn} toggleSetter={setFilterOn} fullscreen={isSmallScreen}/> ;
+    } else {
+      return (
+        <div className="col-md-4 d-none d-md-block mb-4" data-aos="fade-right">
+            <nav className="card bg-info border-0">
+              <div className="card-body">
+              <Filter toggle={filterOn} toggleSetter={setFilterOn} fullscreen={isSmallScreen}/>
+              </div>
+            </nav>
+        </div>
+      )
+    }
+  }
 
   const toolbarPhone = () => {
     return (
@@ -108,15 +127,9 @@ function SearchResult(props) {
         {/* toolbar on phones */}
         {toolbarPhone()}
 
-        <div className="row">
+        <div className="row ">
 
-          <div className="col-md-4 d-none d-md-block mb-4" data-aos="fade-right">
-            <nav className="card bg-info border-0">
-              <div className="card-body">
-                <Filter />
-              </div>
-            </nav>
-          </div>
+          {genFilter()}
 
           <div className="col-md-8" data-aos="fade-up">
             {genPanes()}
@@ -131,8 +144,6 @@ function SearchResult(props) {
         </div>
       </Tab.Container>
     </div>
-
-    <FilterFullscreen toggle={filterOn} toggleSetter={setFilterOn}/>
   </div>
   );
 }

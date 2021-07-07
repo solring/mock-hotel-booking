@@ -40,7 +40,7 @@ let CustomSlider = withStyles({
   },
 })(Slider);
 
-function Filter(props) {
+function _Filter(props) {
   const {name} = props;
 
   const [priceRange, setPriceRange] = useState([1000,5000]);
@@ -214,12 +214,13 @@ function Filter(props) {
   );
 }
 
-function FilterFullscreen(props) {
-  const { toggle, toggleSetter } = props;
+function Filter(props) {
+  const { toggle, toggleSetter, fullscreen } = props;
 
   const close = () => toggleSetter(!toggle);
 
-  return (
+  if(!fullscreen) return <_Filter />;
+  else return (
 
 <Collapse in={toggle} className="Fullscreen__collapse">
   <div> {/* Essential for Collapse to animate smoothly.*/}
@@ -236,7 +237,7 @@ function FilterFullscreen(props) {
 
     <div className="Fullscreen__content bg-info">
       <div className="container pt-4">
-        <Filter />
+        <_Filter />
       </div>
     </div>
 
@@ -257,4 +258,4 @@ function FilterFullscreen(props) {
   );
 }
 
-export { Filter, FilterFullscreen } ;
+export default Filter;
