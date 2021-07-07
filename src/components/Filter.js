@@ -1,10 +1,44 @@
 import { useState } from 'react';
 import { Slider } from '@material-ui/core';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 
 import { Collapse } from 'react-bootstrap';
 
 import * as constants from '../utils/constants';
+
+let CustomSlider = withStyles({
+  root: {
+    color: constants.PRIMARY_COLOR,
+    height: 3,
+    padding: '13px 0',
+  },
+  thumb: {
+    height: 16,
+    width: 16,
+    backgroundColor: constants.PRIMARY_COLOR,
+    marginTop: -7,
+    marginLeft: -7,
+    '&:focus, &:hover, &$active': {
+      boxShadow: '#ccc 0 2px 3px 1px',
+    },
+    '& .bar': {
+      height: 9,
+      width: 1,
+      backgroundColor: 'currentColor',
+      marginLeft: 1,
+      marginRight: 1,
+    },
+  },
+  active: {},
+  track: {
+    height: 3,
+  },
+  rail: {
+    color: '#d8d8d8',
+    opacity: 1,
+    height: 3,
+  },
+})(Slider);
 
 function Filter(props) {
   const {name} = props;
@@ -71,32 +105,6 @@ function Filter(props) {
   ]
 
   /* ------- Slider -------- */
-  const CustomSlider = withStyles({
-    root: {
-      color: constants.PRIMARY_COLOR,
-      height: 2,
-      padding: '8px 0',
-    },
-    thumb: {
-      height: 16,
-      width: 16,
-      marginTop: -8,
-      marginLeft: -8,
-      backgroundColor: constants.PRIMARY_COLOR,
-      '&:focus, &:hover, &$active': {
-        boxShadow: '#aaa 0 2px 3px 1px',
-      },
-    },
-    active: {},
-    track: {
-      height: 2,
-    },
-    rail: {
-      height: 2,
-      opacity: 0.5,
-      backgroundColor: '#bfbfbf',
-    },
-  })(Slider);
 
   const sliderHandler = (event, newValue) => {
     setPriceRange(newValue);
@@ -172,10 +180,10 @@ function Filter(props) {
       <li key="minPrice">
         <p className="title">min price</p>
         <div className="d-flex price">
-          <span className="priceTagNum">
+          <span className="priceTag__Num">
             {priceRange[0]}
           </span>
-          <span className="priceTagLabel">TWD</span>
+          <span className="priceTag__Label">TWD</span>
         </div>
       </li>
       <li className="divider">
