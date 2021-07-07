@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { availableRooms, hotelPics } from '../utils/mockdata';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 // swiper react does not include navigation by default
@@ -9,6 +8,9 @@ import 'swiper/components/navigation/navigation.scss'
 
 import NumberPicker from './NumberPicker';
 import BottomModal from './BottomModal';
+import { genGuestStr } from '../utils/utils';
+
+import { availableRooms, hotelPics, searchOptions } from '../utils/mockdata';
 
 SwiperCore.use([Navigation])
 
@@ -153,6 +155,16 @@ function RoomDetail(props) {
   const [cart, setCart] = useState(false);
   const [order, setOrder] = useState(Array(availableRooms.length).fill(0));
 
+  let totalPrice = availableRooms.map(
+    (r, i) => order[i] * r.price * searchOptions.night
+    ).reduce((a,b) => a+b, 0);
+  let roomNum = order.reduce((a, b)=>a+b, 0);
+
+  const onClearCart = () => {
+    setCart(false);
+    setOrder(Array(availableRooms.length).fill(0));
+  }
+
   const onOrderChangeHandler = (order) => {
     setOrder(order);
     if (!cart) setCart(!cart);
@@ -230,9 +242,9 @@ function RoomDetail(props) {
     <div className="py-4" data-aos="fade-up">
       <h3 className="mb-md-4 mb-3">Select your room</h3>
       <div className="d-none d-md-flex align-items-center mb-md-6">
-        <div className="div-badge bg-info">Bangkok, Thailand</div>
-        <div className="div-badge bg-info">17 June - 19 June・2 nights</div>
-        <div className="div-badge bg-info">2 adults・1 room</div>
+        <div className="div-badge bg-info">{searchOptions.city}, {searchOptions.country}</div>
+        <div className="div-badge bg-info">{searchOptions.startDate} - {searchOptions.endDate}</div>
+        <div className="div-badge bg-info">{genGuestStr(...Object.values(searchOptions.guests))}</div>
         <a href="#" className="text-uppercase text font-weight-bold ml-4">edit detail</a>
       </div>
 
@@ -243,7 +255,8 @@ function RoomDetail(props) {
     </div>
 
     {/* Cart*/}
-    <BottomModal toggle={cart} total={4321} roomNum={1} night={2}/>
+    <BottomModal toggle={cart} clearHandler={onClearCart}
+      total={totalPrice} roomNum={roomNum} night={searchOptions.night}/>
   </div>
   );
 }

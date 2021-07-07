@@ -145,20 +145,20 @@ export let hotelData = [
 export let availableRooms =[
   {
     name: "Deluxe Double Room A",
-    price: "1,490",
-    oldPrice: "1,600",
+    price: 1490,
+    oldPrice: 1600,
     img: roomA,
     tags: [0,1,2,3,4,6],
   },
   {
     name: "Deluxe Double Room B",
-    price: "1,600",
+    price: 1600,
     img: roomB,
     tags: [0,1,2,3,4,6],
   },
   {
     name: "Deluxe Suite with Pool",
-    price: "1,980",
+    price: 1980,
     img: Rachada1,
     tags: [0,1,2,3,4,5,6,7],
   },
@@ -235,6 +235,19 @@ export let bookings = {
     },
   ],
 };
+
+// Search data
+export let searchOptions = {
+  country: "Thailand",
+  city: "Bangkok",
+  startDate: "17 June",
+  endDate: "19 June",
+  night: 2,
+  guests: {
+    adult: 2,
+    child: 0,
+  }
+}
 
 export let hotelPics = [Rachada1, Rachada2, Rachada3, Rachada4];
 

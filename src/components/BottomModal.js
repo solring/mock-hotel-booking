@@ -1,7 +1,7 @@
 import { Collapse } from 'react-bootstrap';
 
 function ButtomModel(props) {
-  const { toggle, total, roomNum, night} = props;
+  const { toggle, clearHandler, total, roomNum, night} = props;
   return (
 <Collapse in={toggle} id="cartCollapse" className="bottom-modal fixed-bottom">
   <div className="bottom-modal-wrapper">
@@ -12,7 +12,7 @@ function ButtomModel(props) {
       </div>
       <div className="row">
         <div className="col-6">
-          <button className="btn btn-outline-primary btn-lg btn-block text-uppercase" data-target="#cartCollapse" data-toggle="collapse">cencel</button>
+          <button className="btn btn-outline-primary btn-lg btn-block text-uppercase" onClick={clearHandler}>cencel</button>
         </div>
         <div className="col-6">
           <a href="./order" className="btn btn-primary btn-lg btn-block text-uppercase">reserve</a>
