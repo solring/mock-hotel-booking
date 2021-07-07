@@ -8,12 +8,12 @@ import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss'
 
 import NumberPicker from './NumberPicker';
+import BottomModal from './BottomModal';
 
 SwiperCore.use([Navigation])
 
-function RoomDetail(props) {
-
-  const [order, setOrder] = useState(Array(availableRooms.length).fill(0));
+function _RoomList(props) {
+  const {rooms, order, onOrderChange} = props;
 
   const tags = [
     {
@@ -102,7 +102,7 @@ function RoomDetail(props) {
                   numSetter={(newNum) => {
                     let newOrder = order.slice();
                     newOrder[i] = newNum;
-                    setOrder(newOrder);
+                    onOrderChange && onOrderChange(newOrder);
                   }}/>
               </div>
               <div className="col-6 centering-vertical text-right">
@@ -128,44 +128,67 @@ function RoomDetail(props) {
             numSetter={(newNum) => {
               let newOrder = order.slice();
               newOrder[i] = newNum;
-              setOrder(newOrder);
+              onOrderChange && onOrderChange(newOrder);
             }}/>
         </td>
       </tr>
     );
   };
 
-const picGrid = (
-<div className="row Hotel__picGroup no-gutters d-none d-md-flex" data-aos="fade-down">
-  <div className="col-md-7 h-100">
-    <div className="pic-fill-container">
-      <img src={hotelPics[0]} alt="room pic 1" />
-    </div>
-  </div>
-  <div className="col-md-5 h-100 d-none d-md-block pl-md-1 pl-lg-2">
-    <div className="row h-100 no-gutters">
-      <div className="col-12 h-50 pb-md-1 pb-lg-2">
+  return (
+    <table className="w-100 list-divider-info mb-6">
+      <tr className="row no-gutters d-none d-md-flex text-uppercase">
+        <th className="col-md-6">room type</th>
+        <th className="col-md-2 text-center">sleeps</th>
+        <th className="col-md-2 text-center">price</th>
+        <th className="col-md-2 text-center">rooms</th>
+      </tr>
+      {rooms.map(genRoom)}
+    </table>
+  );
+}
+
+function RoomDetail(props) {
+
+  const [cart, setCart] = useState(false);
+  const [order, setOrder] = useState(Array(availableRooms.length).fill(0));
+
+  const onOrderChangeHandler = (order) => {
+    setOrder(order);
+    if (!cart) setCart(!cart);
+  };
+
+  const picGrid = (
+    <div className="row Hotel__picGroup no-gutters d-none d-md-flex" data-aos="fade-down">
+      <div className="col-md-7 h-100">
         <div className="pic-fill-container">
-          <img src={hotelPics[1]} alt="room pic 2" />
+          <img src={hotelPics[0]} alt="room pic 1" />
         </div>
       </div>
-      <div className="col-5 h-50">
-        <div className="pic-fill-container">
-          <img src={hotelPics[2]} alt="room pic 3" />
-        </div>
-      </div>
-      <div className="col-7 h-50 pl-sm-1 pl-lg-2 d-flex flex-column">
-        <div className="h-75 pb-sm-1 pb-lg-2">
-          <div className="pic-fill-container">
-            <img src={hotelPics[3]} alt="room pic 4" />
+      <div className="col-md-5 h-100 d-none d-md-block pl-md-1 pl-lg-2">
+        <div className="row h-100 no-gutters">
+          <div className="col-12 h-50 pb-md-1 pb-lg-2">
+            <div className="pic-fill-container">
+              <img src={hotelPics[1]} alt="room pic 2" />
+            </div>
+          </div>
+          <div className="col-5 h-50">
+            <div className="pic-fill-container">
+              <img src={hotelPics[2]} alt="room pic 3" />
+            </div>
+          </div>
+          <div className="col-7 h-50 pl-sm-1 pl-lg-2 d-flex flex-column">
+            <div className="h-75 pb-sm-1 pb-lg-2">
+              <div className="pic-fill-container">
+                <img src={hotelPics[3]} alt="room pic 4" />
+              </div>
+            </div>
+            <button className="btn btn-dark btn-block h-25 text-uppercase p-0 text-sub">See All 10 photos</button>
           </div>
         </div>
-        <button className="btn btn-dark btn-block h-25 text-uppercase p-0 text-sub">See All 10 photos</button>
       </div>
     </div>
-  </div>
-</div>
-  );
+    );
 
   const picSwiper = (
     <Swiper className="Hotel__picSwiper d-md-none"
@@ -213,16 +236,14 @@ const picGrid = (
         <a href="#" className="text-uppercase text font-weight-bold ml-4">edit detail</a>
       </div>
 
-      <table className="w-100 list-divider-info mb-6">
-        <tr className="row no-gutters d-none d-md-flex text-uppercase">
-          <th className="col-md-6">room type</th>
-          <th className="col-md-2 text-center">sleeps</th>
-          <th className="col-md-2 text-center">price</th>
-          <th className="col-md-2 text-center">rooms</th>
-        </tr>
-        {availableRooms.map(genRoom)}
-      </table>
+      <_RoomList
+        rooms={availableRooms}
+        order={order}
+        onOrderChange={onOrderChangeHandler}/>
     </div>
+
+    {/* Cart*/}
+    <BottomModal toggle={cart} total={4321} roomNum={1} night={2}/>
   </div>
   );
 }

@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { Slider } from '@material-ui/core';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
+
+import { Collapse } from 'react-bootstrap';
+
 import * as constants from '../utils/constants';
 
 function Filter(props) {
@@ -204,38 +207,45 @@ function Filter(props) {
 }
 
 function FilterFullscreen(props) {
+  const { toggle, toggleSetter } = props;
+
+  const close = () => toggleSetter(!toggle);
+
   return (
 
-<div id="filterCollapse" className="fullscreen-collapse collapse">
-<div className="fullscreen-collapse-wrapper">
+<Collapse in={toggle} className="Fullscreen__collapse">
+  <div> {/* Essential for Collapse to animate smoothly.*/}
+  <div className="Fullscreen__collapse-wrapper">
 
-<div className="fullscreen-header bg-light">
-  <div>
-    <span className="material-icons icon-lg">filter_list</span> FILTER
-  </div>
-  <button type="button" className="btn btn-link text-dark" data-toggle="collapse" data-target="#filterCollapse">
-    <span className="material-icons icon-lg">close</span>
-  </button>
-</div>
-
-<div className="fullscreen-content bg-info">
-  <div className="container pt-4">
-    <Filter />
-  </div>
-</div>
-
-<div className="fullscreen-footer bottom-modal text-left">
-  <div className="bottom-modal-wrapper">
-    <h4 className="mb-4">Find 1,245 results</h4>
-    <div className="row">
-      <div className="col-6"><button className="btn btn-outline-light btn-lg btn-block text-uppercase" data-toggle="collapse" data-target="#filterCollapse">clear</button></div>
-      <div className="col-6"><button className="btn btn-primary btn-lg btn-block text-uppercase" data-toggle="collapse" data-target="#filterCollapse">filter</button></div>
+    <div className="Fullscreen__header bg-light">
+      <div>
+        <span className="material-icons icon-lg">filter_list</span> FILTER
+      </div>
+      <button type="button" className="btn btn-link text-dark" onClick={close}>
+        <span className="material-icons icon-lg">close</span>
+      </button>
     </div>
-  </div>
-</div>
 
-</div>
-</div>
+    <div className="Fullscreen__content bg-info">
+      <div className="container pt-4">
+        <Filter />
+      </div>
+    </div>
+
+    <div className="Fullscreen__footer bottom-modal text-left">
+      <div className="bottom-modal-wrapper">
+        <h4 className="mb-4">Find 1,245 results</h4>
+        <div className="row">
+          <div className="col-6"><button className="btn btn-outline-light btn-lg btn-block text-uppercase" onClick={close} >clear</button></div>
+          <div className="col-6"><button className="btn btn-primary btn-lg btn-block text-uppercase" onClick={close} >filter</button></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  </div>
+</Collapse>
+
   );
 }
 

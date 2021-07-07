@@ -1,12 +1,15 @@
+import { useState } from 'react';
 import { Nav, Tab, Dropdown } from "react-bootstrap";
 
-import { Filter } from './Filter';
+import { Filter, FilterFullscreen } from './Filter';
 import HotelCard from './HotelCard';
 import NumPagenation from './NumPagenation.js'
 
 import { hotelData } from '../utils/mockdata';
 
 function SearchResult(props) {
+
+  const [filterOn, setFilterOn] = useState(false);
 
   const groups = {
     "recomment": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
@@ -60,7 +63,12 @@ function SearchResult(props) {
       <div className="d-md-none">
       <ul className="d-flex align-items-center justify-content-center w-100 mb-3">
         <li key="tab1" className="flex-fill border-right border-info">
-          <a href="#filterCollapse" className="btn btn-link btn-block font-weight-bold text-dark text-sub" data-toggle="collapse" >
+          <a className="btn btn-link btn-block font-weight-bold text-dark text-sub"
+            onClick={() => {
+              setFilterOn(!filterOn);
+              console.log(filterOn);
+            }}
+          >
             <span className="material-icons icon-lg">filter_list</span> FILTER
           </a>
         </li>
@@ -80,47 +88,52 @@ function SearchResult(props) {
   }
 
   return (
+  <div>
 
-<div className="container px-0 px-md-3 pt-4">
-<Tab.Container defaultActiveKey={tabs[0][0]}>
+    <div className="container px-0 px-md-3 pt-4">
+      <Tab.Container defaultActiveKey={tabs[0][0]}>
 
-  <div className="row align-items-basline mb-3">
-    <div className="col-md-4 text-center text-md-left">
-      <h2 className="fixed-size mb-0">Bangkok<span className="notation-lg text-primary">3,240</span></h2>
-    </div>
+        <div className="row align-items-basline mb-3">
+          <div className="col-md-4 text-center text-md-left">
+            <h2 className="fixed-size mb-0">
+              Bangkok<span className="notation-lg text-primary">3,240</span>
+            </h2>
+          </div>
 
-    <div className="col-md-8 d-none d-md-block">
-      {genTabs()}
-    </div>
-  </div>
-
-  {/* filter on phones */}
-  {toolbarPhone()}
-
-  <div className="row">
-
-    <div className="col-md-4 d-none d-md-block mb-4" data-aos="fade-right">
-      <nav className="card bg-info border-0">
-        <div className="card-body">
-          <Filter />
+          <div className="col-md-8 d-none d-md-block">
+            {genTabs()}
+          </div>
         </div>
-      </nav>
+
+        {/* toolbar on phones */}
+        {toolbarPhone()}
+
+        <div className="row">
+
+          <div className="col-md-4 d-none d-md-block mb-4" data-aos="fade-right">
+            <nav className="card bg-info border-0">
+              <div className="card-body">
+                <Filter />
+              </div>
+            </nav>
+          </div>
+
+          <div className="col-md-8" data-aos="fade-up">
+            {genPanes()}
+
+            <NumPagenation
+              start={12}
+              end={18}
+              min={1}
+              max={20}
+            />
+          </div>
+        </div>
+      </Tab.Container>
     </div>
 
-    <div className="col-md-8" data-aos="fade-up">
-      {genPanes()}
-
-      <NumPagenation
-        start={12}
-        end={18}
-        min={1}
-        max={20}
-      />
-    </div>
+    <FilterFullscreen toggle={filterOn} toggleSetter={setFilterOn}/>
   </div>
-</Tab.Container>
-</div>
-
   );
 }
 

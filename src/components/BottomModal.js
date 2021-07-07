@@ -1,24 +1,26 @@
+import { Collapse } from 'react-bootstrap';
+
 function ButtomModel(props) {
-  const { total, roomNum, night} = props;
+  const { toggle, total, roomNum, night} = props;
   return (
-<div id="cartCollapse" class="collapse bottom-modal fixed-bottom">
-  <div class="bottom-modal-wrapper">
-    <div class="container d-flex justify-content-md-between flex-column flex-md-row">
+<Collapse in={toggle} id="cartCollapse" className="bottom-modal fixed-bottom">
+  <div className="bottom-modal-wrapper">
+    <div className="container d-flex justify-content-md-between flex-column flex-md-row">
       <div>
-        <p class="small text-secondary">{roomNum} room・{night} night</p>
-        <h4 class="mb-4">TWD {total}</h4>
+        <p className="small text-secondary">{roomNum} room・{night} night</p>
+        <h4 className="mb-4">TWD {total}</h4>
       </div>
-      <div class="row">
-        <div class="col-6">
-          <button class="btn btn-outline-primary btn-lg btn-block text-uppercase" data-target="#cartCollapse" data-toggle="collapse">cencel</button>
+      <div className="row">
+        <div className="col-6">
+          <button className="btn btn-outline-primary btn-lg btn-block text-uppercase" data-target="#cartCollapse" data-toggle="collapse">cencel</button>
         </div>
-        <div class="col-6">
-          <a href="./reservation" class="btn btn-primary btn-lg btn-block text-uppercase">reserve</a>
+        <div className="col-6">
+          <a href="./order" className="btn btn-primary btn-lg btn-block text-uppercase">reserve</a>
         </div>
       </div>
     </div>
   </div>
-</div>
+</Collapse>
   );
 }
 
