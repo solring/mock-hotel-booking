@@ -27,7 +27,7 @@ function HotelCard(props) {
     if (room.oldPrice != undefined) {
       return (
         <div>
-          <p className={`oldPrice`}><del>TWD {room.oldPrice}</del></p>
+          <p className={`HotelCard__oldPrice`}><del>TWD {room.oldPrice}</del></p>
           <h4 className="fz-hotel-title">TWD <span className="h6-md text-primary">{room.price}</span></h4>
         </div>
       );
@@ -40,7 +40,7 @@ function HotelCard(props) {
     if(images.length < 1) return;
 
     if(images.length === 1)
-      return (<img className={`cardImg pic-height-sm`} src={images[0]} alt="hotel picture" />);
+      return (<img className={`HotelCard__cardImg pic-height-sm`} src={images[0]} alt="hotel picture" />);
 
     return (
     <Swiper
@@ -51,7 +51,7 @@ function HotelCard(props) {
     >
       {images.map((image, idx) => (
         <SwiperSlide key={idx}>
-          <img className={`cardImg pic-height-sm`} src={image} alt="hotel picture"/>
+          <img className={`HotelCard__cardImg pic-height-sm`} src={image} alt="hotel picture"/>
         </SwiperSlide>
       ))}
     </Swiper>
@@ -70,7 +70,7 @@ function HotelCard(props) {
           </div>
 
           <div className="col-7 col-md-8">
-            <div className={`row no-gutters cardBody`}>
+            <div className={`row no-gutters HotelCard__cardBody`}>
 
               <div className="col-md-7">
                 <p className="card-text">

@@ -1,4 +1,4 @@
-.search-bar {
+.Search__bar {
   width: 100%; // fill the container
 
   position: relative; // to enable offset
@@ -9,7 +9,7 @@
   }
 
   // ----- normal transformation -----
-  .search-options {
+  .Search__options {
       display: flex;
       flex-wrap: nowrap;
 
@@ -35,7 +35,7 @@
   }
 
   // ----- transformation: search result page -----
-  .search-options.search-collapse-sm {
+  .Search__options.Search__collapse-sm {
       @include media-breakpoint-down(sm) {
           @include list-w-divider(8px, $white, 1px, true);
       }
@@ -69,7 +69,7 @@
       }
   }
 
-  .search-options.with-return-btn {
+  .Search__options.with-return-btn {
       @include media-breakpoint-down(sm) {
           display: block;
           &>li {
@@ -94,7 +94,7 @@
       }
   }
 
-  .btn.search-btn {
+  .btn.Search__btn {
       height: 100%;
       padding: 1rem 2rem;
       text-transform: uppercase;
@@ -102,13 +102,13 @@
   }
 }
 
-.search-title {
+.Search__title {
   font-size: 12px;
   font-weight: bold;
   text-transform: uppercase;
 }
 
-.search-subtitle {
+.Search__subtitle {
   font-size: 14px;
   color: $secondary;
 }

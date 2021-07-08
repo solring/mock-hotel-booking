@@ -21,7 +21,7 @@ function OrderDetail(props) {
       </p>
     </div>
   </a>
-  <div id="bookingDetailCollapse" className="Booking__detail bg-info w-100 collapse collapse-absolute collapse-disabled-md">
+  <div id="bookingDetailCollapse" className="Order__detail bg-info w-100 collapse collapse-absolute collapse-disabled-md">
     <ul className="list-unstyled list-divider-white py-3 py-md-4 mx-3 mx-md-4 rounded-bottom border-top border-light">
       <li>
         <h6 className="mb-3">Booking details</h6>

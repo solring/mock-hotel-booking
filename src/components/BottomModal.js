@@ -3,8 +3,8 @@ import { Collapse } from 'react-bootstrap';
 function ButtomModel(props) {
   const { toggle, clearHandler, total, roomNum, night} = props;
   return (
-<Collapse in={toggle} id="cartCollapse" className="bottom-modal fixed-bottom">
-  <div className="bottom-modal-wrapper">
+<Collapse in={toggle} id="cartCollapse" className="BottomModal fixed-bottom">
+  <div className="BottomModal__wrapper">
     <div className="container d-flex justify-content-md-between flex-column flex-md-row">
       <div>
         <p className="small text-secondary">{roomNum} room・{night} night</p>

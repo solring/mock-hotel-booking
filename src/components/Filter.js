@@ -176,14 +176,14 @@ function _Filter(props) {
       step={constants.FILTER_STEP}
     />
 
-    <ul className="priceTag w-100">
+    <ul className="Filter__priceTag w-100">
       <li key="minPrice">
         <p className="title">min price</p>
         <div className="d-flex price">
-          <span className="priceTag__Num">
+          <span className="number">
             {priceRange[0]}
           </span>
-          <span className="priceTag__Label">TWD</span>
+          <span className="label">TWD</span>
         </div>
       </li>
       <li className="divider">
@@ -192,10 +192,10 @@ function _Filter(props) {
       <li key="maxPrice">
         <p className="title">max price</p>
         <div className="d-flex price">
-          <span className="priceTag__Num">
+          <span className="number">
             {priceRange[1]}
           </span>
-          <span className="priceTag__Label">TWD</span>
+          <span className="label">TWD</span>
         </div>
       </li>
     </ul>

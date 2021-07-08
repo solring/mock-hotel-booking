@@ -1,11 +1,11 @@
-.cardImg {
+.HotelCard__cardImg {
   @include media-breakpoint-up(sm) {
       border-top-left-radius: $border-radius-lg;
       border-bottom-left-radius: $border-radius-lg;
   }
 }
 
-.cardBody {
+.HotelCard__cardBody {
   padding: 1rem;
   @include media-breakpoint-down(lg) {
       padding: 8px 12px;
@@ -15,13 +15,13 @@
   }
 }
 
-.noBorder_sm {
+.HotelCard__noBorder-sm {
   @include media-breakpoint-down(sm) {
       border-radius: 0;
   }
 }
 
-.oldPrice {
+.HotelCard__oldPrice {
   color: $secondary;
   font-size: 16px;
   @include media-breakpoint-down(md) {

@@ -29,14 +29,14 @@ function SearchBar (props) {
     if (!withReturn) return;
 
     return (
-    <a href="./search-result.html" className="d-md-none btn container py-3 px-3">
+    <a href="./search" className="d-md-none btn container py-3 px-3">
       <span className="material-icons text-dark">arrow_back</span>
       <span className="text-secondary small">{searchCity}・17 June - 19 June・2 adults・1 room</span>
     </a>
     );
   };
 
-  let formStyle = "py-2 py-md-4 search-bar container";
+  let formStyle = "py-2 py-md-4 Search__bar container";
   if (withReturn) {
     formStyle += " d-none d-md-block";
   }
@@ -77,8 +77,8 @@ function SearchBar (props) {
 
   const searchBarSmall = (
 
-  <form className="p-4 search-bar bg-info rounded-lg" action="search-result.html" method="get">
-    <ul className="search-options flex-column flex-lg-row">
+  <form className="p-4 Search__bar bg-info rounded-lg" action="./search" method="get">
+    <ul className="Search__options flex-column flex-lg-row">
       {/* Field Destination */}
       <li key="destination" className="mb-3 mb-lg-0">
         <Dropdown>
@@ -117,7 +117,7 @@ function SearchBar (props) {
       </li>
 
       <li key="button" className="flex-grow-0 flex-shrink-0">
-        <button className="btn btn-primary search-btn btn-block" type="submit">Search</button>
+        <button className="btn btn-primary Search__btn btn-block" type="submit">Search</button>
       </li>
     </ul>
 
@@ -128,9 +128,9 @@ function SearchBar (props) {
   <div className="bg-info text-center">
       {returnBtn()}
 
-  <form className={formStyle} action="search-result.html" method="get">
+  <form className={formStyle} action="./search" method="get">
 
-    <ul className="search-options search-collapse-sm">
+    <ul className="Search__options Search__collapse-sm">
 
       {/* Field 1: Destination */}
       <li key="destination">
@@ -140,8 +140,8 @@ function SearchBar (props) {
             <div className="d-flex align-items-center">
               <div className="material-icons pr-lg-3 pr-2">location_on</div>
               <div className="text-left">
-                <h5 className="search-title">destination</h5>
-                <p className="search-subtitle search-location">{searchCity}, {searchCountry}</p>
+                <h5 className="Search__title">destination</h5>
+                <p className="Search__subtitle">{searchCity}, {searchCountry}</p>
               </div>
             </div>
           </div>
@@ -166,17 +166,17 @@ function SearchBar (props) {
 
             <ul className="list-unstyled list-row-divider-info d-none d-lg-flex">
               <li>
-                <h5 className="search-title">check-in</h5>
-                <p className="search-subtitle search-date-start">17 June</p>
+                <h5 className="Search__title">check-in</h5>
+                <p className="Search__subtitle">17 June</p>
               </li>
               <li>
-                <h5 className="search-title">check-out</h5>
-                <p className="search-subtitle search-date-end">19 June</p>
+                <h5 className="Search__title">check-out</h5>
+                <p className="Search__subtitle">19 June</p>
               </li>
             </ul>
             <div className="text-left d-lg-none">
-              <h5 className="search-title">check-in / out</h5>
-              <p className="search-subtitle search-n-guests">17 june / 19 june</p>
+              <h5 className="Search__title">check-in / out</h5>
+              <p className="Search__subtitle">17 june / 19 june</p>
             </div>
 
           </div>
@@ -194,8 +194,8 @@ function SearchBar (props) {
           <div className="d-none d-md-flex align-items-center">
             <div className="material-icons pr-lg-3 pr-2">person</div>
             <div className="text-left">
-              <h5 className="search-title">guests</h5>
-              <p className="search-subtitle search-n-guests">
+              <h5 className="Search__title">guests</h5>
+              <p className="Search__subtitle">
                 {genGuestStr(numAdult, numChild, numRoom)}
               </p>
             </div>
@@ -212,7 +212,7 @@ function SearchBar (props) {
       </li>
 
       <li key="buttons" className="flex-grow-0 flex-shrink-0 d-none d-md-block">
-        <button className="btn btn-primary search-btn text-uppercase" type="submit">Search</button>
+        <button className="btn btn-primary Search__btn text-uppercase" type="submit">Search</button>
       </li>
     </ul>
 

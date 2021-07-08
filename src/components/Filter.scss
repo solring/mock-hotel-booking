@@ -1,4 +1,4 @@
-.priceTag {
+.Filter__priceTag {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -48,18 +48,17 @@
       }
   }
 
-}
+  .label {
+    margin-bottom: 0;
+    margin-right: 4px;
+  }
 
-.priceTag__Label {
-  margin-bottom: 0;
-  margin-right: 4px;
-}
-
-.priceTag__Num {
-  width: 100%;
-  color: $secondary;
-  background: none;
-  border: none;
+  .number {
+    width: 100%;
+    color: $secondary;
+    background: none;
+    border: none;
+  }
 }
 
 .Fullscreen__collapse {
