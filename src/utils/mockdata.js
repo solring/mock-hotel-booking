@@ -6,6 +6,10 @@ import top4 from '../assets/images/top4.jpg';
 import roomA from '../assets/images/roomA.jpg';
 import roomB from '../assets/images/roomB.jpg';
 
+import Italy from '../assets/images/italy.jpg'
+import Bangkok from '../assets/images/Bangkok.jpg'
+import NewZealand from '../assets/images/NewZealand.jpg'
+
 import Rachada1 from "../assets/images/Rachada1.jpg";
 import Rachada2 from "../assets/images/Rachada2.jpg";
 import Rachada3 from "../assets/images/Rachada3.jpg";
@@ -21,6 +25,161 @@ import DinDaeng1 from "../assets/images/DinDaeng1.jpg";
 import DinDaeng2 from "../assets/images/DinDaeng2.jpg";
 
 import profilePic from "../assets/images/profile.jpg";
+
+export const blogPosts = [
+  {
+    title: "Fifth Most Visited Country",
+    pic: Italy,
+    preview: "Italy is the fifth most visited country in the world, with a total of 52.3 million…",
+  },
+  {
+    title: "Visit Thailand for Bangkok",
+    pic: Bangkok,
+    preview: "Asian tourists primarily visit Thailand for Bangkok and the historical, natural, and…",
+  },
+  {
+    title: "Lord of the Rings Tour",
+    pic: NewZealand,
+    preview: "The national cuisine has been described as Pacific Rim, incorporating the native Māori…",
+  },
+];
+
+export const hotelTopChoices = {
+  "Bali" :
+  [
+    {
+      name: "Hotel Aqua",
+      star: 5,
+      reviews: "2k",
+      price: "2,480",
+      pic: top1,
+    },
+    {
+      name: "Mr. Kawasaki Inn",
+      star: 4,
+      reviews: "500",
+      price: "3,380",
+      pic: top2,
+    },
+    {
+      name: "Weekly Paradise",
+      star: 4,
+      reviews: "470",
+      price: "4,780",
+      pic: top3,
+    },
+    {
+      name: "Beast Hotel",
+      star: 4,
+      reviews: "238",
+      price: "1,980",
+      pic: top4,
+    },
+    {
+      name: "Celebrity Palace",
+      star: 4,
+      reviews: "586",
+      price: "1,980",
+      pic: top3,
+    },
+    {
+      name: "Forever Palace",
+      star: 4,
+      reviews: "320",
+      price: "4,780",
+      pic: top2,
+    },
+    {
+      name: "RR Space",
+      star: 4,
+      reviews: "238",
+      price: "2,090",
+      pic: top1,
+    },
+  ],
+  "Okinawa" :
+  [
+    {
+      name: "Indigo Hotel",
+      star: 4,
+      reviews: "238",
+      price: "2,980",
+      pic: top3,
+    },
+    {
+      name: "Celebrity Palace",
+      star: 4,
+      reviews: "586",
+      price: "1,980",
+      pic: top2,
+    },
+    {
+      name: "Forever Palace",
+      star: 4,
+      reviews: "320",
+      price: "4,780",
+      pic: top4,
+    },
+    {
+      name: "RR Space",
+      star: 4,
+      reviews: "238",
+      price: "2,090",
+      pic: top1,
+    },
+  ],
+  "Taipei" :
+  [
+    {
+      name: "Weekly Paradise",
+      star: 4,
+      reviews: "470",
+      price: "4,780",
+      pic: top4,
+    },
+    {
+      name: "Hotel Aqua",
+      star: 5,
+      reviews: "2k",
+      price: "2,480",
+      pic: top1,
+    },
+    {
+      name: "Mr. Kawasaki Inn",
+      star: 4,
+      reviews: "500",
+      price: "3,380",
+      pic: top2,
+    },
+  ],
+}
+
+export const popCities = [
+  {
+    name: "Osaka",
+    country: "Japan",
+  },
+  {
+    name: "Kyoto",
+    country: "Japan",
+  },
+  {
+    name: "Reykjavic",
+    country: "Iceland",
+  },
+  {
+    name: "Paris",
+    country: "France",
+  },
+  {
+    name: "Roma",
+    country: "Italy",
+  },
+  {
+    name: "Bangkok",
+    country: "Thailand",
+  },
+];
 
 // mock data
 export let hotelData = [
