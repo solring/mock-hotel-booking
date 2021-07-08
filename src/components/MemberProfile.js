@@ -28,10 +28,12 @@ function MemberProfile(props) {
     <div className="col-lg-4 mb-5">
 
       <div className="d-flex justify-content-between my-4">
-        <div className="row-start-center">
-          <h2 className="h4">Profile</h2>
-          <span className="badge badge-primary badge-pill row-start-center small"><span className="material-icons">done</span> Verified </span>
-        </div>
+        <h2 className="h4">
+          Profile
+          <span className="badge badge-primary badge-pill small align-icons ml-2">
+            <span className="material-icons">done</span> Verified
+          </span>
+        </h2>
         <a href="#" className="btn btn-link text-uppercase font-weight-bold">edit</a>
       </div>
 

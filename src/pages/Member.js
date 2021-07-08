@@ -34,8 +34,8 @@ function Page (){
       </Layout.Header>
       <Layout.Content>
         {Content()}
-        <Footer short={false} />
       </Layout.Content>
+      <Footer short={false} />
     </Layout>
   );
 }
