@@ -1,12 +1,16 @@
+// Bootstrap
 @import './assets/style/configs/bootstrap/_variables.scss';
 @import '~bootstrap/scss/bootstrap.scss';
 @import './assets/style/configs/bootstrap/_overrides.scss';
 
+// Global settings
 @import './assets/style/configs/_fonts.scss';
 @import './assets/style/configs/_variables.scss';
 @import './assets/style/configs/_base.scss';
 
+// Customized styles for third-party libs
 @import './assets/style/configs/swiper/_overrides.scss';
+@import './assets/style/configs/lightpick/_overrides.scss';
 
 @import './assets/style/utils/_mixins.scss';
 

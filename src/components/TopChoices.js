@@ -16,7 +16,7 @@ function TopChoices(props) {
 
   const genSlides = (group) => {
     return group.map((hotel, idx) => (
-      <SwiperSlide>
+      <SwiperSlide key={idx}>
         <a className="d-block text-dark" href="./detail.html">
           <img className="pic-height-sm rounded-lg" src={hotel.pic} alt={`hotel ${idx}`} />
           <h5 className="my-2">{hotel.name}</h5>

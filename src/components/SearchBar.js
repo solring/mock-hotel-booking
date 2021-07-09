@@ -1,7 +1,12 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Dropdown } from 'react-bootstrap';
 import NumberPicker from './NumberPicker';
 import { genGuestStr } from '../utils/utils';
+
+import { useMediaQuery } from '@material-ui/core';
+import DatePicker from './DatePicker';
+
+import * as constants from '../utils/constants';
 
 function SearchBar (props) {
   const {withReturn, simplified} = props;
@@ -18,6 +23,7 @@ function SearchBar (props) {
   const [numAdult, setNumAdult] = useState(2);
   const [numChild, setNumChild] = useState(0);
   const [numRoom, setNumRoom] = useState(1);
+  const [dateRange, setDateRange] = useState(["", ""])
 
   const numberOptions = [
     ['Adult', numAdult, setNumAdult],
@@ -25,6 +31,20 @@ function SearchBar (props) {
     ['Room', numRoom, setNumRoom],
   ];
 
+  let isSmallScreen = useMediaQuery(`(max-width:${constants.BS_BREAKPOINT_MD})`);
+
+  let formStyle = "py-2 py-md-4 Search__bar container";
+  if (withReturn) {
+    formStyle += " d-none d-md-block";
+  }
+
+  // Handlers
+  const _setDestination = (country, city) => {
+    setSearchCountry(country);
+    setSearchCity(city);
+  }
+
+  // Renderers
   const returnBtn = () => {
     if (!withReturn) return;
 
@@ -36,14 +56,34 @@ function SearchBar (props) {
     );
   };
 
-  let formStyle = "py-2 py-md-4 Search__bar container";
-  if (withReturn) {
-    formStyle += " d-none d-md-block";
-  }
+  const dateBtnLg = () => {
+    if(isSmallScreen) {
+      return (
+        <div className="d-md-none text-secondary">
+          17 june / 19 june
+        </div>
+      );
+    } else return (
+      <div className="d-none d-md-flex align-items-center">
+        <div className="material-icons pr-lg-3 pr-2">date_range</div>
 
-  const _setDestination = (country, city) => {
-    setSearchCountry(country);
-    setSearchCity(city);
+        <ul className="list-unstyled list-row-divider-info d-none d-lg-flex">
+          <li>
+            <h5 className="Search__title">check-in</h5>
+            <p className="Search__subtitle">17 June</p>
+          </li>
+          <li>
+            <h5 className="Search__title">check-out</h5>
+            <p className="Search__subtitle">19 June</p>
+          </li>
+        </ul>
+        <div className="text-left d-lg-none">
+          <h5 className="Search__title">check-in / out</h5>
+          <p className="Search__subtitle">17 june / 19 june</p>
+        </div>
+
+      </div>
+      );
   }
 
   const destinations = () => {
@@ -93,12 +133,11 @@ function SearchBar (props) {
       </li>
 
       {/* Field 2: Calendar */}
-      {/* TODO: import date picker lib */}
       <li key="calendar" className="mb-3 mb-lg-0">
-        <button id="searchDatePicker" className="btn btn-light btn-block text-left pl-3" type="button" data-toggle="dropdown">
+        <DatePicker name="small">
           <span className="material-icons">date_range</span>
           Check-in / Check-out
-        </button>
+        </DatePicker>
       </li>
 
 
@@ -106,7 +145,7 @@ function SearchBar (props) {
       <li key="guest" className="mb-3 mb-lg-0">
         <Dropdown>
 
-        <Dropdown.Toggle variant="light" bsPrefix="no-toggle" className="btn btn-block text-left pl-3" type="button" data-toggle="dropdown" data-offset="0,8">
+        <Dropdown.Toggle variant="light" bsPrefix="no-toggle" className="btn btn-block text-left pl-3" data-offset="0,8">
           <span className="material-icons">person</span>
           Guests
         </Dropdown.Toggle>
@@ -157,33 +196,10 @@ function SearchBar (props) {
       </li>
 
       {/* Field 2: Calendar */}
-      {/* TODO: import date picker lib */}
       <li key="datePicker">
-        <a id="searchDatePicker" className="btn btn-light btn-block">
-
-          <div className="d-none d-md-flex align-items-center">
-            <div className="material-icons pr-lg-3 pr-2">date_range</div>
-
-            <ul className="list-unstyled list-row-divider-info d-none d-lg-flex">
-              <li>
-                <h5 className="Search__title">check-in</h5>
-                <p className="Search__subtitle">17 June</p>
-              </li>
-              <li>
-                <h5 className="Search__title">check-out</h5>
-                <p className="Search__subtitle">19 June</p>
-              </li>
-            </ul>
-            <div className="text-left d-lg-none">
-              <h5 className="Search__title">check-in / out</h5>
-              <p className="Search__subtitle">17 june / 19 june</p>
-            </div>
-
-          </div>
-          <div className="d-md-none text-secondary">
-            17 june / 19 june
-          </div>
-        </a>
+        <DatePicker name="large">
+          {dateBtnLg()}
+        </DatePicker>
       </li>
 
 

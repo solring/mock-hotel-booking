@@ -1,6 +1,6 @@
 :root {
-    --litepickerDayIsStartBg: #6C51E2;
-    --litepickerDayIsInRange: #F1F0F8;
-    --litepickerDayIsEndBg: #6C51E2;
-    --litepickerDayIsTodayColor: #6C51E2; 
-  }
+    --litepicker-is-start-color-bg: #6C51E2 !important;
+    --litepicker-is-in-range-color: #F1F0F8 !important;
+    --litepicker-is-end-color-bg: #6C51E2 !important;
+    --litepicker-is-today-color-bg: #6C51E2 !important;
+}

@@ -13,7 +13,7 @@ function Banner(props) {
 
   const carouselItems = () => {
     return banners.map(([image, title],idx) => (
-      <Carousel.Item>
+      <Carousel.Item key={idx}>
         <img src={image} className="w-100" alt={`carousel pic ${idx}`} />
         <Carousel.Caption>
           <h2 className="fz-title">{title}</h2>
