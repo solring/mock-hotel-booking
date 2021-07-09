@@ -62,7 +62,7 @@ function HotelCard(props) {
 
   return (
     <li key={room.name}>
-      <a href="./detail.html" className={`d-block text-dark card w-100 hover-shadow noBorder_sm`}>
+      <a href={room.url} className={`d-block text-dark card w-100 hover-shadow noBorder_sm`}>
         <div className="row no-gutters">
 
           <div className="col-5 col-md-4">

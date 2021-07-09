@@ -3,6 +3,7 @@ import Layout from '../layout/Layout';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
+import { INDEX } from '../utils/links';
 import { orderDetail, memberData } from '../utils/mockdata';
 
 function Page (){
@@ -55,7 +56,7 @@ function Page (){
           </li>
           <li className="row no-gutters flex-column flex-md-row justify-content-between justify-content-md-end mb-5">
             <a href="#" className="btn btn-outline-primary btn-lg text-uppercase mr-md-2">edit reservation</a>
-            <a href="./index.html" className="btn btn-primary btn-lg text-uppercase mt-2 mt-md-0">Homepage</a>
+            <a href={INDEX} className="btn btn-primary btn-lg text-uppercase mt-2 mt-md-0">Homepage</a>
           </li>
         </ul>
 

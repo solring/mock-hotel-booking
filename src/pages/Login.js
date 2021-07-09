@@ -2,10 +2,12 @@ import Layout from '../layout/Layout';
 
 import Header from '../components/Header';
 
+import { MEMBER } from '../utils/links';
+
 function Page (){
 
   const loginForm = (
-    <form action="./member.html" method="get" data-aos="fade-left">
+    <form action={MEMBER} method="get" data-aos="fade-left">
       <h2 className="mb-3">Login</h2>
 
       <div className="form-group">
@@ -26,7 +28,7 @@ function Page (){
         <label for="rememberCheck" className="custom-control-label text-secondary">Remember me</label>
       </div>
 
-      <button className="btn btn-primary btn-block btn-lg text-uppercase">login</button>
+      <button className="btn btn-primary btn-block btn-lg text-uppercase" type="submit">login</button>
       <p className="text-sub text-secondary mt-2">
         Don’t have an account yet?  <a href="#" className="font-weight-bold">Sign up</a>
       </p>

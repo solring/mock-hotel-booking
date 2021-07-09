@@ -1,7 +1,14 @@
 import { Collapse } from 'react-bootstrap';
 
 function ButtomModel(props) {
-  const { toggle, clearHandler, total, roomNum, night} = props;
+  const {
+    toggle,
+    clearHandler,
+    confirmText,
+    confirmAction,
+    total,
+    roomNum,
+    night} = props;
   return (
 <Collapse in={toggle} id="cartCollapse" className="BottomModal fixed-bottom">
   <div className="BottomModal__wrapper">
@@ -15,7 +22,9 @@ function ButtomModel(props) {
           <button className="btn btn-outline-primary btn-lg btn-block text-uppercase" onClick={clearHandler}>cencel</button>
         </div>
         <div className="col-6">
-          <a href="./order" className="btn btn-primary btn-lg btn-block text-uppercase">reserve</a>
+          <a className="btn btn-primary btn-lg btn-block text-uppercase" onClick={confirmAction}>
+            {confirmText}
+          </a>
         </div>
       </div>
     </div>

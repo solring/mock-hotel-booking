@@ -6,6 +6,8 @@ import SwiperCore, { Navigation } from 'swiper/core';
 import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss'
 
+import * as links from '../utils/links';
+
 import NumberPicker from './NumberPicker';
 import BottomModal from './BottomModal';
 import { genGuestStr } from '../utils/utils';
@@ -255,7 +257,11 @@ function RoomDetail(props) {
     </div>
 
     {/* Cart*/}
-    <BottomModal toggle={cart} clearHandler={onClearCart}
+    <BottomModal
+      toggle={cart}
+      clearHandler={onClearCart}
+      confirmText="Reserve"
+      confirmAction={() => window.location.href = links.ORDER}
       total={totalPrice} roomNum={roomNum} night={searchOptions.night}/>
   </div>
   );

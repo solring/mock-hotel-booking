@@ -2,8 +2,9 @@ import Layout from '../layout/Layout';
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-
 import OrderDetail from '../components/OrderDetail';
+
+import { CONFIRMATION } from '../utils/links';
 
 import { orderDetail } from '../utils/mockdata';
 
@@ -20,7 +21,7 @@ function Content(props) {
 <div className="row no-gutters justify-content-center">
   <div className="col-lg-8">
 
-    <form action="./confirmation.html" className="row flex-md-row-reverse" method="get">
+    <form action={CONFIRMATION} className="row flex-md-row-reverse" method="get">
       <div className="col-md-6 px-0 px-sm-3">
         <OrderDetail data={orderDetail}/>
       </div>

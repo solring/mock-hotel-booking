@@ -53,6 +53,7 @@ export const hotelTopChoices = {
       reviews: "2k",
       price: "2,480",
       pic: top1,
+      url: "/detail",
     },
     {
       name: "Mr. Kawasaki Inn",
@@ -60,6 +61,7 @@ export const hotelTopChoices = {
       reviews: "500",
       price: "3,380",
       pic: top2,
+      url: "/detail",
     },
     {
       name: "Weekly Paradise",
@@ -67,6 +69,7 @@ export const hotelTopChoices = {
       reviews: "470",
       price: "4,780",
       pic: top3,
+      url: "/detail",
     },
     {
       name: "Beast Hotel",
@@ -74,6 +77,7 @@ export const hotelTopChoices = {
       reviews: "238",
       price: "1,980",
       pic: top4,
+      url: "/detail",
     },
     {
       name: "Celebrity Palace",
@@ -81,6 +85,7 @@ export const hotelTopChoices = {
       reviews: "586",
       price: "1,980",
       pic: top3,
+      url: "/detail",
     },
     {
       name: "Forever Palace",
@@ -88,6 +93,7 @@ export const hotelTopChoices = {
       reviews: "320",
       price: "4,780",
       pic: top2,
+      url: "/detail",
     },
     {
       name: "RR Space",
@@ -95,6 +101,7 @@ export const hotelTopChoices = {
       reviews: "238",
       price: "2,090",
       pic: top1,
+      url: "/detail",
     },
   ],
   "Okinawa" :
@@ -105,6 +112,7 @@ export const hotelTopChoices = {
       reviews: "238",
       price: "2,980",
       pic: top3,
+      url: "/detail",
     },
     {
       name: "Celebrity Palace",
@@ -112,6 +120,7 @@ export const hotelTopChoices = {
       reviews: "586",
       price: "1,980",
       pic: top2,
+      url: "/detail",
     },
     {
       name: "Forever Palace",
@@ -119,6 +128,7 @@ export const hotelTopChoices = {
       reviews: "320",
       price: "4,780",
       pic: top4,
+      url: "/detail",
     },
     {
       name: "RR Space",
@@ -126,6 +136,7 @@ export const hotelTopChoices = {
       reviews: "238",
       price: "2,090",
       pic: top1,
+      url: "/detail",
     },
   ],
   "Taipei" :
@@ -136,6 +147,7 @@ export const hotelTopChoices = {
       reviews: "470",
       price: "4,780",
       pic: top4,
+      url: "/detail",
     },
     {
       name: "Hotel Aqua",
@@ -143,6 +155,7 @@ export const hotelTopChoices = {
       reviews: "2k",
       price: "2,480",
       pic: top1,
+      url: "/detail",
     },
     {
       name: "Mr. Kawasaki Inn",
@@ -150,6 +163,7 @@ export const hotelTopChoices = {
       reviews: "500",
       price: "3,380",
       pic: top2,
+      url: "/detail",
     },
   ],
 }
@@ -193,6 +207,7 @@ export let hotelData = [
     location: "Rachada, Bangkok",
     distance: 2,
     tags: [0, 1],
+      url: "/detail",
   },
   {
     imgs: [Phaya],
@@ -205,6 +220,7 @@ export let hotelData = [
     location: "Phaya Thai, Bangkok",
     distance: 2.9,
     tags: [0],
+      url: "/detail",
   },
   {
     imgs: [Bangkapi],
@@ -216,6 +232,7 @@ export let hotelData = [
     location: "Bangkapi, Bangkok",
     distance: 14,
     tags: [0],
+      url: "/detail",
   },
   {
     imgs: [Chatuchack1, Chatuchack2],
@@ -228,6 +245,7 @@ export let hotelData = [
     location: "Chatuchack, Bangkok",
     distance: 12,
     tags: [1],
+      url: "/detail",
   },
   {
     imgs: [Chatuchack2],
@@ -240,6 +258,7 @@ export let hotelData = [
     location: "Chatuchack, Bangkok",
     distance: 8,
     tags: [1],
+      url: "/detail",
   },
   {
     imgs: [RangRak],
@@ -251,6 +270,7 @@ export let hotelData = [
     location: "Rang Rak, Bangkok",
     distance: 4.4,
     tags: [0],
+      url: "/detail",
   },
   {
     imgs: [Watana1],
@@ -262,6 +282,7 @@ export let hotelData = [
     location: "Watana, Bangkok",
     distance: 6,
     tags: [0, 1],
+      url: "/detail",
   },
   {
     imgs: [Watana2],
@@ -274,6 +295,7 @@ export let hotelData = [
     location: "Watana, Bangkok",
     distance: 6,
     tags: [0],
+      url: "/detail",
   },
   {
     imgs: [DinDaeng1],
@@ -286,6 +308,7 @@ export let hotelData = [
     location: "Din Daeng, Bangkok",
     distance: 7,
     tags: [],
+      url: "/detail",
   },
   {
     imgs: [DinDaeng2],
@@ -297,6 +320,7 @@ export let hotelData = [
     location: "Din Daeng, Bangkok",
     distance: 7,
     tags: [],
+      url: "/detail",
   }
 ];
 

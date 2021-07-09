@@ -3,6 +3,7 @@ import { LANGUAGES } from '../utils/language';
 
 import profilePic from '../assets/images/profile.jpg'
 
+import { INDEX } from '../utils/links';
 
 function Header(props) {
   const {simple, member} = props;
@@ -81,7 +82,7 @@ function Header(props) {
           </button>
         )}
 
-        <h1 className="navbar-brand logo"><a href="index.html">ALOHA</a></h1>
+        <h1 className="navbar-brand logo"><a href={INDEX}>ALOHA</a></h1>
 
         {genDropdown()}
       </div>

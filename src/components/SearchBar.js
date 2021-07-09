@@ -8,6 +8,8 @@ import DatePicker from './DatePicker';
 
 import * as constants from '../utils/constants';
 
+import { SEARCH } from '../utils/links';
+
 function SearchBar (props) {
   const {withReturn, simplified} = props;
   const locations = [
@@ -49,7 +51,7 @@ function SearchBar (props) {
     if (!withReturn) return;
 
     return (
-    <a href="./search" className="d-md-none btn container py-3 px-3">
+    <a href={SEARCH} className="d-md-none btn container py-3 px-3">
       <span className="material-icons text-dark">arrow_back</span>
       <span className="text-secondary small">{searchCity}・17 June - 19 June・2 adults・1 room</span>
     </a>
@@ -117,7 +119,7 @@ function SearchBar (props) {
 
   const searchBarSmall = (
 
-  <form className="p-4 Search__bar bg-info rounded-lg" action="./search" method="get">
+  <form className="p-4 Search__bar bg-info rounded-lg" action={SEARCH} method="get">
     <ul className="Search__options flex-column flex-lg-row">
       {/* Field Destination */}
       <li key="destination" className="mb-3 mb-lg-0">
@@ -167,7 +169,7 @@ function SearchBar (props) {
   <div className="bg-info text-center">
       {returnBtn()}
 
-  <form className={formStyle} action="./search" method="get">
+  <form className={formStyle} action={SEARCH} method="get">
 
     <ul className="Search__options Search__collapse-sm">
 

@@ -9,6 +9,7 @@ import PopularDestination from '../components/PopularDest';
 import BlogPosts from '../components/BlogPosts';
 import Subscription from '../components/Subscription';
 
+import { DETAIL } from '../utils/links';
 import { blogPosts, hotelTopChoices, popCities } from '../utils/mockdata';
 
 function HomePage (){

@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
+import * as links from './utils/links';
+
 import App from './App';
 import HomePage from './pages/Home';
 import SearchPage from './pages/Search';
@@ -15,13 +17,13 @@ export default (props) => {
     <Router>
       <Switch>
         <Route exact path="/" component={App} />
-        <Route path="/index" component={HomePage} />
-        <Route path="/search" component={SearchPage} />
-        <Route path="/detail" component={DetailPage} />
-        <Route path="/order" component={OrderPage} />
-        <Route path="/confirmation" component={ConfirmedOrderPage} />
-        <Route path="/member" component={MemberPage} />
-        <Route path="/login" component={LoginPage} />
+        <Route path={links.INDEX} component={HomePage} />
+        <Route path={links.SEARCH} component={SearchPage} />
+        <Route path={links.DETAIL} component={DetailPage} />
+        <Route path={links.ORDER} component={OrderPage} />
+        <Route path={links.CONFIRMATION} component={ConfirmedOrderPage} />
+        <Route path={links.MEMBER} component={MemberPage} />
+        <Route path={links.LOGIN} component={LoginPage} />
 
       </Switch>
     </Router>
