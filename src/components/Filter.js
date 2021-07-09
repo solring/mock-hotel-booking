@@ -40,186 +40,217 @@ let CustomSlider = withStyles({
   },
 })(Slider);
 
-function _Filter(props) {
-  const {name} = props;
-
-  const [priceRange, setPriceRange] = useState([1000,5000]);
-  let filterName = name || "";
-
-  const sections = [
-    {
-      title: "Deals",
-      options: [
-        {
-          name: "freeCancel",
-          text: "Free cancel",
-        },
-        {
-          name: "noPrepay",
-          text: "No prepayment",
-        },
-        {
-          name: "specialOffer",
-          text: "Special offer",
-        },
-      ],
-    },
-    {
-      title: "Popular Filters",
-      options: [
-        {
-          name: "breakfast",
-          text: "Breakfast included",
-        },
-        {
-          name: "freeWifi",
-          text: "Free Wifi",
-        },
-        {
-          name: "swimmingPool",
-          text: "Swimming pool",
-        },
-      ],
-    },
-    {
-      title: "Stey Type",
-      options: [
-        {
-          name: "hotel",
-          text: "Hotel",
-        },
-        {
-          name: "apartment",
-          text: "Apartment",
-        },
-        {
-          name: "unique",
-          text: "Unique",
-        },
-        {
-          name: "hostel",
-          text: "Hostel",
-        },
-      ],
-    },
-  ]
-
-  /* ------- Slider -------- */
-
-  const sliderHandler = (event, newValue) => {
-    setPriceRange(newValue);
-  }
-
-  /* ------ helper functions ------ */
-  const genCheckBox = (sec, prefix) => {
-    return (
-      <div>
-        <h6 className="card-title">{sec.title}</h6>
-        <ul className="list-gap-8">
-          {sec.options.map((option) => (
-            <li key={option.name} className="custom-control custom-checkbox">
-            <input type="checkbox" className="custom-control-input" id={`${prefix}_${option.name}_Check`} name={option.name}/>
-            <label htmlFor={`${prefix}_${option.name}_Check`} className="custom-control-label text-secondary">{option.text}</label>
-            </li>
-          ))}
-        </ul>
-      </div>
-    );
-  };
-
-  const genGradeForm = () => {
-    let nums = [1, 2, 3, 4, 5];
-
-    return (
-      <ul>
-      {nums.map((i) => (
-        <li key={`rate${i}`}className="custom-control custom-checkbox">
-          <input type="checkbox" className="custom-control-input" id={`${filterName}_rate${i}_Check`} name="rate{i}" />
-          <label htmlFor={`${filterName}_rate${i}_Check`} className="custom-control-label">
-            <span className="material-icons">
-            {"grade ".repeat(i)}
-            </span>
-            <span className="text-secondary">{i}.0</span>
-          </label>
-        </li>
-      ))}
-        <li key="unrated" className="custom-control custom-checkbox">
-          <input type="checkbox" className="custom-control-input" id="{filterName}_unrateCheck" name="unrate" />
-          <label htmlFor="{filterName}_unrateCheck" className="custom-control-label text-secondary">Unrated</label>
-        </li>
-      </ul>
-    );
-  };
-
-  return (
-
-<form target="#" method="get" className="filter">
-
-<ul className="list-divider-white">
-
-  <li key="sec1">
-    {genCheckBox(sections[0], filterName)}
-  </li>
-
-  <li key="sec2">
-    {genCheckBox(sections[1], filterName)}
-  </li>
-
-  <li key="sec3">
-    <h6 className="card-title">Budget</h6>
-
-    <CustomSlider
-      value={priceRange}
-      onChange={sliderHandler}
-      max={constants.MAX_FILTER_PRICE}
-      min={constants.MIN_FILTER_PRICE}
-      step={constants.FILTER_STEP}
-    />
-
-    <ul className="Filter__priceTag w-100">
-      <li key="minPrice">
-        <p className="title">min price</p>
-        <div className="d-flex price">
-          <span className="number">
-            {priceRange[0]}
-          </span>
-          <span className="label">TWD</span>
-        </div>
-      </li>
-      <li className="divider">
-        -
-      </li>
-      <li key="maxPrice">
-        <p className="title">max price</p>
-        <div className="d-flex price">
-          <span className="number">
-            {priceRange[1]}
-          </span>
-          <span className="label">TWD</span>
-        </div>
-      </li>
-    </ul>
-  </li>
-
-  <li key="sec4">
-    <h6 className="card-title">Rating</h6>
-    {genGradeForm()}
-  </li>
-  <li key="sec5">
-    {genCheckBox(sections[2], filterName)}
-  </li>
-</ul>
-
-</form>
-  );
-}
-
 function Filter(props) {
   const { toggle, toggleSetter, fullscreen } = props;
 
+  // Form data
+  const [deal, setDeal] = useState(Array(3).fill(false));
+  const [facility, setFacility] = useState(Array(3).fill(false));
+  const [priceRange, setPriceRange] = useState([1000,5000]);
+  const [rate, setRate] = useState(Array(6).fill(false));
+  const [stayType, setStayType] = useState(Array(4).fill(false));
+
+  const _Filter = () => {
+
+    const sections = [
+      {
+        title: "Deals",
+        options: [
+          {
+            name: "freeCancel",
+            text: "Free cancel",
+          },
+          {
+            name: "noPrepay",
+            text: "No prepayment",
+          },
+          {
+            name: "specialOffer",
+            text: "Special offer",
+          },
+        ],
+        state: [deal, setDeal],
+      },
+      {
+        title: "Popular Filters",
+        options: [
+          {
+            name: "breakfast",
+            text: "Breakfast included",
+          },
+          {
+            name: "freeWifi",
+            text: "Free Wifi",
+          },
+          {
+            name: "swimmingPool",
+            text: "Swimming pool",
+          },
+        ],
+        state: [facility, setFacility],
+      },
+      {
+        title: "Stay Type",
+        options: [
+          {
+            name: "hotel",
+            text: "Hotel",
+          },
+          {
+            name: "apartment",
+            text: "Apartment",
+          },
+          {
+            name: "unique",
+            text: "Unique",
+          },
+          {
+            name: "hostel",
+            text: "Hostel",
+          },
+        ],
+        state: [stayType, setStayType],
+      },
+    ]
+
+    /* ------- Slider -------- */
+
+    const sliderHandler = (event, newValue) => {
+      setPriceRange(newValue);
+    }
+
+    /* ------ helper functions ------ */
+    const genCheckBox = (sec, prefix) => {
+      return (
+        <div>
+          <h6 className="card-title">{sec.title}</h6>
+          <ul className="list-gap-8">
+            {sec.options.map((option, idx) => (
+              <li key={option.name} className="custom-control custom-checkbox">
+              <input type="checkbox" className="custom-control-input"
+                id={`${prefix}_${option.name}_Check`} name={option.name}
+                value={sec.state[0][idx]}
+                onChange={(e) => {
+                  let newArr = {...sec.state[0]};
+                  newArr[idx] = e.target.checked;
+                  sec.state[1](newArr);
+                }}
+              />
+              <label htmlFor={`${prefix}_${option.name}_Check`} className="custom-control-label text-secondary">{option.text}</label>
+              </li>
+            ))}
+          </ul>
+        </div>
+      );
+    };
+
+    const genGradeForm = () => {
+      let nums = [1, 2, 3, 4, 5];
+
+      return (
+        <ul>
+        {nums.map((i) => (
+          <li key={`rate${i}`}className="custom-control custom-checkbox">
+            <input
+              type="checkbox" className="custom-control-input"
+              id={`rate${i}_Check`} name="rate{i}"
+              value={rate[i]}
+              onChange={(e) => {
+                let newRate = [...rate];
+                newRate[i] = e.target.checked;
+                setRate(newRate);
+              }}
+            />
+            <label htmlFor={`rate${i}_Check`} className="custom-control-label">
+              <span className="material-icons">
+              {"grade ".repeat(i)}
+              </span>
+              <span className="text-secondary">{i}.0</span>
+            </label>
+          </li>
+        ))}
+          <li key="unrated" className="custom-control custom-checkbox">
+            <input type="checkbox" className="custom-control-input"
+              id="unrateCheck" name="unrate"
+              value={rate[0]}
+              onChange={(e) => {
+                let newRate = [...rate];
+                newRate[0] = e.target.checked;
+                setRate(newRate);
+              }}
+            />
+            <label htmlFor="unrateCheck" className="custom-control-label text-secondary">Unrated</label>
+          </li>
+        </ul>
+      );
+    };
+
+    return (
+
+  <form target="#" method="get" className="filter">
+
+  <ul className="list-divider-white">
+
+    <li key="sec1">
+      {genCheckBox(sections[0], "_")}
+    </li>
+
+    <li key="sec2">
+      {genCheckBox(sections[1], "_")}
+    </li>
+
+    <li key="sec3">
+      <h6 className="card-title">Budget</h6>
+
+      <CustomSlider
+        value={priceRange}
+        onChange={sliderHandler}
+        max={constants.MAX_FILTER_PRICE}
+        min={constants.MIN_FILTER_PRICE}
+        step={constants.FILTER_STEP}
+      />
+
+      <ul className="Filter__priceTag w-100">
+        <li key="minPrice">
+          <p className="title">min price</p>
+          <div className="d-flex price">
+            <span className="number">
+              {priceRange[0]}
+            </span>
+            <span className="label">TWD</span>
+          </div>
+        </li>
+        <li className="divider">
+          -
+        </li>
+        <li key="maxPrice">
+          <p className="title">max price</p>
+          <div className="d-flex price">
+            <span className="number">
+              {priceRange[1]}
+            </span>
+            <span className="label">TWD</span>
+          </div>
+        </li>
+      </ul>
+    </li>
+
+    <li key="sec4">
+      <h6 className="card-title">Rating</h6>
+      {genGradeForm()}
+    </li>
+    <li key="sec5">
+      {genCheckBox(sections[2], "_")}
+    </li>
+  </ul>
+
+  </form>
+    );
+  }
+
   const close = () => toggleSetter(!toggle);
 
-  if(!fullscreen) return <_Filter />;
+  if(!fullscreen) return _Filter();
   else return (
 
 <Collapse in={toggle} className="Fullscreen__collapse">
@@ -237,7 +268,7 @@ function Filter(props) {
 
     <div className="Fullscreen__content bg-info">
       <div className="container pt-4">
-        <_Filter />
+        {_Filter()}
       </div>
     </div>
 
