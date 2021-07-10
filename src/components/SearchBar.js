@@ -1,21 +1,21 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { Dropdown } from 'react-bootstrap';
-import NumberPicker from './NumberPicker';
-import { genGuestStr } from '../utils/utils';
-
 import { useMediaQuery } from '@material-ui/core';
+import dayjs from 'dayjs';
+
+import NumberPicker from './NumberPicker';
 import DatePicker from './DatePicker';
 
+import { SEARCH } from '../utils/links';
+import { genGuestStr } from '../utils/utils';
 import * as constants from '../utils/constants';
 
-import { SEARCH } from '../utils/links';
 
 function SearchItemBtn(props) {
-  const { title, icon} = props;
+  const { title} = props;
   return (
   <Dropdown>
         <Dropdown.Toggle variant="light"  bsPrefix="no-toggle" className="btn btn-block text-left pl-3" data-offset="0,8">
-          <span className="material-icons">{icon}</span>
           {title}
         </Dropdown.Toggle>
         <Dropdown.Menu className="list-unstyled w-100">
@@ -40,7 +40,7 @@ function SearchBar (props) {
   const [numAdult, setNumAdult] = useState(2);
   const [numChild, setNumChild] = useState(0);
   const [numRoom, setNumRoom] = useState(1);
-  const [dateRange, setDateRange] = useState(["17 June", "19 June"])
+  const [dateRange, setDateRange] = useState([dayjs(), dayjs()])
 
   const numberOptions = [
     ['Adult', numAdult, setNumAdult],
@@ -49,11 +49,19 @@ function SearchBar (props) {
   ];
 
   let isSmallScreen = useMediaQuery(`(max-width:${constants.BS_BREAKPOINT_MD})`);
+  let isMidcreen = useMediaQuery(`(max-width:${constants.BS_BREAKPOINT_XL})`);
 
   let formStyle = "py-2 py-md-4 Search__bar container";
   if (withReturn) {
     formStyle += " d-none d-md-block";
   }
+
+  // Helpers
+  const _getDateStr = (d) => {
+    let format = isMidcreen ? 'DD MMM' : 'DD MMMM';
+    return d.format(format);
+  }
+  let dateRangeStr = dateRange.map((d) => _getDateStr(d));
 
   // Handlers
   const _setDestination = (country, city) => {
@@ -61,14 +69,23 @@ function SearchBar (props) {
     setSearchCity(city);
   }
 
+  const setDate = (date1, date2) => {
+    let start = date1 ? dayjs(date1): dateRange[0];
+    let end = date2 ? dayjs(date2) : dateRange[1];
+
+    setDateRange( [start, end] );
+  }
+
   // Renderers
   const returnBtn = () => {
     if (!withReturn) return;
-
+    // Only visible in small screens
     return (
     <a href={SEARCH} className="d-md-none btn container py-3 px-3">
       <span className="material-icons text-dark">arrow_back</span>
-      <span className="text-secondary small">{searchCity}・17 June - 19 June・2 adults・1 room</span>
+      <span className="text-secondary small">
+        {searchCity}・{dateRangeStr[0]} - {dateRangeStr[1]}・{genGuestStr(numAdult, numChild, numRoom)}
+      </span>
     </a>
     );
   };
@@ -77,7 +94,7 @@ function SearchBar (props) {
     if(isSmallScreen) {
       return (
         <div className="d-md-none text-secondary">
-          17 june / 19 june
+          {dateRangeStr[0]} / {dateRangeStr[1]}
         </div>
       );
     } else return (
@@ -87,21 +104,55 @@ function SearchBar (props) {
         <ul className="list-unstyled list-row-divider-info d-none d-lg-flex">
           <li>
             <h5 className="Search__title">check-in</h5>
-            <p className="Search__subtitle">{dateRange[0]}</p>
+            <p className="Search__subtitle">{dateRangeStr[0]}</p>
           </li>
           <li>
             <h5 className="Search__title">check-out</h5>
-            <p className="Search__subtitle">{dateRange[1]}</p>
+            <p className="Search__subtitle">{dateRangeStr[1]}</p>
           </li>
         </ul>
         <div className="text-left d-lg-none">
           <h5 className="Search__title">check-in / out</h5>
-          <p className="Search__subtitle">{dateRange[0]} / {dateRange[1]}</p>
+          <p className="Search__subtitle">{dateRangeStr[0]} / {dateRangeStr[1]}</p>
         </div>
 
       </div>
       );
   }
+
+  const destBtnLg = () => (
+    <div>
+      <div className="d-none d-md-block">
+        <div className="d-flex align-items-center">
+          <div className="material-icons pr-lg-3 pr-2">location_on</div>
+          <div className="text-left">
+            <h5 className="Search__title">destination</h5>
+            <p className="Search__subtitle">{searchCity}, {searchCountry}</p>
+          </div>
+        </div>
+      </div>
+      <div className="d-md-none text-secondary">
+        {searchCity}
+      </div>
+    </div>
+  );
+
+  const guestBtnLg = () => (
+    <div>
+    <div className="d-none d-md-flex align-items-center">
+      <div className="material-icons pr-lg-3 pr-2">person</div>
+      <div className="text-left">
+        <h5 className="Search__title">guests</h5>
+        <p className="Search__subtitle">
+          {genGuestStr(numAdult, numChild, numRoom)}
+        </p>
+      </div>
+    </div>
+    <div className="d-md-none text-secondary">
+        {genGuestStr(numAdult, numChild, numRoom)}
+    </div>
+    </div>
+  );
 
   const destinations = () => {
     return locations.map(([country, city]) => (
@@ -138,14 +189,18 @@ function SearchBar (props) {
     <ul className="Search__options flex-column flex-lg-row">
       {/* Field Destination */}
       <li key="destination" className="mb-3 mb-lg-0">
-        <SearchItemBtn title="Destination" icon="location_on">
+        <SearchItemBtn titleRenderer={() => (
+          <div>
+            <span className="material-icons">location_on</span>Destination
+          </div>
+        )}>
           {destinations()}
         </SearchItemBtn>
       </li>
 
       {/* Field 2: Calendar */}
       <li key="calendar" className="mb-3 mb-lg-0">
-        <DatePicker name="small">
+        <DatePicker name="small" handler={setDate}>
           <span className="material-icons">date_range</span>
           Check-in / Check-out
         </DatePicker>
@@ -154,7 +209,12 @@ function SearchBar (props) {
 
       {/* Field 3: Guests */}
       <li key="guest" className="mb-3 mb-lg-0">
-        <SearchItemBtn title="Guests" icon="person">
+        <SearchItemBtn titleRenderer={() => (
+          <div>
+            <span className="material-icons">person</span>Guests
+          </div>
+          )}
+        >
           {visitors()}
         </SearchItemBtn>
       </li>
@@ -177,31 +237,14 @@ function SearchBar (props) {
 
       {/* Field 1: Destination */}
       <li key="destination">
-        <Dropdown>
-        <Dropdown.Toggle variant="light" bsPrefix="no-toggle" className="btn btn-light btn-block" type="button" data-toggle="dropdown" data-offset="0,8">
-          <div className="d-none d-md-block">
-            <div className="d-flex align-items-center">
-              <div className="material-icons pr-lg-3 pr-2">location_on</div>
-              <div className="text-left">
-                <h5 className="Search__title">destination</h5>
-                <p className="Search__subtitle">{searchCity}, {searchCountry}</p>
-              </div>
-            </div>
-          </div>
-          <div className="d-md-none text-secondary">
-            {searchCity}
-          </div>
-        </Dropdown.Toggle>
-
-        <Dropdown.Menu className="list-unstyled w-100">
+        <SearchItemBtn title={destBtnLg()}>
           {destinations()}
-        </Dropdown.Menu>
-        </Dropdown>
+        </SearchItemBtn>
       </li>
 
       {/* Field 2: Calendar */}
       <li key="datePicker">
-        <DatePicker name="large">
+        <DatePicker name="large" handler={setDate}>
           {dateBtnLg()}
         </DatePicker>
       </li>
@@ -209,26 +252,9 @@ function SearchBar (props) {
 
       {/* Field 3: Guests */}
       <li key="guests" className="border-right-0">
-        <Dropdown>
-        <Dropdown.Toggle variant="light" bsPrefix="no-toggle" className="btn btn-block" data-offset="0,8">
-          <div className="d-none d-md-flex align-items-center">
-            <div className="material-icons pr-lg-3 pr-2">person</div>
-            <div className="text-left">
-              <h5 className="Search__title">guests</h5>
-              <p className="Search__subtitle">
-                {genGuestStr(numAdult, numChild, numRoom)}
-              </p>
-            </div>
-          </div>
-          <div className="d-md-none text-secondary">
-              {genGuestStr(numAdult, numChild, numRoom)}
-          </div>
-        </Dropdown.Toggle>
-
-        <Dropdown.Menu className="list-unstyled w-100">
+        <SearchItemBtn title={guestBtnLg()}>
           {visitors()}
-        </Dropdown.Menu>
-        </Dropdown>
+        </SearchItemBtn>
       </li>
 
       <li key="buttons" className="flex-grow-0 flex-shrink-0 d-none d-md-block">

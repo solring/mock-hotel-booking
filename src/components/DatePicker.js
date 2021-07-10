@@ -8,11 +8,17 @@ class DatePicker extends React.Component {
     this.name = props.name || "";
     this.divId = `litepicker_${this.name}`;
     this.picker = null;
+
+    this.onSelected = this.onSelected.bind(this);
   }
 
   onSelected (date1, date2) {
-    console.log("onSelected");
-    if(this.handler) this.handler(date1, date2);
+    if(this.handler!==null) {
+      this.handler(
+        date1 ? date1.toJSDate() : undefined,
+        date2 ? date2.toJSDate() : undefined
+      );
+    }
   }
 
   componentDidMount() {
