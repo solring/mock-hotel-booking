@@ -10,6 +10,21 @@ import * as constants from '../utils/constants';
 
 import { SEARCH } from '../utils/links';
 
+function SearchItemBtn(props) {
+  const { title, icon} = props;
+  return (
+  <Dropdown>
+        <Dropdown.Toggle variant="light"  bsPrefix="no-toggle" className="btn btn-block text-left pl-3" data-offset="0,8">
+          <span className="material-icons">{icon}</span>
+          {title}
+        </Dropdown.Toggle>
+        <Dropdown.Menu className="list-unstyled w-100">
+          {props.children}
+        </Dropdown.Menu>
+  </Dropdown>
+  );
+}
+
 function SearchBar (props) {
   const {withReturn, simplified} = props;
   const locations = [
@@ -25,7 +40,7 @@ function SearchBar (props) {
   const [numAdult, setNumAdult] = useState(2);
   const [numChild, setNumChild] = useState(0);
   const [numRoom, setNumRoom] = useState(1);
-  const [dateRange, setDateRange] = useState(["", ""])
+  const [dateRange, setDateRange] = useState(["17 June", "19 June"])
 
   const numberOptions = [
     ['Adult', numAdult, setNumAdult],
@@ -72,16 +87,16 @@ function SearchBar (props) {
         <ul className="list-unstyled list-row-divider-info d-none d-lg-flex">
           <li>
             <h5 className="Search__title">check-in</h5>
-            <p className="Search__subtitle">17 June</p>
+            <p className="Search__subtitle">{dateRange[0]}</p>
           </li>
           <li>
             <h5 className="Search__title">check-out</h5>
-            <p className="Search__subtitle">19 June</p>
+            <p className="Search__subtitle">{dateRange[1]}</p>
           </li>
         </ul>
         <div className="text-left d-lg-none">
           <h5 className="Search__title">check-in / out</h5>
-          <p className="Search__subtitle">17 june / 19 june</p>
+          <p className="Search__subtitle">{dateRange[0]} / {dateRange[1]}</p>
         </div>
 
       </div>
@@ -123,15 +138,9 @@ function SearchBar (props) {
     <ul className="Search__options flex-column flex-lg-row">
       {/* Field Destination */}
       <li key="destination" className="mb-3 mb-lg-0">
-        <Dropdown>
-        <Dropdown.Toggle variant="light"  bsPrefix="no-toggle" className="btn btn-block text-left pl-3" data-offset="0,8">
-          <span className="material-icons">location_on</span>
-          Destination
-        </Dropdown.Toggle>
-        <Dropdown.Menu className="list-unstyled w-100">
+        <SearchItemBtn title="Destination" icon="location_on">
           {destinations()}
-        </Dropdown.Menu>
-        </Dropdown>
+        </SearchItemBtn>
       </li>
 
       {/* Field 2: Calendar */}
@@ -145,16 +154,9 @@ function SearchBar (props) {
 
       {/* Field 3: Guests */}
       <li key="guest" className="mb-3 mb-lg-0">
-        <Dropdown>
-
-        <Dropdown.Toggle variant="light" bsPrefix="no-toggle" className="btn btn-block text-left pl-3" data-offset="0,8">
-          <span className="material-icons">person</span>
-          Guests
-        </Dropdown.Toggle>
-        <Dropdown.Menu className="list-unstyled w-100">
+        <SearchItemBtn title="Guests" icon="person">
           {visitors()}
-        </Dropdown.Menu>
-        </Dropdown>
+        </SearchItemBtn>
       </li>
 
       <li key="button" className="flex-grow-0 flex-shrink-0">
@@ -207,8 +209,8 @@ function SearchBar (props) {
 
       {/* Field 3: Guests */}
       <li key="guests" className="border-right-0">
-        <Dropdown autoClose={false}>
-        <Dropdown.Toggle variant="light" bsPrefix="no-toggle" className="btn btn-block" type="button" data-toggle="dropdown" data-offset="0,8">
+        <Dropdown>
+        <Dropdown.Toggle variant="light" bsPrefix="no-toggle" className="btn btn-block" data-offset="0,8">
           <div className="d-none d-md-flex align-items-center">
             <div className="material-icons pr-lg-3 pr-2">person</div>
             <div className="text-left">

@@ -31,10 +31,16 @@ class DatePicker extends React.Component {
 
   render() {
     return (
-      <button id={this.divId} type="button"
-      className="btn btn-light btn-block text-left pl-3" >
+      <div>
+      <button  type="button"
+        className="btn btn-light btn-block text-left pl-3"
+        onClick={(e) => {
+          this.picker.show();
+        }}>
         {this.props.children}
       </button>
+      <div id={this.divId}></div>
+      </div>
     );
   }
 }
