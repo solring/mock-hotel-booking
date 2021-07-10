@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import React from 'react';
 import { Slider } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
-import { Collapse } from 'react-bootstrap';
+import FullscreenCollapse from './FullscreenCollapse';
 
 import * as constants from '../utils/constants';
 
@@ -40,84 +40,106 @@ let CustomSlider = withStyles({
   },
 })(Slider);
 
-function Filter(props) {
-  const { toggle, toggleSetter, fullscreen } = props;
+class Filter extends React.Component{
 
-  // Form data
-  const [deal, setDeal] = useState(Array(3).fill(false));
-  const [facility, setFacility] = useState(Array(3).fill(false));
-  const [priceRange, setPriceRange] = useState([1000,5000]);
-  const [rate, setRate] = useState(Array(6).fill(false));
-  const [stayType, setStayType] = useState(Array(4).fill(false));
+  constructor(props) {
+    super(props);
+    this.state = {};
 
-  const _Filter = () => {
-
-    const sections = [
+    this.sections = [
       {
         title: "Deals",
         options: [
           {
-            name: "freeCancel",
+            title: "freeCancel",
             text: "Free cancel",
           },
           {
-            name: "noPrepay",
+            title: "noPrepay",
             text: "No prepayment",
           },
           {
-            name: "specialOffer",
+            title: "specialOffer",
             text: "Special offer",
           },
         ],
-        state: [deal, setDeal],
       },
       {
         title: "Popular Filters",
         options: [
           {
-            name: "breakfast",
+            title: "breakfast",
             text: "Breakfast included",
           },
           {
-            name: "freeWifi",
+            title: "freeWifi",
             text: "Free Wifi",
           },
           {
-            name: "swimmingPool",
+            title: "swimmingPool",
             text: "Swimming pool",
           },
         ],
-        state: [facility, setFacility],
       },
       {
         title: "Stay Type",
         options: [
           {
-            name: "hotel",
+            title: "hotel",
             text: "Hotel",
           },
           {
-            name: "apartment",
+            title: "apartment",
             text: "Apartment",
           },
           {
-            name: "unique",
+            title: "unique",
             text: "Unique",
           },
           {
-            name: "hostel",
+            title: "hostel",
             text: "Hostel",
           },
         ],
-        state: [stayType, setStayType],
       },
     ]
 
-    /* ------- Slider -------- */
+    // check box data
+    this.sections.map((sec) =>{
+      sec.options.map((opt) => {
+        this.state[opt.title] = false;
+      })
+    });
+    [0,1,2,3,4,5].map((i) => {
+      this.state[`rate${i}`] = false;
+    })
+    
+    this.state['priceRange'] = [1000, 5000];
 
-    const sliderHandler = (event, newValue) => {
-      setPriceRange(newValue);
-    }
+    this.checkBoxHandler = this.checkBoxHandler.bind(this);
+    this.sliderHandler = this.sliderHandler.bind(this);
+    this.closeFilter = this.closeFilter.bind(this);
+    this._Filter = this._Filter.bind(this);
+  }
+
+  // Handlers
+  checkBoxHandler(e) {
+    const target = e.target;
+    const value = target.checked;
+    const title = target.title;
+    this.setState({ [title]: value });
+  }
+
+  sliderHandler(e, newValue) {
+    this.setState({'priceRange' : newValue});
+  }
+
+  closeFilter(e){
+    this.props.toggleSetter(false);
+  }
+
+  // Filter implementation
+  _Filter() {
 
     /* ------ helper functions ------ */
     const genCheckBox = (sec, prefix) => {
@@ -126,17 +148,13 @@ function Filter(props) {
           <h6 className="card-title">{sec.title}</h6>
           <ul className="list-gap-8">
             {sec.options.map((option, idx) => (
-              <li key={option.name} className="custom-control custom-checkbox">
+              <li key={option.title} className="custom-control custom-checkbox">
               <input type="checkbox" className="custom-control-input"
-                id={`${prefix}_${option.name}_Check`} name={option.name}
-                value={sec.state[0][idx]}
-                onChange={(e) => {
-                  let newArr = {...sec.state[0]};
-                  newArr[idx] = e.target.checked;
-                  sec.state[1](newArr);
-                }}
+                id={`${prefix}_${option.title}_Check`} title={option.title}
+                value={this.state[option.title]}
+                onChange={this.checkBoxHandler}
               />
-              <label htmlFor={`${prefix}_${option.name}_Check`} className="custom-control-label text-secondary">{option.text}</label>
+              <label htmlFor={`${prefix}_${option.title}_Check`} className="custom-control-label text-secondary">{option.text}</label>
               </li>
             ))}
           </ul>
@@ -153,13 +171,9 @@ function Filter(props) {
           <li key={`rate${i}`}className="custom-control custom-checkbox">
             <input
               type="checkbox" className="custom-control-input"
-              id={`rate${i}_Check`} name="rate{i}"
-              value={rate[i]}
-              onChange={(e) => {
-                let newRate = [...rate];
-                newRate[i] = e.target.checked;
-                setRate(newRate);
-              }}
+              id={`rate${i}_Check`} title={`rate${i}`}
+              value={this.state[`rage${i}`]}
+              onChange={this.checkBoxHandler}
             />
             <label htmlFor={`rate${i}_Check`} className="custom-control-label">
               <span className="material-icons">
@@ -171,13 +185,9 @@ function Filter(props) {
         ))}
           <li key="unrated" className="custom-control custom-checkbox">
             <input type="checkbox" className="custom-control-input"
-              id="unrateCheck" name="unrate"
-              value={rate[0]}
-              onChange={(e) => {
-                let newRate = [...rate];
-                newRate[0] = e.target.checked;
-                setRate(newRate);
-              }}
+              id="unrateCheck" title="unrate"
+              value={this.state["rate0"]}
+              onChange={this.checkBoxHandler}
             />
             <label htmlFor="unrateCheck" className="custom-control-label text-secondary">Unrated</label>
           </li>
@@ -187,106 +197,94 @@ function Filter(props) {
 
     return (
 
-  <form target="#" method="get" className="filter">
+      <form target="#" method="get" className="filter">
 
-  <ul className="list-divider-white">
+      <ul className="list-divider-white">
 
-    <li key="sec1">
-      {genCheckBox(sections[0], "_")}
-    </li>
-
-    <li key="sec2">
-      {genCheckBox(sections[1], "_")}
-    </li>
-
-    <li key="sec3">
-      <h6 className="card-title">Budget</h6>
-
-      <CustomSlider
-        value={priceRange}
-        onChange={sliderHandler}
-        max={constants.MAX_FILTER_PRICE}
-        min={constants.MIN_FILTER_PRICE}
-        step={constants.FILTER_STEP}
-      />
-
-      <ul className="Filter__priceTag w-100">
-        <li key="minPrice">
-          <p className="title">min price</p>
-          <div className="d-flex price">
-            <span className="number">
-              {priceRange[0]}
-            </span>
-            <span className="label">TWD</span>
-          </div>
+        <li key="sec1">
+          {genCheckBox(this.sections[0], "_")}
         </li>
-        <li className="divider">
-          -
+
+        <li key="sec2">
+          {genCheckBox(this.sections[1], "_")}
         </li>
-        <li key="maxPrice">
-          <p className="title">max price</p>
-          <div className="d-flex price">
-            <span className="number">
-              {priceRange[1]}
-            </span>
-            <span className="label">TWD</span>
-          </div>
+
+        <li key="sec3">
+          <h6 className="card-title">Budget</h6>
+
+          <CustomSlider
+            value={this.state.priceRange}
+            onChange={this.sliderHandler}
+            max={constants.MAX_FILTER_PRICE}
+            min={constants.MIN_FILTER_PRICE}
+            step={constants.FILTER_STEP}
+          />
+
+          <ul className="Filter__priceTag w-100">
+            <li key="minPrice">
+              <p className="title">min price</p>
+              <div className="d-flex price">
+                <span className="number">
+                  {this.state.priceRange[0]}
+                </span>
+                <span className="label">TWD</span>
+              </div>
+            </li>
+            <li className="divider">
+              -
+            </li>
+            <li key="maxPrice">
+              <p className="title">max price</p>
+              <div className="d-flex price">
+                <span className="number">
+                  {this.state.priceRange[1]}
+                </span>
+                <span className="label">TWD</span>
+              </div>
+            </li>
+          </ul>
+        </li>
+
+        <li key="sec4">
+          <h6 className="card-title">Rating</h6>
+          {genGradeForm()}
+        </li>
+        <li key="sec5">
+          {genCheckBox(this.sections[2], "_")}
         </li>
       </ul>
-    </li>
 
-    <li key="sec4">
-      <h6 className="card-title">Rating</h6>
-      {genGradeForm()}
-    </li>
-    <li key="sec5">
-      {genCheckBox(sections[2], "_")}
-    </li>
-  </ul>
-
-  </form>
+      </form>
     );
   }
 
-  const close = () => toggleSetter(!toggle);
+  render() {
 
-  if(!fullscreen) return _Filter();
-  else return (
-
-<Collapse in={toggle} className="Fullscreen__collapse">
-  <div> {/* Essential for Collapse to animate smoothly.*/}
-  <div className="Fullscreen__collapse-wrapper">
-
-    <div className="Fullscreen__header bg-light">
+    const bottomModal = (
       <div>
-        <span className="material-icons icon-lg">filter_list</span> FILTER
-      </div>
-      <button type="button" className="btn btn-link text-dark" onClick={close}>
-        <span className="material-icons icon-lg">close</span>
-      </button>
-    </div>
-
-    <div className="Fullscreen__content bg-info">
-      <div className="container pt-4">
-        {_Filter()}
-      </div>
-    </div>
-
-    <div className="Fullscreen__footer bottom-modal text-left">
-      <div className="bottom-modal-wrapper">
         <h4 className="mb-4">Find 1,245 results</h4>
         <div className="row">
-          <div className="col-6"><button className="btn btn-outline-light btn-lg btn-block text-uppercase" onClick={close} >clear</button></div>
-          <div className="col-6"><button className="btn btn-primary btn-lg btn-block text-uppercase" onClick={close} >filter</button></div>
+          <div className="col-6"><button className="btn btn-outline-light btn-lg btn-block text-uppercase" onClick={this.closeFilter} >clear</button></div>
+          <div className="col-6"><button className="btn btn-primary btn-lg btn-block text-uppercase" onClick={this.closeFilter} >filter</button></div>
         </div>
       </div>
-    </div>
+    );
 
-  </div>
-  </div>
-</Collapse>
-
-  );
+    if(!this.props.fullscreen) return this._Filter();
+    else return (
+      <FullscreenCollapse toggle={this.props.toggle}
+        onClose={this.closeFilter}
+        title={(
+          <div>
+              <span className="material-icons icon-lg">filter_list</span> FILTER
+          </div>
+        )}
+        footer={bottomModal}
+      >
+        {this._Filter()}
+      </FullscreenCollapse>
+    );
+  }
 }
 
 export default Filter;

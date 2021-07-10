@@ -22,9 +22,9 @@ function ButtomModel(props) {
           <button className="btn btn-outline-primary btn-lg btn-block text-uppercase" onClick={clearHandler}>cencel</button>
         </div>
         <div className="col-6">
-          <a className="btn btn-primary btn-lg btn-block text-uppercase" onClick={confirmAction}>
+          <button className="btn btn-primary btn-lg btn-block text-uppercase" onClick={confirmAction}>
             {confirmText}
-          </a>
+          </button>
         </div>
       </div>
     </div>

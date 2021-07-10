@@ -3,7 +3,7 @@ import React from 'react';
 
 class DatePicker extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.handler = props.handler || null;
     this.name = props.name || "";
     this.divId = `litepicker_${this.name}`;
