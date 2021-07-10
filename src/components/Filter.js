@@ -3,6 +3,7 @@ import { Slider } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 import FullscreenCollapse from './FullscreenCollapse';
+import BottomModal from './BottomModal';
 
 import * as constants from '../utils/constants';
 
@@ -261,13 +262,16 @@ class Filter extends React.Component{
   render() {
 
     const bottomModal = (
-      <div>
+      <BottomModal
+        toggle={true}
+        clearHandler={this.closeFilter}
+        confirmText="Filter"
+        confirmAction={this.closeFilter} //TODO: filter action
+        direction="row"
+        collapse={false}
+      >
         <h4 className="mb-4">Find 1,245 results</h4>
-        <div className="row">
-          <div className="col-6"><button className="btn btn-outline-light btn-lg btn-block text-uppercase" onClick={this.closeFilter} >clear</button></div>
-          <div className="col-6"><button className="btn btn-primary btn-lg btn-block text-uppercase" onClick={this.closeFilter} >filter</button></div>
-        </div>
-      </div>
+      </BottomModal>
     );
 
     if(!this.props.fullscreen) return this._Filter();

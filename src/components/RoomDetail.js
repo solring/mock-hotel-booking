@@ -258,11 +258,16 @@ function RoomDetail(props) {
 
     {/* Cart*/}
     <BottomModal
+      collapse={true}
       toggle={cart}
       clearHandler={onClearCart}
       confirmText="Reserve"
       confirmAction={() => window.location.href = links.ORDER}
-      total={totalPrice} roomNum={roomNum} night={searchOptions.night}/>
+      direction="row"
+    >
+      <p className="small text-secondary">{roomNum} room・{searchOptions.night} night</p>
+      <h4 className="mb-4">TWD {totalPrice}</h4>
+    </BottomModal>
   </div>
   );
 }

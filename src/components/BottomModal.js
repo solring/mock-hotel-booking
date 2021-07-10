@@ -6,16 +6,19 @@ function ButtomModel(props) {
     clearHandler,
     confirmText,
     confirmAction,
-    total,
-    roomNum,
-    night} = props;
-  return (
-<Collapse in={toggle} id="cartCollapse" className="BottomModal fixed-bottom">
+    direction,
+    collapse,
+    } = props;
+
+  let layoutClass = (direction === 'vertical') ?
+    "" :
+    "container d-flex justify-content-md-between flex-column flex-md-row";
+
+  const Content = (
   <div className="BottomModal__wrapper">
-    <div className="container d-flex justify-content-md-between flex-column flex-md-row">
+    <div className={layoutClass}>
       <div>
-        <p className="small text-secondary">{roomNum} room・{night} night</p>
-        <h4 className="mb-4">TWD {total}</h4>
+        {props.children}
       </div>
       <div className="row">
         <div className="col-6">
@@ -29,7 +32,18 @@ function ButtomModel(props) {
       </div>
     </div>
   </div>
-</Collapse>
+  )
+
+  if(collapse) {
+    return (
+    <Collapse in={toggle} id="cartCollapse" className="BottomModal fixed-bottom">
+      {Content}
+    </Collapse>
+    )
+  } else return (
+    <div className="BottomModal">
+      {Content}
+    </div>
   );
 }
 

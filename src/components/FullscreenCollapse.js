@@ -21,10 +21,8 @@ export default (props) => {
           </div>
         </div>
 
-        <div className="Fullscreen__footer BottomModal text-left">
-          <div className="BottomModal__wrapper">
-            {footer}
-          </div>
+        <div className="Fullscreen__footer">
+          {footer}
         </div>
 
       </div>

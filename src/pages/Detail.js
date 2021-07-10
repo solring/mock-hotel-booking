@@ -5,7 +5,6 @@ import Footer from '../components/Footer';
 import SearchBar from '../components/SearchBar';
 
 import RoomDetail from '../components/RoomDetail';
-import BottomModal from '../components/BottomModal';
 import Subscription from '../components/Subscription';
 
 function DetailPage (){
@@ -18,7 +17,6 @@ function DetailPage (){
       <Layout.Content>
         <RoomDetail />
         <Subscription size="small" />
-        <BottomModal total={3259} roomNum={1} night={2} />
         <Footer short={false} />
       </Layout.Content>
     </Layout>
