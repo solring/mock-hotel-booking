@@ -28,11 +28,11 @@ function HotelCard(props) {
       return (
         <div>
           <p className={`HotelCard__oldPrice`}><del>TWD {room.oldPrice}</del></p>
-          <h4 className="fz-hotel-title">TWD <span className="h6-md text-primary">{room.price}</span></h4>
+          <h4 className="HotelCard__title">TWD <span className="h6-md text-primary">{room.price}</span></h4>
         </div>
       );
     } else {
-      return <h4 className="fz-hotel-title">TWD {room.price}</h4>;
+      return <h4 className="HotelCard__title">TWD {room.price}</h4>;
     }
   };
 
@@ -77,7 +77,7 @@ function HotelCard(props) {
                   <span className="text-primary">{room.location}</span>
                   <span className="d-none d-lg-inline">・{room.distance}km from center</span>
                 </p>
-                <h4 className="card-title fz-hotel-title">{room.name}</h4>
+                <h4 className="card-title HotelCard__title">{room.name}</h4>
               </div>
 
               <div className="col-md-5">

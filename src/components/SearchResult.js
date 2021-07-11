@@ -11,9 +11,6 @@ import { hotelData } from '../utils/mockdata';
 
 function SearchResult(props) {
 
-  const isSmallScreen = useMediaQuery(`(max-width:${constants.BS_BREAKPOINT_MD})`);
-  const [filterOn, setFilterOn] = useState(false);
-
   const groups = {
     "recomment": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     "price": [7, 4, 5, 3, 8, 1],
@@ -27,6 +24,11 @@ function SearchResult(props) {
     ["value", "Best value"],
     ["distance", "Distance to City Center"],
   ];
+
+  const [currTab, setCurrTab ] = useState(tabs[0][0]);
+
+  const isSmallScreen = useMediaQuery(`(max-width:${constants.BS_BREAKPOINT_MD})`);
+  const [filterOn, setFilterOn] = useState(false);
 
   const getRooms = (category) => {
     let idxes = groups[category];
@@ -55,7 +57,9 @@ function SearchResult(props) {
     <Nav variant="tabs" className="flex-nowrap">
         {tabs.map(([short, title]) => (
           <Nav.Item key={short} >
-            <Nav.Link eventKey={short} className="h6">{title}</Nav.Link>
+            <Nav.Link eventKey={short} className="h6"
+              onClick={() => setCurrTab(short)}
+            >{title}</Nav.Link>
           </Nav.Item>
         ))}
     </Nav>
@@ -110,7 +114,7 @@ function SearchResult(props) {
   <div>
 
     <div className="container px-0 px-md-3 pt-4">
-      <Tab.Container defaultActiveKey={tabs[0][0]}>
+      <Tab.Container defaultActiveKey={currTab}>
 
         <div className="row align-items-basline mb-3">
           <div className="col-md-4 text-center text-md-left">

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Tab, Nav } from 'react-bootstrap';
 
 function ConfirmedBooking(props) {
@@ -6,6 +7,7 @@ function ConfirmedBooking(props) {
   const tabs = [
     "Upcoming", "Completed"
   ];
+  const [currTab, setCurrTab ] = useState(tabs[0]);
 
   const genBookings = (bookings) => {
     return (
@@ -59,12 +61,14 @@ function ConfirmedBooking(props) {
   }
 
   return (
-    <Tab.Container defaultActiveKey={tabs[0]}>
+    <Tab.Container defaultActiveKey={currTab}>
 
     <Nav className="mb-4 font-weight-bold" role="tablist">
       {tabs.map((tab) => (
         <Nav.Item key={tab} className="nav-item">
-          <Nav.Link eventKey={tab}>{tab}</Nav.Link>
+          <Nav.Link eventKey={tab} onClick={() => setCurrTab(tab)}>
+            {tab}
+          </Nav.Link>
         </Nav.Item>
       ))}
     </Nav>
@@ -72,7 +76,7 @@ function ConfirmedBooking(props) {
     <Tab.Content>
       {tabs.map((tab) => (
         <Tab.Pane eventKey={tab}>
-          {genBookings(data[tab])}
+          {genBookings(data.filter(booking => booking.status === tab))}
         </Tab.Pane>
       ))}
     </Tab.Content>

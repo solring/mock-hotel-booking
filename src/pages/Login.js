@@ -1,32 +1,53 @@
-import Layout from '../layout/Layout';
+import { useState } from 'react';
 
+import Layout from '../layout/Layout';
 import Header from '../components/Header';
 
 import { MEMBER } from '../utils/links';
 
 function Page (){
 
+  // Form data
+  const [user, setUser] = useState("");
+  const [pwd, setPwd] = useState("");
+  const [remember, setRemember] = useState(false);
+
+  const login = () => {
+    console.log("Login");
+    // remember username/pwd
+    // submit
+  };
+
   const loginForm = (
-    <form action={MEMBER} method="get" data-aos="fade-left">
+    <form onSubmit={login} data-aos="fade-left">
       <h2 className="mb-3">Login</h2>
 
       <div className="form-group">
-        <label className="text-secondary" for="loginEmail">Email</label>
-        <input id="loginEmail" type="text" className="form-control form-control-lg" />
+        <label className="text-secondary" forHtml="loginEmail">Email</label>
+        <input id="loginEmail" type="text" className="form-control form-control-lg"
+          value={user} onChange={(e) => setUser(e.target.value)}
+        />
       </div>
       <div className="form-group">
-        <label className="text-secondary" for="loginPwd">Password</label>
-        <input id="loginPwd" type="password" className="form-control form-control-lg" />
+        <label className="text-secondary" forHtml="loginPwd">Password</label>
+        <input id="loginPwd" type="password" className="form-control form-control-lg"
+          value={pwd} onChange={(e) => setPwd(e.target.value)}
+        />
       </div>
 
       <p className="small text-secondary mt-4">
         By signing in or creating an account, you agree with our <a href="#">Terms & Conditions</a> and <a href="#">Privacy Statement</a>
       </p>
 
-      <div className="custom-form custom-checkbox mt-3 mb-5 ml-4">
-        <input type="checkbox" id="rememberCheck" className="custom-control-input" />
-        <label for="rememberCheck" className="custom-control-label text-secondary">Remember me</label>
-      </div>
+      <ul className="mt-3 mb-5">
+          <li key="unrated" className="custom-control custom-checkbox">
+            <input type="checkbox" className="custom-control-input"
+              id="rememberCheck" title="rememberCheck"
+              value={remember} onChange={(e) => setRemember(e.target.checked)}
+            />
+            <label htmlFor="rememberCheck" className="custom-control-label text-secondary">Remember me</label>
+          </li>
+      </ul>
 
       <button className="btn btn-primary btn-block btn-lg text-uppercase" type="submit">login</button>
       <p className="text-sub text-secondary mt-2">

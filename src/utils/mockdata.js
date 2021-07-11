@@ -392,8 +392,7 @@ export let memberData = {
   ],
 };
 
-export let bookings = {
-  "Upcoming": [
+export let bookings = [
     {
       name: "Rachada Hotel",
       room: "Deluxe Suite with Pool",
@@ -403,6 +402,7 @@ export let bookings = {
       adults: 2,
       price: "4,633",
       img: Rachada1,
+      status: "Completed",
     },
     {
       name: "WOW Life Hotel",
@@ -412,9 +412,8 @@ export let bookings = {
       adults: 2,
       price: "13,084",
       img: Chatuchack1,
+      status: "Completed",
     },
-  ],
-  "Completed": [
     {
       name: "DD Space",
       room: "Standard Double",
@@ -424,9 +423,9 @@ export let bookings = {
       adults: 2,
       price: "3,450",
       img: DinDaeng1,
+      status: "Upcoming",
     },
-  ],
-};
+];
 
 // Search data
 export let searchOptions = {

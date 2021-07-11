@@ -114,7 +114,7 @@ class Filter extends React.Component{
     [0,1,2,3,4,5].map((i) => {
       this.state[`rate${i}`] = false;
     })
-    
+
     this.state['priceRange'] = [1000, 5000];
 
     this.checkBoxHandler = this.checkBoxHandler.bind(this);

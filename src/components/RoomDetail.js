@@ -12,7 +12,7 @@ import NumberPicker from './NumberPicker';
 import BottomModal from './BottomModal';
 import { genGuestStr } from '../utils/utils';
 
-import { availableRooms, hotelInfo, hotelPics, searchOptions } from '../utils/mockdata';
+import { availableRooms, hotelInfo, hotelPics } from '../utils/mockdata';
 
 SwiperCore.use([Navigation])
 
@@ -153,8 +153,9 @@ function _RoomList(props) {
 }
 
 function RoomDetail(props) {
+  const { searchOptions } = props;
 
-  const [cart, setCart] = useState(false);
+  const [cartModal, setCartModal] = useState(false);
   const [order, setOrder] = useState(Array(availableRooms.length).fill(0));
 
   let totalPrice = availableRooms.map(
@@ -162,16 +163,25 @@ function RoomDetail(props) {
     ).reduce((a,b) => a+b, 0);
   let roomNum = order.reduce((a, b)=>a+b, 0);
 
+  // Handlers
   const onClearCart = () => {
-    setCart(false);
+    setCartModal(false);
     setOrder(Array(availableRooms.length).fill(0));
   }
 
   const onOrderChangeHandler = (order) => {
     setOrder(order);
-    if (!cart) setCart(!cart);
+    if (!cartModal) setCartModal(!cartModal);
   };
 
+  const addToCart = () => {
+    // set order data
+    // call api and goto comfirmation page
+    window.location.href = links.ORDER;
+  }
+
+
+  // ===== Rengerers & Components =====
   const picGrid = (
     <div className="row Hotel__picGroup no-gutters d-none d-md-flex" data-aos="fade-down">
       <div className="col-md-7 h-100">
@@ -256,13 +266,13 @@ function RoomDetail(props) {
         onOrderChange={onOrderChangeHandler}/>
     </div>
 
-    {/* Cart*/}
+    {/* CartModal*/}
     <BottomModal
       collapse={true}
-      toggle={cart}
+      toggle={cartModal}
       clearHandler={onClearCart}
       confirmText="Reserve"
-      confirmAction={() => window.location.href = links.ORDER}
+      confirmAction={addToCart}
       direction="row"
     >
       <p className="small text-secondary">{roomNum} room・{searchOptions.night} night</p>

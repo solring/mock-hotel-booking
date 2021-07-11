@@ -3,7 +3,7 @@ import { LANGUAGES } from '../utils/language';
 
 import profilePic from '../assets/images/profile.jpg'
 
-import { INDEX } from '../utils/links';
+import { INDEX, LOGIN } from '../utils/links';
 
 function Header(props) {
   const {simple, member} = props;
@@ -15,7 +15,7 @@ function Header(props) {
     if (member) return;
     return (
       <li className="nav-item ml-4">
-        <a href="sign-up.html" className="nav-link">Sign up</a>
+        <a href="" className="nav-link">Sign up</a>
       </li>
     );
   };
@@ -42,7 +42,7 @@ function Header(props) {
     } else {
       return (
         <li className="nav-item ml-4">
-            <a href="login.html" className="nav-link">Login</a>
+            <a href={LOGIN} className="nav-link">Login</a>
         </li>
       );
     }
