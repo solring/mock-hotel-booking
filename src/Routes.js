@@ -12,6 +12,8 @@ import ConfirmedOrderPage from './pages/ConfirmedOrder';
 import MemberPage from './pages/Member';
 import LoginPage from './pages/Login';
 
+import NotFound from './pages/NoFound';
+
 export default (props) => {
   return (
     <Router>
@@ -24,6 +26,8 @@ export default (props) => {
         <Route path={links.CONFIRMATION} component={ConfirmedOrderPage} />
         <Route path={links.MEMBER} component={MemberPage} />
         <Route path={links.LOGIN} component={LoginPage} />
+
+        <Route path="*" component={NotFound} />
 
       </Switch>
     </Router>
