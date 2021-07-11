@@ -189,7 +189,7 @@ function SearchBar (props) {
     <ul className="Search__options flex-column flex-lg-row">
       {/* Field Destination */}
       <li key="destination" className="mb-3 mb-lg-0">
-        <SearchItemBtn titleRenderer={() => (
+        <SearchItemBtn title={(
           <div>
             <span className="material-icons">location_on</span>Destination
           </div>
@@ -209,7 +209,7 @@ function SearchBar (props) {
 
       {/* Field 3: Guests */}
       <li key="guest" className="mb-3 mb-lg-0">
-        <SearchItemBtn titleRenderer={() => (
+        <SearchItemBtn title={(
           <div>
             <span className="material-icons">person</span>Guests
           </div>
