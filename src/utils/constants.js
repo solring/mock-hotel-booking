@@ -9,3 +9,9 @@ export const BS_BREAKPOINT_SM = "576px";
 export const BS_BREAKPOINT_MD = "768px";
 export const BS_BREAKPOINT_LG = "992px";
 export const BS_BREAKPOINT_XL = "1200px";
+
+export const DAYJS_PARSE_FORMATE = "YYYY-MM-DD";
+
+// Strings
+export const DEFAULT_CITY_STR = "City";
+export const DEFAULT_COUNTRY_STR = "Country";

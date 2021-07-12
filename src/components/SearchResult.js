@@ -10,7 +10,7 @@ import * as constants from '../utils/constants';
 import { hotelData } from '../utils/mockdata';
 
 function SearchResult(props) {
-
+  console.log(props.location);
   const groups = {
     "recomment": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     "price": [7, 4, 5, 3, 8, 1],

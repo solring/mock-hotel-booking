@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Dropdown } from 'react-bootstrap';
 import { useMediaQuery } from '@material-ui/core';
 import dayjs from 'dayjs';
+import queryString from 'query-string';
 
 import NumberPicker from './NumberPicker';
 import DatePicker from './DatePicker';
@@ -10,12 +11,18 @@ import { SEARCH } from '../utils/links';
 import { genGuestStr } from '../utils/utils';
 import * as constants from '../utils/constants';
 
+import { suggestLocs } from '../utils/mockdata';
+
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+dayjs.extend(customParseFormat)
 
 function SearchItemBtn(props) {
-  const { title} = props;
+  const { title, onToggle } = props;
   return (
-  <Dropdown>
-        <Dropdown.Toggle variant="light"  bsPrefix="no-toggle" className="btn btn-block text-left pl-3" data-offset="0,8">
+  <Dropdown onToggle={onToggle}>
+        <Dropdown.Toggle variant="light"  bsPrefix="no-toggle"
+          className="btn btn-block text-left pl-3" data-offset="0,8"
+        >
           {title}
         </Dropdown.Toggle>
         <Dropdown.Menu className="list-unstyled w-100">
@@ -26,21 +33,40 @@ function SearchItemBtn(props) {
 }
 
 function SearchBar (props) {
-  const {withReturn, simplified} = props;
-  const locations = [
-    ['Bangkok', 'Thailand'],
-    ['Osaka', 'Japan'],
-    ['Roma', 'Italy'],
-    ['Paris', 'France'],
-    ['Reykjavik', 'Iceland'],
-  ];
+  const {
+    withReturn,
+    simplified,
+    city,
+    country,
+    adult,
+    child,
+    room,
+    startDate,
+    endDate,
+   } = props;
 
-  const [searchCountry, setSearchCountry] = useState('Bangkok');
-  const [searchCity, setSearchCity] = useState('Thailand');
-  const [numAdult, setNumAdult] = useState(2);
-  const [numChild, setNumChild] = useState(0);
-  const [numRoom, setNumRoom] = useState(1);
-  const [dateRange, setDateRange] = useState([dayjs(), dayjs()])
+  let defCity = city || constants.DEFAULT_CITY_STR;
+  let defCountry = country || constants.DEFAULT_COUNTRY_STR;
+  let defAdult = parseInt(adult) || 2;
+  let defChild = parseInt(child)|| 0;
+  let defRoom = parseInt(room)|| 1;
+  let defStart = startDate ?
+    dayjs(startDate, constants.DAYJS_PARSE_FORMATE) :
+    dayjs();
+  let defEnd = endDate ?
+    dayjs(endDate, constants.DAYJS_PARSE_FORMATE) :
+    dayjs();
+
+  const [searchCountry, setSearchCountry] = useState(defCountry);
+  const [searchCity, setSearchCity] = useState(defCity);
+  const [numAdult, setNumAdult] = useState(defAdult);
+  const [numChild, setNumChild] = useState(defChild);
+  const [numRoom, setNumRoom] = useState(defRoom);
+  const [dateRange, setDateRange] = useState([defStart, defEnd]);
+
+  // For UI only
+  const [touchedCal, setTouchedCal] = useState(false);
+  const [touchedGuest, setTouchedGuest] = useState(false);
 
   const numberOptions = [
     ['Adult', numAdult, setNumAdult],
@@ -60,23 +86,47 @@ function SearchBar (props) {
   const _getDateStr = (d) => {
     let format = isMidcreen ? 'DD MMM' : 'DD MMMM';
     return d.format(format);
-  }
+  };
   let dateRangeStr = dateRange.map((d) => _getDateStr(d));
 
   // Handlers
-  const _setDestination = (country, city) => {
+  const setDestination = (city, country) => {
     setSearchCountry(country);
     setSearchCity(city);
-  }
+  };
 
   const setDate = (date1, date2) => {
     let start = date1 ? dayjs(date1): dateRange[0];
     let end = date2 ? dayjs(date2) : dateRange[1];
 
     setDateRange( [start, end] );
-  }
+    setTouchedCal(true);
+  };
+
+  const doSearch = (e) => {
+    console.log("doSearch");
+    e.preventDefault();
+    let searchOptions = {
+      country: searchCountry,
+      city: searchCity,
+      adult: numAdult,
+      child: numChild,
+      room: numRoom,
+      startDate: dayjs(dateRange[0]).format(constants.DAYJS_PARSE_FORMATE),
+      endDate: dayjs(dateRange[1]).format(constants.DAYJS_PARSE_FORMATE),
+    };
+    let str = queryString.stringify(searchOptions);
+    window.location.href = SEARCH + '?' + str;
+  };
 
   // Renderers
+  const genLocStr = () => {
+    if (searchCity === constants.DEFAULT_CITY_STR &&
+      searchCountry === constants.DEFAULT_COUNTRY_STR)
+      return "Destination";
+    return `${searchCity}, ${searchCountry}`;
+  };
+
   const returnBtn = () => {
     if (!withReturn) return;
     // Only visible in small screens
@@ -127,7 +177,7 @@ function SearchBar (props) {
           <div className="material-icons pr-lg-3 pr-2">location_on</div>
           <div className="text-left">
             <h5 className="Search__title">destination</h5>
-            <p className="Search__subtitle">{searchCity}, {searchCountry}</p>
+            <p className="Search__subtitle">{genLocStr()}</p>
           </div>
         </div>
       </div>
@@ -155,10 +205,10 @@ function SearchBar (props) {
   );
 
   const destinations = () => {
-    return locations.map(([country, city]) => (
+    return suggestLocs.map(([country, city]) => (
       <Dropdown.Item key={city}>
         <a className="d-block"
-          onClick={() => _setDestination(country, city)}
+          onClick={() => setDestination(country, city)}
         >
           <div className="d-flex align-items-center">
             <div className="material-icons icon-lg mr-2">grade</div>
@@ -185,13 +235,14 @@ function SearchBar (props) {
 
   const searchBarSmall = (
 
-  <form className="p-4 Search__bar bg-info rounded-lg" action={SEARCH} method="get">
+  <form className="p-4 Search__bar bg-info rounded-lg" onSubmit={doSearch}>
     <ul className="Search__options flex-column flex-lg-row">
       {/* Field Destination */}
       <li key="destination" className="mb-3 mb-lg-0">
         <SearchItemBtn title={(
           <div>
-            <span className="material-icons">location_on</span>Destination
+            <span className="material-icons mr-2">location_on</span>
+            {genLocStr()}
           </div>
         )}>
           {destinations()}
@@ -201,17 +252,19 @@ function SearchBar (props) {
       {/* Field 2: Calendar */}
       <li key="calendar" className="mb-3 mb-lg-0">
         <DatePicker name="small" handler={setDate}>
-          <span className="material-icons">date_range</span>
-          Check-in / Check-out
+          <span className="material-icons mr-2">date_range</span>
+          {touchedCal ? `${dateRangeStr[0]} / ${dateRangeStr[1]}` : "Check-in / Check-out"}
         </DatePicker>
       </li>
 
 
       {/* Field 3: Guests */}
       <li key="guest" className="mb-3 mb-lg-0">
-        <SearchItemBtn title={(
+        <SearchItemBtn onToggle={() => setTouchedGuest(true)}
+        title={(
           <div>
-            <span className="material-icons">person</span>Guests
+            <span className="material-icons mr-2">person</span>
+            {touchedGuest ? genGuestStr(numAdult, numChild, numRoom) : "Guest"}
           </div>
           )}
         >
@@ -231,7 +284,7 @@ function SearchBar (props) {
   <div className="bg-info text-center">
       {returnBtn()}
 
-  <form className={formStyle} action={SEARCH} method="get">
+  <form className={formStyle} onSubmit={doSearch}>
 
     <ul className="Search__options Search__collapse-sm">
 

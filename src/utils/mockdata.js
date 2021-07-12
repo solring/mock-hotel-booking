@@ -26,6 +26,14 @@ import DinDaeng2 from "../assets/images/DinDaeng2.jpg";
 
 import profilePic from "../assets/images/profile.jpg";
 
+export const suggestLocs = [
+  ['Bangkok', 'Thailand'],
+  ['Osaka', 'Japan'],
+  ['Roma', 'Italy'],
+  ['Paris', 'France'],
+  ['Reykjavik', 'Iceland'],
+];
+
 export const blogPosts = [
   {
     title: "Fifth Most Visited Country",
