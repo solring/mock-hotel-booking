@@ -10,7 +10,8 @@ import * as constants from '../utils/constants';
 import { hotelData } from '../utils/mockdata';
 
 function SearchResult(props) {
-  console.log(props.location);
+  const { queryStr } = props;
+  // Mocking data
   const groups = {
     "recomment": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     "price": [7, 4, 5, 3, 8, 1],
@@ -30,17 +31,26 @@ function SearchResult(props) {
   const isSmallScreen = useMediaQuery(`(max-width:${constants.BS_BREAKPOINT_MD})`);
   const [filterOn, setFilterOn] = useState(false);
 
+  // Mocking data
   const getRooms = (category) => {
     let idxes = groups[category];
     return idxes.map(idx => hotelData[idx]);
   }
 
+  // Mocking data
   const genCards = (category) => {
     let rooms = getRooms(category);
     if (!rooms) return <div></div>;
-    return rooms.map((r) => <HotelCard room={r} />);
+    let copiedRoom = rooms.map((r) => {
+      if(!r) return;
+      let copied = {...r};
+      copied.url = copied.url+queryStr;
+      return copied;
+    })
+    return copiedRoom.map((r) => <HotelCard room={r} />);
   };
 
+  // Renderers
   const genPanes = () => (
     <Tab.Content>
     {tabs.map(([short, title]) => (

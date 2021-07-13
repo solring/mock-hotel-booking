@@ -13,5 +13,6 @@ export const BS_BREAKPOINT_XL = "1200px";
 export const DAYJS_PARSE_FORMATE = "YYYY-MM-DD";
 
 // Strings
+export const SESSION_STORAGE_KEY = "MockHotelBooking";
 export const DEFAULT_CITY_STR = "City";
 export const DEFAULT_COUNTRY_STR = "Country";

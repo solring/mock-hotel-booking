@@ -1,14 +1,19 @@
 import { useState } from 'react';
 import { Collapse } from 'react-bootstrap';
+import { useSelector } from 'react-redux'
+
 import { genGuestStr } from '../utils/utils';
 
 function OrderDetail(props) {
   const { data } = props;
   const [ collapseOn, setCollapseOn] = useState(false);
 
+  // redux
+  const orders = useSelector(state => state.cart.orders);
+
   let collapsed = collapseOn ? "" : "collapsed";
-  let total = data.priceItems && data.priceItems.length > 0 ?
-    data.priceItems.map((item) => item.number).reduce((a, b) => a+b, 0) :
+  let total = orders && orders.length > 0 ?
+    orders.map((item) => item.number * item.price * item.night).reduce((a, b) => a+b, 0) :
     0;
 
   return (
@@ -30,17 +35,25 @@ function OrderDetail(props) {
     <ul className="list-unstyled list-divider-white py-3 py-md-4 mx-3 mx-md-4 rounded-bottom border-top border-light">
       <li key="detail">
         <h6 className="mb-3">Booking details</h6>
-        <p className="text-sub text-secondary">{data.duration.start} - {data.duration.end}・{data.duration.night} nights</p>
-        <p className="text-sub text-secondary">{genGuestStr(data.guests.adult,data.guests.child,data.guests.room)}</p>
-        <p className="text-sub text-secondary">{data.hotelName}</p>
+        <ul>
+          {orders.map((order, i) => (
+            <li className="mb-3" key={i}>
+              <p className="text-sub text-secondary">{order.startDate} - {order.endDate}・{order.night} nights</p>
+              <p className="text-sub text-secondary">{genGuestStr(order.adult, order.child, order.room)}</p>
+              <p className="text-sub text-secondary">{order.hotel}</p>
+            </li>
+          ))}
+        </ul>
       </li>
       <li key="price">
         <h6 className="mb-3">Price summary</h6>
         <ul className="list-unstyled">
-          {data.priceItems.map((item) => (
-            <li key={item.name} className="d-flex justify-content-between">
-              <p className="text-sub text-secondary">{item.name}</p>
-              <p className="text-sub text-secondary">TWD {item.number}</p>
+          {orders.map((item) => (
+            <li key={item.hotel} className="d-flex justify-content-between">
+              <p className="text-sub text-secondary">{item.room}</p>
+              <p className="text-sub text-secondary">
+                TWD {item.price * item.number * item.night}
+              </p>
             </li>
           ))}
         </ul>

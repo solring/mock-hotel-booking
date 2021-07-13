@@ -19,7 +19,7 @@ function SearchPage (props){
         />
       </Layout.Header>
       <Layout.Content>
-        <SearchResult />
+        <SearchResult queryStr={props.location.search}/>
         <Subscription size="small" />
         <Footer short={false} />
       </Layout.Content>

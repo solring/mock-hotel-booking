@@ -1,3 +1,4 @@
+import queryString from 'query-string';
 import Layout from '../layout/Layout';
 
 import Header from '../components/Header';
@@ -7,17 +8,16 @@ import SearchBar from '../components/SearchBar';
 import RoomDetail from '../components/RoomDetail';
 import Subscription from '../components/Subscription';
 
-import { searchOptions } from '../utils/mockdata';
-
-function DetailPage (){
+function DetailPage (props){
+  const query = queryString.parse(props.location.search);
   return (
     <Layout>
       <Layout.Header>
         <Header simple={false} member={false}/>
-        <SearchBar withReturn={true} simplified={false} />
+        <SearchBar withReturn={true} simplified={false} {...query}/>
       </Layout.Header>
       <Layout.Content>
-        <RoomDetail searchOptions={searchOptions} />
+        <RoomDetail searchOptions={query} />
         <Subscription size="small" />
         <Footer short={false} />
       </Layout.Content>

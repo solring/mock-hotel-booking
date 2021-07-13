@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Dropdown } from 'react-bootstrap';
 import { useMediaQuery } from '@material-ui/core';
-import dayjs from 'dayjs';
 import queryString from 'query-string';
 
 import NumberPicker from './NumberPicker';
@@ -9,12 +8,11 @@ import DatePicker from './DatePicker';
 
 import { SEARCH } from '../utils/links';
 import { genGuestStr } from '../utils/utils';
+import { serializeDate, parseDate, parseJSDate } from '../utils/dates';
 import * as constants from '../utils/constants';
 
 import { suggestLocs } from '../utils/mockdata';
 
-import customParseFormat from 'dayjs/plugin/customParseFormat';
-dayjs.extend(customParseFormat)
 
 function SearchItemBtn(props) {
   const { title, onToggle } = props;
@@ -50,12 +48,8 @@ function SearchBar (props) {
   let defAdult = parseInt(adult) || 2;
   let defChild = parseInt(child)|| 0;
   let defRoom = parseInt(room)|| 1;
-  let defStart = startDate ?
-    dayjs(startDate, constants.DAYJS_PARSE_FORMATE) :
-    dayjs();
-  let defEnd = endDate ?
-    dayjs(endDate, constants.DAYJS_PARSE_FORMATE) :
-    dayjs();
+  let defStart = parseDate(startDate);
+  let defEnd = parseDate(endDate);
 
   const [searchCountry, setSearchCountry] = useState(defCountry);
   const [searchCity, setSearchCity] = useState(defCity);
@@ -96,8 +90,8 @@ function SearchBar (props) {
   };
 
   const setDate = (date1, date2) => {
-    let start = date1 ? dayjs(date1): dateRange[0];
-    let end = date2 ? dayjs(date2) : dateRange[1];
+    let start = date1 ? parseJSDate(date1): dateRange[0];
+    let end = date2 ? parseJSDate(date2) : dateRange[1];
 
     setDateRange( [start, end] );
     setTouchedCal(true);
@@ -112,8 +106,8 @@ function SearchBar (props) {
       adult: numAdult,
       child: numChild,
       room: numRoom,
-      startDate: dayjs(dateRange[0]).format(constants.DAYJS_PARSE_FORMATE),
-      endDate: dayjs(dateRange[1]).format(constants.DAYJS_PARSE_FORMATE),
+      startDate: serializeDate(dateRange[0]),
+      endDate: serializeDate(dateRange[1]),
     };
     let str = queryString.stringify(searchOptions);
     window.location.href = SEARCH + '?' + str;

@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux'
+import { addBatch } from '../features/cart/cartSlicer';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 // swiper react does not include navigation by default
@@ -10,7 +12,9 @@ import * as links from '../utils/links';
 
 import NumberPicker from './NumberPicker';
 import BottomModal from './BottomModal';
+
 import { genGuestStr } from '../utils/utils';
+import { diffDate } from '../utils/dates';
 
 import { availableRooms, hotelInfo, hotelPics } from '../utils/mockdata';
 
@@ -141,26 +145,36 @@ function _RoomList(props) {
 
   return (
     <table className="w-100 list-divider-info mb-6">
+    <thead>
       <tr className="row no-gutters d-none d-md-flex text-uppercase">
         <th className="col-md-6">room type</th>
         <th className="col-md-2 text-center">sleeps</th>
         <th className="col-md-2 text-center">price</th>
         <th className="col-md-2 text-center">rooms</th>
       </tr>
+    </thead>
+    <tbody>
       {rooms.map(genRoom)}
+    </tbody>
     </table>
   );
 }
 
 function RoomDetail(props) {
+
+  // Redux
+  const orders = useSelector(state => state.cart.orders);
+  const globalDispatch = useDispatch();
+
   const { searchOptions } = props;
 
   const [cartModal, setCartModal] = useState(false);
   const [order, setOrder] = useState(Array(availableRooms.length).fill(0));
 
+  let totalNights = diffDate(searchOptions.startDate, searchOptions.endDate);
   let totalPrice = availableRooms.map(
-    (r, i) => order[i] * r.price * searchOptions.night
-    ).reduce((a,b) => a+b, 0);
+    (r, i) => order[i] * r.price * totalNights
+  ).reduce((a,b) => a+b, 0);
   let roomNum = order.reduce((a, b)=>a+b, 0);
 
   // Handlers
@@ -176,6 +190,24 @@ function RoomDetail(props) {
 
   const addToCart = () => {
     // set order data
+    let arr = [];
+    order.map((c, idx) => {
+      if (c>0) {
+        let room = availableRooms[idx];
+        arr.push({
+          hotel: hotelInfo.name,
+          room: room.name,
+          number: c,
+          price: room.price,
+          startDate: searchOptions.startDate,
+          endDate: searchOptions.endDate,
+          adult: searchOptions.adult,
+          child: searchOptions.child,
+          night: totalNights
+        });
+      }
+    })
+    globalDispatch(addBatch(arr));
     // call api and goto comfirmation page
     window.location.href = links.ORDER;
   }
@@ -256,7 +288,9 @@ function RoomDetail(props) {
       <div className="d-none d-md-flex align-items-center mb-md-6">
         <div className="div-badge bg-info">{searchOptions.city}, {searchOptions.country}</div>
         <div className="div-badge bg-info">{searchOptions.startDate} - {searchOptions.endDate}</div>
-        <div className="div-badge bg-info">{genGuestStr(...Object.values(searchOptions.guests))}</div>
+        <div className="div-badge bg-info">
+          {genGuestStr(searchOptions.adult, searchOptions.child, searchOptions.room)}
+        </div>
         <a href="#" className="text-uppercase text font-weight-bold ml-4">edit detail</a>
       </div>
 
@@ -275,7 +309,7 @@ function RoomDetail(props) {
       confirmAction={addToCart}
       direction="row"
     >
-      <p className="small text-secondary">{roomNum} room・{searchOptions.night} night</p>
+      <p className="small text-secondary">{roomNum} room・{totalNights} night</p>
       <h4 className="mb-4">TWD {totalPrice}</h4>
     </BottomModal>
   </div>
