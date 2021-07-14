@@ -8,15 +8,15 @@ const sessionStorageMidwareInit = feature => storeapi => next => action =>{
   let toSave = states;
   if (feature) {
     if (typeof(feature) === 'string') {
-      toSave = states[feature];
+      toSave = {};
+      if(states[feature]) toSave[feature] = states[feature];
     } else if (Array.isArray(feature)) {
       toSave = {};
-      feature.map((path) => Object.assign(toSave, states[path]));
+      feature.map((path) => {
+        if(states[path]) toSave[path] = states[path];
+      });
     }
   }
-  console.log("toSave:");
-  console.log(toSave);
-
   sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify({...toSave}));
 
   return res;
