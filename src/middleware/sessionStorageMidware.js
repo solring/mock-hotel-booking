@@ -25,8 +25,6 @@ const sessionStorageMidwareInit = feature => storeapi => next => action =>{
 const loadSessionStorage = () => {
   try {
     let statesJSON = sessionStorage.getItem(SESSION_STORAGE_KEY);
-    console.log("load from sessionStorate:");
-    console.log(statesJSON);
 
     let states = statesJSON ? JSON.parse(statesJSON) : {};
     return states;

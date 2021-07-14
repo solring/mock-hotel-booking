@@ -4,12 +4,17 @@ import './index.scss';
 import Routes from './Routes';
 import reportWebVitals from './reportWebVitals';
 
+import qs from 'query-string';
+import { update } from './features/search/searchSlicer';
 import configureAppStore from './store';
 import { Provider } from 'react-redux';
 
 import './vendors.js';
 
 const store = configureAppStore();
+
+const query = qs.parse(window.location.search);
+if (Object.keys(query).length !== 0) store.dispatch(update(query));
 
 ReactDOM.render(
   <React.StrictMode>

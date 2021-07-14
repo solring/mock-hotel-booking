@@ -46,7 +46,7 @@ function OrderPage(props){
             <ul className="list-unstyled text-secondary">
               {fields.map(([short, title, type]) => (
                 <li key={short} className="form-group">
-                  <label htmlFor={short}>Name</label>
+                  <label htmlFor={short}>{title}</label>
                   <input id={short} name={short} type={type} className="form-control form-control-lg" />
                 </li>
               ))}

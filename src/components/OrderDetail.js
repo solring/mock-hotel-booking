@@ -3,6 +3,7 @@ import { Collapse } from 'react-bootstrap';
 import { useSelector } from 'react-redux'
 
 import { genGuestStr } from '../utils/utils';
+import dayjs from 'dayjs';
 
 function OrderDetail(props) {
   const { data } = props;
@@ -12,9 +13,16 @@ function OrderDetail(props) {
   const orders = useSelector(state => state.cart.orders);
 
   let collapsed = collapseOn ? "" : "collapsed";
-  let total = orders && orders.length > 0 ?
+  let subtotal = orders && orders.length > 0 ?
     orders.map((item) => item.number * item.price * item.night).reduce((a, b) => a+b, 0) :
     0;
+  let vat = Math.round(subtotal * 0.07);
+  let serviceCharge = Math.round(subtotal * 0.1);
+  let total = subtotal + vat + serviceCharge;
+
+  const formatDate = (longStr) => {
+    return dayjs(longStr).format('DD MMMM');
+  }
 
   return (
 <div className="card rounded-lg-up-md bg-info">
@@ -35,12 +43,13 @@ function OrderDetail(props) {
     <ul className="list-unstyled list-divider-white py-3 py-md-4 mx-3 mx-md-4 rounded-bottom border-top border-light">
       <li key="detail">
         <h6 className="mb-3">Booking details</h6>
-        <ul>
+        <ul className="list-unstyled list-divider-white">
           {orders.map((order, i) => (
             <li className="mb-3" key={i}>
-              <p className="text-sub text-secondary">{order.startDate} - {order.endDate}・{order.night} nights</p>
+              <p className="text-sub text-secondary">{formatDate(order.startDate)} - {formatDate(order.endDate)}・{order.night} night(s)</p>
               <p className="text-sub text-secondary">{genGuestStr(order.adult, order.child, order.room)}</p>
               <p className="text-sub text-secondary">{order.hotel}</p>
+              <p className="text-sub text-secondary">{order.room}</p>
             </li>
           ))}
         </ul>
@@ -56,6 +65,18 @@ function OrderDetail(props) {
               </p>
             </li>
           ))}
+          <li key="vat" className="d-flex justify-content-between">
+            <p className="text-sub text-secondary">VAT(7%)</p>
+            <p className="text-sub text-secondary">
+              TWD {vat}
+            </p>
+          </li>
+          <li key="serviceCharge" className="d-flex justify-content-between">
+            <p className="text-sub text-secondary">Property service charge</p>
+            <p className="text-sub text-secondary">
+              TWD {serviceCharge}
+            </p>
+          </li>
         </ul>
       </li>
       <li key="total" className="d-flex justify-content-between">

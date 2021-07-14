@@ -144,16 +144,14 @@ function _RoomList(props) {
   };
 
   return (
-    <table className="w-100 list-divider-info mb-6">
-    <thead>
+    <table className="w-100 list-divider-info mb-5">
+    <tbody>
       <tr className="row no-gutters d-none d-md-flex text-uppercase">
         <th className="col-md-6">room type</th>
         <th className="col-md-2 text-center">sleeps</th>
         <th className="col-md-2 text-center">price</th>
         <th className="col-md-2 text-center">rooms</th>
       </tr>
-    </thead>
-    <tbody>
       {rooms.map(genRoom)}
     </tbody>
     </table>
@@ -163,10 +161,8 @@ function _RoomList(props) {
 function RoomDetail(props) {
 
   // Redux
-  const orders = useSelector(state => state.cart.orders);
   const globalDispatch = useDispatch();
-
-  const { searchOptions } = props;
+  const searchOptions = useSelector(state => state.search);
 
   const [cartModal, setCartModal] = useState(false);
   const [order, setOrder] = useState(Array(availableRooms.length).fill(0));
@@ -285,7 +281,7 @@ function RoomDetail(props) {
     {/* Room options */}
     <div className="py-4" data-aos="fade-up">
       <h3 className="mb-md-4 mb-3">Select your room</h3>
-      <div className="d-none d-md-flex align-items-center mb-md-6">
+      <div className="d-none d-md-flex align-items-center mb-md-5">
         <div className="div-badge bg-info">{searchOptions.city}, {searchOptions.country}</div>
         <div className="div-badge bg-info">{searchOptions.startDate} - {searchOptions.endDate}</div>
         <div className="div-badge bg-info">

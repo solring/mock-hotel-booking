@@ -3,6 +3,9 @@ import { Dropdown } from 'react-bootstrap';
 import { useMediaQuery } from '@material-ui/core';
 import queryString from 'query-string';
 
+import { useSelector, useDispatch } from 'react-redux';
+import { update } from '../features/search/searchSlicer';
+
 import NumberPicker from './NumberPicker';
 import DatePicker from './DatePicker';
 
@@ -34,39 +37,18 @@ function SearchBar (props) {
   const {
     withReturn,
     simplified,
-    city,
-    country,
-    adult,
-    child,
-    room,
-    startDate,
-    endDate,
    } = props;
 
-  let defCity = city || constants.DEFAULT_CITY_STR;
-  let defCountry = country || constants.DEFAULT_COUNTRY_STR;
-  let defAdult = parseInt(adult) || 2;
-  let defChild = parseInt(child)|| 0;
-  let defRoom = parseInt(room)|| 1;
-  let defStart = parseDate(startDate);
-  let defEnd = parseDate(endDate);
+  const globalDispatch = useDispatch();
+  const updateGlobal = (data) => globalDispatch(update(data));
+  const searchState = useSelector(state => state.search);
+  const { city, country, adult, child, room, startDate, endDate } = searchState;
 
-  const [searchCountry, setSearchCountry] = useState(defCountry);
-  const [searchCity, setSearchCity] = useState(defCity);
-  const [numAdult, setNumAdult] = useState(defAdult);
-  const [numChild, setNumChild] = useState(defChild);
-  const [numRoom, setNumRoom] = useState(defRoom);
-  const [dateRange, setDateRange] = useState([defStart, defEnd]);
 
   // For UI only
   const [touchedCal, setTouchedCal] = useState(false);
   const [touchedGuest, setTouchedGuest] = useState(false);
 
-  const numberOptions = [
-    ['Adult', numAdult, setNumAdult],
-    ['Child', numChild, setNumChild],
-    ['Room', numRoom, setNumRoom],
-  ];
 
   let isSmallScreen = useMediaQuery(`(max-width:${constants.BS_BREAKPOINT_MD})`);
   let isMidcreen = useMediaQuery(`(max-width:${constants.BS_BREAKPOINT_XL})`);
@@ -79,21 +61,20 @@ function SearchBar (props) {
   // Helpers
   const _getDateStr = (d) => {
     let format = isMidcreen ? 'DD MMM' : 'DD MMMM';
-    return d.format(format);
+    return parseDate(d).format(format);
   };
-  let dateRangeStr = dateRange.map((d) => _getDateStr(d));
+  let dateRangeStr = [_getDateStr(startDate), _getDateStr(endDate)];
 
   // Handlers
   const setDestination = (city, country) => {
-    setSearchCountry(country);
-    setSearchCity(city);
+    updateGlobal({city, country});
   };
 
   const setDate = (date1, date2) => {
-    let start = date1 ? parseJSDate(date1): dateRange[0];
-    let end = date2 ? parseJSDate(date2) : dateRange[1];
+    let start = date1 ? serializeDate(parseJSDate(date1)): startDate;
+    let end = date2 ? serializeDate(parseJSDate(date2)) : endDate;
 
-    setDateRange( [start, end] );
+    updateGlobal({ startDate: start, endDate: end });
     setTouchedCal(true);
   };
 
@@ -101,13 +82,13 @@ function SearchBar (props) {
     console.log("doSearch");
     e.preventDefault();
     let searchOptions = {
-      country: searchCountry,
-      city: searchCity,
-      adult: numAdult,
-      child: numChild,
-      room: numRoom,
-      startDate: serializeDate(dateRange[0]),
-      endDate: serializeDate(dateRange[1]),
+      country,
+      city,
+      adult,
+      child,
+      room,
+      startDate,
+      endDate,
     };
     let str = queryString.stringify(searchOptions);
     window.location.href = SEARCH + '?' + str;
@@ -115,10 +96,10 @@ function SearchBar (props) {
 
   // Renderers
   const genLocStr = () => {
-    if (searchCity === constants.DEFAULT_CITY_STR &&
-      searchCountry === constants.DEFAULT_COUNTRY_STR)
+    if (city === constants.DEFAULT_CITY_STR &&
+      country === constants.DEFAULT_COUNTRY_STR)
       return "Destination";
-    return `${searchCity}, ${searchCountry}`;
+    return `${city}, ${country}`;
   };
 
   const returnBtn = () => {
@@ -128,7 +109,7 @@ function SearchBar (props) {
     <a href={SEARCH} className="d-md-none btn container py-3 px-3">
       <span className="material-icons text-dark">arrow_back</span>
       <span className="text-secondary small">
-        {searchCity}・{dateRangeStr[0]} - {dateRangeStr[1]}・{genGuestStr(numAdult, numChild, numRoom)}
+        {city}・{dateRangeStr[0]} - {dateRangeStr[1]}・{genGuestStr(adult, child, room)}
       </span>
     </a>
     );
@@ -176,7 +157,7 @@ function SearchBar (props) {
         </div>
       </div>
       <div className="d-md-none text-secondary">
-        {searchCity}
+        {city}
       </div>
     </div>
   );
@@ -188,12 +169,12 @@ function SearchBar (props) {
       <div className="text-left">
         <h5 className="Search__title">guests</h5>
         <p className="Search__subtitle">
-          {genGuestStr(numAdult, numChild, numRoom)}
+          {genGuestStr(adult, child, room)}
         </p>
       </div>
     </div>
     <div className="d-md-none text-secondary">
-        {genGuestStr(numAdult, numChild, numRoom)}
+        {genGuestStr(adult, child, room)}
     </div>
     </div>
   );
@@ -217,11 +198,17 @@ function SearchBar (props) {
   };
 
   const visitors = () => {
+    const numberOptions = [
+      ['Adult', adult, "adult"],
+      ['Child', child, "child"],
+      ['Room', room, "room"],
+    ];
     return numberOptions.map((option) => (
       <li key={option[0]} className="dropdown-item">
           <div className="d-flex justify-content-between">
             <p>{option[0]}</p>
-            <NumberPicker number={option[1]} numSetter={option[2]} />
+            <NumberPicker number={option[1]}
+              numSetter={(num) => updateGlobal({ [option[2]]: num })} />
           </div>
       </li>
     ));
@@ -258,7 +245,7 @@ function SearchBar (props) {
         title={(
           <div>
             <span className="material-icons mr-2">person</span>
-            {touchedGuest ? genGuestStr(numAdult, numChild, numRoom) : "Guest"}
+            {touchedGuest ? genGuestStr(adult, child, room) : "Guest"}
           </div>
           )}
         >

@@ -10,7 +10,6 @@ import * as constants from '../utils/constants';
 import { hotelData } from '../utils/mockdata';
 
 function SearchResult(props) {
-  const { queryStr } = props;
   // Mocking data
   const groups = {
     "recomment": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
@@ -41,13 +40,7 @@ function SearchResult(props) {
   const genCards = (category) => {
     let rooms = getRooms(category);
     if (!rooms) return <div></div>;
-    let copiedRoom = rooms.map((r) => {
-      if(!r) return;
-      let copied = {...r};
-      copied.url = copied.url+queryStr;
-      return copied;
-    })
-    return copiedRoom.map((r) => <HotelCard room={r} />);
+    return rooms.map((r) => <HotelCard room={r} />);
   };
 
   // Renderers

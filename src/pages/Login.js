@@ -12,10 +12,12 @@ function Page (){
   const [pwd, setPwd] = useState("");
   const [remember, setRemember] = useState(false);
 
-  const login = () => {
+  const login = (e) => {
+    e.preventDefault();
     console.log("Login");
     // remember username/pwd
     // submit
+    window.location.href = MEMBER;
   };
 
   const loginForm = (

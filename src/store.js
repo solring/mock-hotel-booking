@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import cartSlicer from './features/cart/cartSlicer';
+import searchSlicer from './features/search/searchSlicer';
 import { sessionStorageMidwareInit, loadSessionStorage } from './middleware/sessionStorageMidware';
 
 const sessionStorageMidware = sessionStorageMidwareInit();
@@ -10,7 +11,8 @@ export default function configureAppStore() {
 
   const store = configureStore({
     reducer: {
-      cart: cartSlicer
+      cart: cartSlicer,
+      search: searchSlicer,
     },
     middleware: [sessionStorageMidware],
     preloadedState,
