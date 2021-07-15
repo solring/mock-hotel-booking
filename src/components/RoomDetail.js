@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { addBatch } from '../features/cart/cartSlicer';
 
@@ -8,6 +8,7 @@ import SwiperCore, { Navigation } from 'swiper/core';
 import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss'
 
+import api, { LoadRooms } from '../api/mockApi';
 import * as links from '../utils/links';
 
 import NumberPicker from './NumberPicker';
@@ -16,11 +17,10 @@ import BottomModal from './BottomModal';
 import { genGuestStr } from '../utils/utils';
 import { diffDate } from '../utils/dates';
 
-import { availableRooms, hotelInfo, hotelPics } from '../utils/mockdata';
 
 SwiperCore.use([Navigation])
 
-function _RoomList(props) {
+function RoomList(props) {
   const {rooms, order, onOrderChange} = props;
 
   const tags = [
@@ -73,7 +73,7 @@ function _RoomList(props) {
 
   const genRoom = (room, i) => {
     return (
-      <tr className="row no-gutters">
+      <tr key={i} className="row no-gutters">
         <td className="card col-md-6">
           <div className="row no-gutters">
             {/* room picture */}
@@ -146,7 +146,7 @@ function _RoomList(props) {
   return (
     <table className="w-100 list-divider-info mb-5">
     <tbody>
-      <tr className="row no-gutters d-none d-md-flex text-uppercase">
+      <tr key="header" className="row no-gutters d-none d-md-flex text-uppercase">
         <th className="col-md-6">room type</th>
         <th className="col-md-2 text-center">sleeps</th>
         <th className="col-md-2 text-center">price</th>
@@ -159,11 +159,13 @@ function _RoomList(props) {
 }
 
 function RoomDetail(props) {
+  const {hotelPics, hotelInfo} = props;
 
   // Redux
   const globalDispatch = useDispatch();
   const searchOptions = useSelector(state => state.search);
 
+  const [availableRooms, setAvailableRooms] = useState([]);
   const [cartModal, setCartModal] = useState(false);
   const [order, setOrder] = useState(Array(availableRooms.length).fill(0));
 
@@ -172,6 +174,17 @@ function RoomDetail(props) {
     (r, i) => order[i] * r.price * totalNights
   ).reduce((a,b) => a+b, 0);
   let roomNum = order.reduce((a, b)=>a+b, 0);
+
+    // Init
+    useEffect(() => {
+      if (availableRooms.length!==0) return;
+      api(LoadRooms('fakeId')).then((r) => {
+        setAvailableRooms(r.data);
+        setOrder(Array(r.data.length).fill(0));
+      }).catch(() => {
+        console.log("failed to load hotel rooms.");
+      });
+    });
 
   // Handlers
   const onClearCart = () => {
@@ -214,25 +227,25 @@ function RoomDetail(props) {
     <div className="row Hotel__picGroup no-gutters d-none d-md-flex" data-aos="fade-down">
       <div className="col-md-7 h-100">
         <div className="pic-fill-container">
-          <img src={hotelPics[0]} alt="room pic 1" />
+          <img src={hotelPics[0] ? hotelPics[0] : ""} alt="room pic 1" />
         </div>
       </div>
       <div className="col-md-5 h-100 d-none d-md-block pl-md-1 pl-lg-2">
         <div className="row h-100 no-gutters">
           <div className="col-12 h-50 pb-md-1 pb-lg-2">
             <div className="pic-fill-container">
-              <img src={hotelPics[1]} alt="room pic 2" />
+              <img src={hotelPics[1] ? hotelPics[1] : ""} alt="room pic 2" />
             </div>
           </div>
           <div className="col-5 h-50">
             <div className="pic-fill-container">
-              <img src={hotelPics[2]} alt="room pic 3" />
+              <img src={hotelPics[2] ? hotelPics[2] : ""} alt="room pic 3" />
             </div>
           </div>
           <div className="col-7 h-50 pl-sm-1 pl-lg-2 d-flex flex-column">
             <div className="h-75 pb-sm-1 pb-lg-2">
               <div className="pic-fill-container">
-                <img src={hotelPics[3]} alt="room pic 4" />
+                <img src={hotelPics[3] ? hotelPics[3] : ""} alt="room pic 4" />
               </div>
             </div>
             <button className="btn btn-dark btn-block h-25 text-uppercase p-0 text-sub">See All 10 photos</button>
@@ -250,7 +263,7 @@ function RoomDetail(props) {
       navigatio
     >
       {hotelPics.map((img, i) => (
-        <SwiperSlide>
+        <SwiperSlide key={i}>
           <div className="pic-fill-container"><img src={img} alt={`room picture ${i}`} /></div>
         </SwiperSlide>
       ))}
@@ -290,7 +303,7 @@ function RoomDetail(props) {
         <a href="#" className="text-uppercase text font-weight-bold ml-4">edit detail</a>
       </div>
 
-      <_RoomList
+      <RoomList
         rooms={availableRooms}
         order={order}
         onOrderChange={onOrderChangeHandler}/>

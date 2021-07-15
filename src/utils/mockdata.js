@@ -204,18 +204,17 @@ export const popCities = [
 ];
 
 // mock data
-export let hotelData = [
+export const hotelData = [
   {
     imgs: [Rachada1, Rachada2, Rachada3, Rachada4],
     name: "Rachada Hotel",
     star: 4,
     reviews: 283,
     room: "Deluxe Double Room",
-    price: "1,980",
+    price: 1980,
     location: "Rachada, Bangkok",
     distance: 2,
     tags: [0, 1],
-      url: "/detail",
   },
   {
     imgs: [Phaya],
@@ -223,12 +222,11 @@ export let hotelData = [
     star: 5,
     reviews: 121,
     room: "Standard Double Room",
-    price: "1,680",
-    oldPrice: "1,980",
+    price: 1680,
+    oldPrice: 1980,
     location: "Phaya Thai, Bangkok",
     distance: 2.9,
     tags: [0],
-      url: "/detail",
   },
   {
     imgs: [Bangkapi],
@@ -236,11 +234,10 @@ export let hotelData = [
     star: 4,
     reviews: 325,
     room: "Standard Double Room",
-    price: "2,460",
+    price: 2460,
     location: "Bangkapi, Bangkok",
     distance: 14,
     tags: [0],
-      url: "/detail",
   },
   {
     imgs: [Chatuchack1, Chatuchack2],
@@ -248,12 +245,11 @@ export let hotelData = [
     star: 4,
     reviews: 204,
     room: "Standard Double Room",
-    price: "2,240",
-    oldPrice: "2,880",
+    price: 2240,
+    oldPrice: 2880,
     location: "Chatuchack, Bangkok",
     distance: 12,
     tags: [1],
-      url: "/detail",
   },
   {
     imgs: [Chatuchack2],
@@ -261,12 +257,11 @@ export let hotelData = [
     star: 5,
     reviews: 189,
     room: "Standard Double Room",
-    price: "1,890",
-    oldPrice: "2,120",
+    price: 1890,
+    oldPrice: 2120,
     location: "Chatuchack, Bangkok",
     distance: 8,
     tags: [1],
-      url: "/detail",
   },
   {
     imgs: [RangRak],
@@ -274,11 +269,10 @@ export let hotelData = [
     star: 4,
     reviews: 102,
     room: "Deluxe Double Room",
-    price: "2,090",
+    price: 2090,
     location: "Rang Rak, Bangkok",
     distance: 4.4,
     tags: [0],
-      url: "/detail",
   },
   {
     imgs: [Watana1],
@@ -286,11 +280,10 @@ export let hotelData = [
     star: 5,
     reviews: 112,
     room: "Twin Room",
-    price: "880",
+    price: 880,
     location: "Watana, Bangkok",
     distance: 6,
     tags: [0, 1],
-      url: "/detail",
   },
   {
     imgs: [Watana2],
@@ -298,12 +291,11 @@ export let hotelData = [
     star: 3,
     reviews: 608,
     room: "Twin Room",
-    price: "790",
-    oldPrice: "1,280",
+    price: 790,
+    oldPrice: 1280,
     location: "Watana, Bangkok",
     distance: 6,
     tags: [0],
-      url: "/detail",
   },
   {
     imgs: [DinDaeng1],
@@ -311,12 +303,11 @@ export let hotelData = [
     star: 4,
     reviews: 138,
     room: "Standard Double Room",
-    price: "1,240",
-    oldPrice: "1,700",
+    price: 1240,
+    oldPrice: 1700,
     location: "Din Daeng, Bangkok",
     distance: 7,
     tags: [],
-      url: "/detail",
   },
   {
     imgs: [DinDaeng2],
@@ -324,16 +315,15 @@ export let hotelData = [
     star: 3,
     reviews: 446,
     room: "Deluxe Double Room",
-    price: "3,450",
+    price: 3450,
     location: "Din Daeng, Bangkok",
     distance: 7,
     tags: [],
-      url: "/detail",
   }
 ];
 
 // Available rooms
-export let availableRooms =[
+export const availableRooms =[
   {
     name: "Deluxe Double Room A",
     price: 1490,
@@ -356,7 +346,7 @@ export let availableRooms =[
 ];
 
 // Hotel description
-export let hotelInfo = {
+export const hotelInfo = {
   name: "Rachada Hotel",
   star: 4,
   review: 283,
@@ -365,7 +355,7 @@ export let hotelInfo = {
 }
 
 // Order detail
-export let orderDetail = {
+export const orderDetail = {
   hotelName: "Rachada Hotel",
   room: "Deluxe Suite with Pool",
   duration: {
@@ -385,7 +375,7 @@ export let orderDetail = {
   ],
 };
 
-export let memberData = {
+export const memberData = {
   name: "David Lin",
   email: "david0520@mail.com.tw",
   phone: "+886 9 32 456 789",
@@ -400,7 +390,7 @@ export let memberData = {
   ],
 };
 
-export let bookings = [
+export const bookings = [
     {
       name: "Rachada Hotel",
       room: "Deluxe Suite with Pool",
@@ -434,21 +424,7 @@ export let bookings = [
       status: "Upcoming",
     },
 ];
-
-// Search data
-export let searchOptions = {
-  country: "Thailand",
-  city: "Bangkok",
-  startDate: "17 June",
-  endDate: "19 June",
-  night: 2,
-  guests: {
-    adult: 2,
-    child: 0,
-  }
-}
-
-export let hotelPics = [Rachada1, Rachada2, Rachada3, Rachada4];
+export const hotelPics = [Rachada1, Rachada2, Rachada3, Rachada4];
 
 export { top1, top2, top3, top4 };
 export { profilePic };

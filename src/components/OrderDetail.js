@@ -1,16 +1,12 @@
 import { useState } from 'react';
 import { Collapse } from 'react-bootstrap';
-import { useSelector } from 'react-redux'
 
 import { genGuestStr } from '../utils/utils';
 import dayjs from 'dayjs';
 
 function OrderDetail(props) {
-  const { data } = props;
+  const { orders } = props;
   const [ collapseOn, setCollapseOn] = useState(false);
-
-  // redux
-  const orders = useSelector(state => state.cart.orders);
 
   let collapsed = collapseOn ? "" : "collapsed";
   let subtotal = orders && orders.length > 0 ?

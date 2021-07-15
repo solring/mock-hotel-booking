@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import Layout from '../layout/Layout';
 
 import Header from '../components/Header';
@@ -6,9 +7,34 @@ import Footer from '../components/Footer';
 import MemberProfile from '../components/MemberProfile';
 import ConfirmedBooking from '../components/ConfirmedBooking';
 
-import { bookings, memberData } from '../utils/mockdata';
+import api, { GetMemberInfo, GetMemberOrders } from '../api/mockApi';
 
 function Page (){
+
+  const defaultUser = {
+    name: "User",
+    email: "",
+    phone: "",
+    pic: "",
+    payments: []
+  };
+  const [bookings, setBooking] = useState([]);
+  const [memberData, setMemberData] = useState(null);
+
+  useEffect(() => {
+    if (memberData!==null) return;
+    api(GetMemberInfo('fakeId')).then((r) => {
+      setMemberData(r.data);
+    }).catch(() => {
+      console.log("failed to load user info.");
+    });
+
+    api(GetMemberOrders('fakeId')).then((r) => {
+      setBooking(r.data);
+    }).catch(() => {
+      console.log("failed to load user orders.");
+    });
+  });
 
   const Content = () => {
     return (
@@ -21,7 +47,9 @@ function Page (){
           <ConfirmedBooking data={bookings} />
         </div>
 
-        <MemberProfile member={memberData} />
+        <MemberProfile member={
+          (memberData === null) ? defaultUser : memberData
+        } />
       </div>
     </div>
     );

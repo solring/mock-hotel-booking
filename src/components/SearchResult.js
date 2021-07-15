@@ -7,19 +7,22 @@ import HotelCard from './HotelCard';
 import NumPagenation from './NumPagenation.js'
 
 import * as constants from '../utils/constants';
-import { hotelData } from '../utils/mockdata';
+
+function Hotels(props) {
+  const {rooms} = props;
+  if (!rooms) return <div></div>;
+  return (
+    <ul className="list-divider-info no-divider-down-sm">
+      {rooms.map((r) => <HotelCard room={r} />)}
+    </ul>
+  );
+}
 
 function SearchResult(props) {
-  // Mocking data
-  const groups = {
-    "recomment": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-    "price": [7, 4, 5, 3, 8, 1],
-    "value": [9, 0, 3, 6],
-    "distance": [3, 10, 2],
-  };
+  const { hotelData } = props;
 
   const tabs = [
-    ["recomment", "Recommended"],
+    ["recommend", "Recommended"],
     ["price", "Lowest Price"],
     ["value", "Best value"],
     ["distance", "Distance to City Center"],
@@ -30,27 +33,28 @@ function SearchResult(props) {
   const isSmallScreen = useMediaQuery(`(max-width:${constants.BS_BREAKPOINT_MD})`);
   const [filterOn, setFilterOn] = useState(false);
 
-  // Mocking data
-  const getRooms = (category) => {
-    let idxes = groups[category];
-    return idxes.map(idx => hotelData[idx]);
+  const filterRooms = (category) => {
+    let copied = [...hotelData];
+    switch(category) {
+      case "recommend":
+        return copied.sort((a, b) => b.star - a.star);
+      case "price":
+        return copied.sort((a, b) => a.price - b.price);
+      case "value":
+        return copied.sort((a, b) => b.star/b.price - a.star/a.price);
+      case "distance":
+        return copied.sort((a, b) => a.distance - b.distance);
+      default:
+        return hotelData;
+    }
   }
-
-  // Mocking data
-  const genCards = (category) => {
-    let rooms = getRooms(category);
-    if (!rooms) return <div></div>;
-    return rooms.map((r) => <HotelCard room={r} />);
-  };
 
   // Renderers
   const genPanes = () => (
     <Tab.Content>
     {tabs.map(([short, title]) => (
       <Tab.Pane key={short} eventKey={short} >
-        <ul class="list-divider-info no-divider-down-sm">
-          {genCards(short)}
-        </ul>
+        <Hotels rooms={filterRooms(short)} />
       </Tab.Pane>
     ))}
     </Tab.Content>

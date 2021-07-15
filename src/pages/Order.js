@@ -1,57 +1,77 @@
+import { useState } from 'react';
+import qs from 'query-string';
 import Layout from '../layout/Layout';
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import OrderDetail from '../components/OrderDetail';
 
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { clear } from '../features/cart/cartSlicer';
 
+import api, { SubmitOrder } from '../api/mockApi';
 import { CONFIRMATION } from '../utils/links';
-
-import { orderDetail } from '../utils/mockdata';
 
 function OrderPage(props){
 
+  const [name, setName] = useState("");
+  const [email, setEmail]  = useState("");
+  const [phone, setPhone] = useState("");
+  const [validating, setValidating] = useState("");
+
+  const fields = [
+    ["name", "Name", "text", name, setName],
+    ["email", "Email", "email", email, setEmail],
+    ["phone", "Phone (optional)", "tel", phone, setPhone],
+  ];
+
   // redux
+  const orders = useSelector(state => state.cart.orders);
   const globalDispatch = useDispatch();
 
-  const doReserve = () => {
+  const doReserve = (e) => {
+    e.preventDefault();
+    setValidating('was-validated');
+
+    if(e.target.checkValidity() === false) return;
     // call async api
-    // mock: go to confirmation page directly.
-    globalDispatch(clear());
-    window.location.href = CONFIRMATION;
+    api(SubmitOrder(orders)).then((r) => {
+      if(r.success) {
+        globalDispatch(clear());
+        window.location.href = CONFIRMATION + "?" + qs.stringify(r.order);
+      } else
+        throw Error("Server: order failed.");
+    }).catch((e) => {
+      console.error(e)
+    })
+
   }
 
-  const Content = () => {
-
-    const fields = [
-      ["name", "Name", "text"],
-      ["email", "Email", "email"],
-      ["phone", "Phone (optional)", "tel"],
-    ];
-
-    return (
+  const Content = (
   <div className="container pt-0 pt-md-4">
   <div className="row no-gutters justify-content-center">
     <div className="col-lg-8">
 
       <div className="row flex-md-row-reverse">
         <div className="col-md-6 px-0 px-sm-3">
-            <OrderDetail data={orderDetail}/>
+            <OrderDetail orders={orders}/>
         </div>
         <div className="col-md-6 mb-5">
-          <form onClick={doReserve}>
+          <form className={validating} onSubmit={doReserve} noValidate>
             <h2 className="mb-4 mt-4 mt-md-0">Reservation Details</h2>
             <ul className="list-unstyled text-secondary">
-              {fields.map(([short, title, type]) => (
+              {fields.map(([short, title, type, reactValue, reactSet]) => (
                 <li key={short} className="form-group">
                   <label htmlFor={short}>{title}</label>
-                  <input id={short} name={short} type={type} className="form-control form-control-lg" />
+                  <input id={short} name={short} type={type}
+                    className="form-control form-control-lg"
+                    required={(short === 'phone') ? false : true}
+                    value={reactValue} onChange={(e) => reactSet(e.target.value)}
+                  />
                 </li>
               ))}
             </ul>
-            <button className="btn btn-lg btn-primary btn-block text-uppercase mt-4">reserve</button>
+            <button className="btn btn-lg btn-primary btn-block text-uppercase mt-4" type="submit">reserve</button>
             <a href="#" className="d-block text-center text-sub mt-2">Reserve now, pay at stay</a>
           </form>
         </div>
@@ -60,8 +80,7 @@ function OrderPage(props){
     </div>
   </div>
   </div>
-    );
-  }
+  );
 
   return (
     <Layout>
@@ -69,7 +88,7 @@ function OrderPage(props){
         <Header simple={false} member={false} />
       </Layout.Header>
       <Layout.Content>
-        {Content()}
+        {Content}
       </Layout.Content>
       <Footer short={true} />
     </Layout>

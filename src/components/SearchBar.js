@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Dropdown } from 'react-bootstrap';
 import { useMediaQuery } from '@material-ui/core';
 import queryString from 'query-string';
@@ -9,12 +9,11 @@ import { update } from '../features/search/searchSlicer';
 import NumberPicker from './NumberPicker';
 import DatePicker from './DatePicker';
 
+import api, { LoadRecommendLocs } from '../api/mockApi';
 import { SEARCH } from '../utils/links';
 import { genGuestStr } from '../utils/utils';
 import { serializeDate, parseDate, parseJSDate } from '../utils/dates';
 import * as constants from '../utils/constants';
-
-import { suggestLocs } from '../utils/mockdata';
 
 
 function SearchItemBtn(props) {
@@ -34,21 +33,26 @@ function SearchItemBtn(props) {
 }
 
 function SearchBar (props) {
-  const {
-    withReturn,
-    simplified,
-   } = props;
+  const { withReturn, simplified } = props;
 
   const globalDispatch = useDispatch();
   const updateGlobal = (data) => globalDispatch(update(data));
   const searchState = useSelector(state => state.search);
   const { city, country, adult, child, room, startDate, endDate } = searchState;
 
-
   // For UI only
   const [touchedCal, setTouchedCal] = useState(false);
   const [touchedGuest, setTouchedGuest] = useState(false);
+  const [suggestLocs, setSuggestLocs] = useState([]);
 
+  useEffect(() => {
+    if(suggestLocs.length > 0) return;
+    api(LoadRecommendLocs()).then((res) => {
+      setSuggestLocs(res.data);
+    }).catch((e) => {
+      console.error("No suggested destinations.");
+    });
+  })
 
   let isSmallScreen = useMediaQuery(`(max-width:${constants.BS_BREAKPOINT_MD})`);
   let isMidcreen = useMediaQuery(`(max-width:${constants.BS_BREAKPOINT_XL})`);

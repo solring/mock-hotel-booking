@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Layout from '../layout/Layout';
 import Header from '../components/Header';
 
+import api, { Login } from '../api/mockApi';
 import { MEMBER } from '../utils/links';
 
 function Page (){
@@ -12,29 +13,50 @@ function Page (){
   const [pwd, setPwd] = useState("");
   const [remember, setRemember] = useState(false);
 
+  const [validating, setValidating] = useState("");
+
   const login = (e) => {
     e.preventDefault();
+    setValidating('was-validated');
+
+    if (e.target.checkValidity()===false) return;
+
     console.log("Login");
-    // remember username/pwd
+    // remember username/pwd if needed
     // submit
-    window.location.href = MEMBER;
+    api(Login(user, pwd)).then((r) => {
+      if(r.success === true) {
+        window.location.href = MEMBER;
+      } else {
+        throw Error("Server: Login failed.")
+      }
+    }).catch((e) => {
+      console.error("Failed trying login.");
+      console.error(e);
+    })
   };
 
   const loginForm = (
-    <form onSubmit={login} data-aos="fade-left">
+    <form className={validating} noValidate data-aos="fade-left"
+      onSubmit={login}
+    >
       <h2 className="mb-3">Login</h2>
 
       <div className="form-group">
         <label className="text-secondary" forHtml="loginEmail">Email</label>
-        <input id="loginEmail" type="text" className="form-control form-control-lg"
+        <input id="loginEmail" type="email" className="form-control form-control-lg"
+          required aria-label="Login Email"
           value={user} onChange={(e) => setUser(e.target.value)}
         />
+        <div className="invalid-feedback">Please enter valid email.</div>
       </div>
       <div className="form-group">
         <label className="text-secondary" forHtml="loginPwd">Password</label>
         <input id="loginPwd" type="password" className="form-control form-control-lg"
+          required pattern="[\w\d\!\?\$\^%@#-]+" aria-label="Login Password"
           value={pwd} onChange={(e) => setPwd(e.target.value)}
         />
+        <div className="invalid-feedback">Please enter password.</div>
       </div>
 
       <p className="small text-secondary mt-4">

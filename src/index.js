@@ -6,8 +6,11 @@ import reportWebVitals from './reportWebVitals';
 
 import qs from 'query-string';
 import { update } from './features/search/searchSlicer';
+
 import configureAppStore from './store';
 import { Provider } from 'react-redux';
+
+import MockServer from './api/mockServer';
 
 import './vendors.js';
 
@@ -15,6 +18,8 @@ const store = configureAppStore();
 
 const query = qs.parse(window.location.search);
 if (Object.keys(query).length !== 0) store.dispatch(update(query));
+
+MockServer();
 
 ReactDOM.render(
   <React.StrictMode>
