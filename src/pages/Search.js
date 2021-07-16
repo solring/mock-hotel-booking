@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import qs from 'query-string';
 import Layout from '../layout/Layout';
 
 import Header from '../components/Header';
@@ -15,6 +16,7 @@ function SearchPage (props){
 
   const [hotelData, setHotelData] = useState([]);
   const query = useSelector(state => state.search);
+  const queryBackup = qs.parse(props.location.search);
 
   useEffect(() => {
     if(hotelData.length > 0) return;
@@ -32,7 +34,7 @@ function SearchPage (props){
         <SearchBar withReturn={false} simplified={false}/>
       </Layout.Header>
       <Layout.Content>
-        <SearchResult hotelData={hotelData}/>
+        <SearchResult hotelData={hotelData} query={queryBackup} />
         <Subscription size="small" />
         <Footer short={false} />
       </Layout.Content>

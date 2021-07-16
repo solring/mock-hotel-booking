@@ -44,6 +44,7 @@ function SearchBar (props) {
   const [touchedCal, setTouchedCal] = useState(false);
   const [touchedGuest, setTouchedGuest] = useState(false);
   const [suggestLocs, setSuggestLocs] = useState([]);
+  const [destText, setDestText] = useState("");
 
   useEffect(() => {
     if(suggestLocs.length > 0) return;
@@ -72,6 +73,7 @@ function SearchBar (props) {
   // Handlers
   const setDestination = (city, country) => {
     updateGlobal({city, country});
+    setDestText(`${city}, ${country}`);
   };
 
   const setDate = (date1, date2) => {
@@ -156,7 +158,10 @@ function SearchBar (props) {
           <div className="material-icons pr-lg-3 pr-2">location_on</div>
           <div className="text-left">
             <h5 className="Search__title">destination</h5>
-            <p className="Search__subtitle">{genLocStr()}</p>
+            <input className="Search__subtitle"
+              type="text" placeholder={genLocStr()}
+              value={destText} onChange={(e) => setDestText(e.target.value)}
+            />
           </div>
         </div>
       </div>
@@ -225,9 +230,12 @@ function SearchBar (props) {
       {/* Field Destination */}
       <li key="destination" className="mb-3 mb-lg-0">
         <SearchItemBtn title={(
-          <div>
+          <div className="d-flex align-items-center">
             <span className="material-icons mr-2">location_on</span>
-            {genLocStr()}
+            <input
+              type="text" placeholder={genLocStr()}
+              value={destText} onChange={(e) => setDestText(e.target.value)}
+            />
           </div>
         )}>
           {destinations()}
@@ -247,7 +255,7 @@ function SearchBar (props) {
       <li key="guest" className="mb-3 mb-lg-0">
         <SearchItemBtn onToggle={() => setTouchedGuest(true)}
         title={(
-          <div>
+          <div className="align-icons">
             <span className="material-icons mr-2">person</span>
             {touchedGuest ? genGuestStr(adult, child, room) : "Guest"}
           </div>

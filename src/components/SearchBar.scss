@@ -32,6 +32,13 @@
               margin-right: 0;
           }
       }
+
+      input {
+          flex: 1 1 0%;
+          width: 100%;
+          border: none;
+          padding: 0;
+      }
   }
 
   // ----- transformation: search result page -----

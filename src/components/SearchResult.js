@@ -19,7 +19,7 @@ function Hotels(props) {
 }
 
 function SearchResult(props) {
-  const { hotelData } = props;
+  const { query, hotelData } = props;
 
   const tabs = [
     ["recommend", "Recommended"],
@@ -126,7 +126,7 @@ function SearchResult(props) {
         <div className="row align-items-basline mb-3">
           <div className="col-md-4 text-center text-md-left">
             <h2 className="fixed-size mb-0">
-              Bangkok<span className="notation-lg text-primary">3,240</span>
+              {query.city}<span className="notation-lg text-primary">{hotelData.length}</span>
             </h2>
           </div>
 
