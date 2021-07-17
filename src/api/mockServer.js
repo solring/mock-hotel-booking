@@ -51,16 +51,22 @@ export default function() {
         return { success: true, order: { order: "fakeOrderNum"} };
       })
 
+      this.post(apis.API_ORDER_GET, (schema, request) => {
+        let json = JSON.parse(request.requestBody);
+        console.log(`ORDER: order id=${json.id}`);
+        return { data: data.orderDetail};
+      })
+
       this.post(apis.API_MEMBER_GET_INFO, (schema, request) => {
         let json = JSON.parse(request.requestBody);
         console.log(`MEMBER: get member info: ${json.id}`);
-        return { data: data.memberData }
+        return { data: data.memberData };
       })
 
       this.post(apis.API_MEMBER_GET_ORDERS, (schema, request) => {
         let json = JSON.parse(request.requestBody);
         console.log(`MEMBER: get member orders: ${json.id}`);
-        return { data: data.bookings }
+        return { data: data.bookings };
       })
     }
   });

@@ -1,18 +1,34 @@
+import { useEffect, useState } from 'react';
+import qs from 'query-string';
 import Layout from '../layout/Layout';
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 import { INDEX } from '../utils/links';
-import { orderDetail, memberData } from '../utils/mockdata';
+import api, { GetOrder } from '../api/mockApi';
+import { memberData } from '../utils/mockdata';
 
-function Page (){
+function Page (props){
 
-  let order = orderDetail || {};
   let member = memberData || {};
+  const [ order, setOrder ] = useState(null);
+  const { order:orderId } = qs.parse(props.location.search);
+
+  useEffect(() => {
+    if(!orderId) return;
+    if (order !== null) return;
+
+    api(GetOrder(orderId)).then((r) => {
+      setOrder(r.data);
+    }).catch((e) => {
+      console.error("No Order data");
+    });
+  });
+
 
   const Content = () => {
-    if (!order || !member) return <div></div>;
+    if (!order || order.length === 0 || Object.keys(member).length === 0) return <div></div>;
 
     return (
   <div className="container">

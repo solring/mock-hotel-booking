@@ -22,7 +22,7 @@ function DetailPage (props){
   const [hotelInfo, setHotelInfo] = useState(null);
   const [hotelPics, setHotelPics] = useState([]);
 
-  let info = (hotelInfo === null) ? defaultInfo : hotelInfo;
+  let info = hotelInfo ? hotelInfo : defaultInfo;
 
   // Init
   useEffect(() => {

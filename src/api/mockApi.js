@@ -2,6 +2,7 @@ import qs from 'query-string';
 
 export const API_NEWS_SUBSCRIBE = "/api/subscribe";
 export const API_ORDER_SUBMIT= "/api/order/submit";
+export const API_ORDER_GET= "/api/order/get";
 
 export const API_GET_RECOMMEND = "/api/index/recommend";
 export const API_SEARCH_GET_HOTELS = "/api/search/hotels";
@@ -13,15 +14,6 @@ export const API_HOTEL_GET_INFO = "/api/hotel/info";
 export const API_MEMBER_LOGIN = "/api/login";
 export const API_MEMBER_GET_INFO = "/api/member/info";
 export const API_MEMBER_GET_ORDERS = "/api/member/orders";
-
-export const Login = (username, password) => ({
-  endpoint: API_MEMBER_LOGIN,
-  method: 'post',
-  json: {
-    username,
-    password,
-  },
-});
 
 export const Subscribe = (email) => ({
   endpoint: API_NEWS_SUBSCRIBE,
@@ -36,6 +28,19 @@ export const SubmitOrder = (orders) => ({
     orders
   }
 });
+
+export const GetOrder = (orderId) => ({
+  endpoint: API_ORDER_GET,
+  method: 'post',
+  json: {
+    id: orderId,
+  }
+})
+
+export const LoadRecommendation = () => ({
+  endpoint: API_GET_RECOMMEND,
+  method: 'get',
+})
 
 export const Search = ({
   city,
@@ -64,11 +69,6 @@ export const LoadRecommendLocs = () => ({
   method: 'get',
 })
 
-export const LoadRecommendation = () => ({
-  endpoint: API_GET_RECOMMEND,
-  method: 'get',
-})
-
 export const LoadRooms = (hotelId) => ({
   endpoint: API_HOTEL_GET_ROOMS,
   method: 'get',
@@ -83,6 +83,15 @@ export const GetHotelInfo = (hotelId) => ({
 })
 
 // TODO: add auth
+export const Login = (username, password) => ({
+  endpoint: API_MEMBER_LOGIN,
+  method: 'post',
+  json: {
+    username,
+    password,
+  },
+});
+
 export const GetMemberInfo = (memberId) => ({
   endpoint: API_MEMBER_GET_INFO,
   method: 'post',
