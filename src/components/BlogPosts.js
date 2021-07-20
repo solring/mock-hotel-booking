@@ -23,7 +23,7 @@ export default (props) => {
     >
       {posts.map((post, i) => (
       <SwiperSlide key={`post ${i}`}>
-        <img src={post.pic} alt={`post ${i} image`} className="rounded-lg pic-height-md" />
+        <img src={post.pic} alt={`post ${i}`} className="rounded-lg pic-height-md" />
         <h4 className="mt-4 mb-2">{post.title}</h4>
         <p className="text-secondary">{post.preview}</p>
       </SwiperSlide>

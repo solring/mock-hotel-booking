@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { addBatch } from '../features/cart/cartSlicer';
+import { addBatch } from '../features/cartSlicer';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 // swiper react does not include navigation by default
@@ -8,11 +8,14 @@ import SwiperCore, { Navigation } from 'swiper/core';
 import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss'
 
-import api, { LoadRooms } from '../api/mockApi';
+import { fetchHotelRooms } from '../features/detail/roomSlicer';
+import { SLICER_INIT, AJAX_STATUES_SUCCESS } from '../features/fetchStatus';
+
 import * as links from '../utils/links';
 
 import NumberPicker from './NumberPicker';
 import BottomModal from './BottomModal';
+import Loading from './Loading';
 
 import { genGuestStr } from '../utils/utils';
 import { diffDate } from '../utils/dates';
@@ -165,7 +168,9 @@ function RoomDetail(props) {
   const globalDispatch = useDispatch();
   const searchOptions = useSelector(state => state.search);
 
-  const [availableRooms, setAvailableRooms] = useState([]);
+  const availableRooms = useSelector(state => state.room.rooms);
+  const status = useSelector(state => state.room.status);
+
   const [cartModal, setCartModal] = useState(false);
   const [order, setOrder] = useState(Array(availableRooms.length).fill(0));
 
@@ -177,13 +182,8 @@ function RoomDetail(props) {
 
     // Init
     useEffect(() => {
-      if (availableRooms.length!==0) return;
-      api(LoadRooms('fakeId')).then((r) => {
-        setAvailableRooms(r.data);
-        setOrder(Array(r.data.length).fill(0));
-      }).catch(() => {
-        console.log("failed to load hotel rooms.");
-      });
+      if (status === SLICER_INIT)
+        globalDispatch(fetchHotelRooms("hotelId"));
     });
 
   // Handlers
@@ -303,10 +303,15 @@ function RoomDetail(props) {
         <a href="#" className="text-uppercase text font-weight-bold ml-4">edit detail</a>
       </div>
 
-      <RoomList
-        rooms={availableRooms}
-        order={order}
-        onOrderChange={onOrderChangeHandler}/>
+      {
+        status === AJAX_STATUES_SUCCESS ?
+          <RoomList
+            rooms={availableRooms}
+            order={order}
+            onOrderChange={onOrderChangeHandler}/> :
+          <Loading />
+      }
+
     </div>
 
     {/* CartModal*/}

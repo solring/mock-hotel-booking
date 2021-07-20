@@ -19,7 +19,7 @@ function HotelCard(props) {
 
   const genTags = (indes) => {
     return indes.map((idx) => (
-      <div className="badge badge-info badge-pill mr-1 mb-1">{tags[idx]}</div>
+      <div key={idx} className="badge badge-info badge-pill mr-1 mb-1">{tags[idx]}</div>
     ));
   };
 
@@ -40,7 +40,7 @@ function HotelCard(props) {
     if(images.length < 1) return;
 
     if(images.length === 1)
-      return (<img className={`HotelCard__cardImg pic-height-sm`} src={images[0]} alt="hotel picture" />);
+      return (<img className={`HotelCard__cardImg pic-height-sm`} src={images[0]} alt="details" />);
 
     return (
     <Swiper

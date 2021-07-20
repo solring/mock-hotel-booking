@@ -380,6 +380,7 @@ export const memberData = {
   email: "david0520@mail.com.tw",
   phone: "+886 9 32 456 789",
   pic: profilePic,
+  verified: true,
   payments: [
     {
       cardOwner: "DAVID LIN",

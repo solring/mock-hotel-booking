@@ -4,26 +4,26 @@ import Layout from '../layout/Layout';
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import Loading from '../components/Loading';
 
 import { INDEX } from '../utils/links';
-import api, { GetOrder } from '../api/mockApi';
-import { memberData } from '../utils/mockdata';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { SLICER_INIT, AJAX_STATUES_SUCCESS } from '../features/fetchStatus';
+import { fetchOrders } from '../features/orderSlicer';
 
 function Page (props){
 
-  let member = memberData || {};
-  const [ order, setOrder ] = useState(null);
   const { order:orderId } = qs.parse(props.location.search);
 
-  useEffect(() => {
-    if(!orderId) return;
-    if (order !== null) return;
+  const member = useSelector(state => state.order.user);
+  const order = useSelector(state => state.order.orders[0]);
+  const status = useSelector(state => state.order.status);
+  const dispatch = useDispatch();
 
-    api(GetOrder(orderId)).then((r) => {
-      setOrder(r.data);
-    }).catch((e) => {
-      console.error("No Order data");
-    });
+  useEffect(() => {
+    if(status === SLICER_INIT)
+      dispatch(fetchOrders(orderId));
   });
 
 
@@ -88,7 +88,11 @@ function Page (props){
         <Header simple={false} member={false} />
       </Layout.Header>
       <Layout.Content>
-        {Content()}
+        {
+          status === AJAX_STATUES_SUCCESS ?
+          Content() :
+          <Loading />
+        }
       </Layout.Content>
       <Footer short={true} />
     </Layout>

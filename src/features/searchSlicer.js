@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import * as constants from '../../utils/constants';
-import { parseDate, serializeDate } from '../../utils/dates';
+import * as constants from '../utils/constants';
+import { parseDate, serializeDate } from '../utils/dates';
 
 const keys = [
   "city",

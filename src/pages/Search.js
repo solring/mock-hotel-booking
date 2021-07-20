@@ -8,23 +8,23 @@ import SearchBar from '../components/SearchBar';
 
 import SearchResult from '../components/SearchResult'
 import Subscription from '../components/Subscription';
+import Loading from '../components/Loading';
 
-import { useSelector } from 'react-redux';
-import api, { Search } from '../api/mockApi';
+import { useSelector, useDispatch } from 'react-redux';
+import { SLICER_INIT, AJAX_STATUES_SUCCESS } from '../features/fetchStatus';
+import { fetchHotels } from '../features/hotelSlicer';
 
 function SearchPage (props){
 
-  const [hotelData, setHotelData] = useState([]);
   const query = useSelector(state => state.search);
   const queryBackup = qs.parse(props.location.search);
 
+  const hotels = useSelector(state => state.hotel.hotels);
+  const status = useSelector(state => state.hotel.status);
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    if(hotelData.length > 0) return;
-    api(Search(query)).then((res) => {
-      setHotelData(res.data);
-    }).catch((e) => {
-      console.error("No hotel data");
-    });
+    if(status === SLICER_INIT) dispatch(fetchHotels(query));
   })
 
   return (
@@ -34,7 +34,11 @@ function SearchPage (props){
         <SearchBar withReturn={false} simplified={false}/>
       </Layout.Header>
       <Layout.Content>
-        <SearchResult hotelData={hotelData} query={queryBackup} />
+        {
+          status === AJAX_STATUES_SUCCESS ?
+          <SearchResult hotelData={hotels} query={queryBackup} /> :
+          <Loading />
+        }
         <Subscription size="small" />
         <Footer short={false} />
       </Layout.Content>

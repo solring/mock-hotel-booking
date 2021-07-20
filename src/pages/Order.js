@@ -4,12 +4,17 @@ import Layout from '../layout/Layout';
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import Loading from '../components/Loading';
 import OrderDetail from '../components/OrderDetail';
 
 import { useSelector, useDispatch } from 'react-redux'
-import { clear } from '../features/cart/cartSlicer';
+import { submitOrder } from '../features/cartSlicer';
+import {
+  AJAX_STATUES_LOADING,
+  AJAX_STATUES_SUCCESS,
+  AJAX_STATUES_FAILED
+} from '../features/fetchStatus';
 
-import api, { SubmitOrder } from '../api/mockApi';
 import { CONFIRMATION } from '../utils/links';
 
 function OrderPage(props){
@@ -27,25 +32,43 @@ function OrderPage(props){
 
   // redux
   const orders = useSelector(state => state.cart.orders);
+  const status = useSelector(state => state.cart.status);
+  const history = useSelector(state => state.cart.completed);
   const globalDispatch = useDispatch();
 
-  const doReserve = (e) => {
+  const doReserve = async (e) => {
     e.preventDefault();
     setValidating('was-validated');
 
     if(e.target.checkValidity() === false) return;
-    // call async api
-    api(SubmitOrder(orders)).then((r) => {
-      if(r.success) {
-        globalDispatch(clear());
-        window.location.href = CONFIRMATION + "?" + qs.stringify(r.order);
-      } else
-        throw Error("Server: order failed.");
-    }).catch((e) => {
-      console.error(e)
-    })
 
+    if(status !== AJAX_STATUES_LOADING) {
+      let res = await globalDispatch(submitOrder(orders))
+      console.log(res);
+      if(status === AJAX_STATUES_SUCCESS)
+        window.location.href = CONFIRMATION + "?" + qs.stringify({order: res.payload.order});
+    }
   }
+
+  const Form = (
+    <form className={validating} onSubmit={doReserve} noValidate>
+      <h2 className="mb-4 mt-4 mt-md-0">Reservation Details</h2>
+      <ul className="list-unstyled text-secondary">
+        {fields.map(([short, title, type, reactValue, reactSet]) => (
+          <li key={short} className="form-group">
+            <label htmlFor={short}>{title}</label>
+            <input id={short} name={short} type={type}
+              className="form-control form-control-lg"
+              required={(short === 'phone') ? false : true}
+              value={reactValue} onChange={(e) => reactSet(e.target.value)}
+            />
+          </li>
+        ))}
+      </ul>
+      <button className="btn btn-lg btn-primary btn-block text-uppercase mt-4" type="submit">reserve</button>
+      <a href="#" className="d-block text-center text-sub mt-2">Reserve now, pay at stay</a>
+    </form>
+  );
 
   const Content = (
   <div className="container pt-0 pt-md-4">
@@ -54,26 +77,18 @@ function OrderPage(props){
 
       <div className="row flex-md-row-reverse">
         <div className="col-md-6 px-0 px-sm-3">
-            <OrderDetail orders={orders}/>
+          <OrderDetail orders={orders}/>
         </div>
         <div className="col-md-6 mb-5">
-          <form className={validating} onSubmit={doReserve} noValidate>
-            <h2 className="mb-4 mt-4 mt-md-0">Reservation Details</h2>
-            <ul className="list-unstyled text-secondary">
-              {fields.map(([short, title, type, reactValue, reactSet]) => (
-                <li key={short} className="form-group">
-                  <label htmlFor={short}>{title}</label>
-                  <input id={short} name={short} type={type}
-                    className="form-control form-control-lg"
-                    required={(short === 'phone') ? false : true}
-                    value={reactValue} onChange={(e) => reactSet(e.target.value)}
-                  />
-                </li>
-              ))}
-            </ul>
-            <button className="btn btn-lg btn-primary btn-block text-uppercase mt-4" type="submit">reserve</button>
-            <a href="#" className="d-block text-center text-sub mt-2">Reserve now, pay at stay</a>
-          </form>
+          {
+            status === AJAX_STATUES_LOADING ?
+            <Loading /> :
+            Form
+          }
+          <div className={status === AJAX_STATUES_FAILED ?
+              "alert alert-danger mt-4" : "invisible" }>
+            Oops! There is something wrong with the server. Please try it later.
+          </div>
         </div>
       </div>
 

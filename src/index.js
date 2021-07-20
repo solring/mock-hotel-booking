@@ -5,7 +5,7 @@ import Routes from './Routes';
 import reportWebVitals from './reportWebVitals';
 
 import qs from 'query-string';
-import { update } from './features/search/searchSlicer';
+import { update } from './features/searchSlicer';
 
 import configureAppStore from './store';
 import { Provider } from 'react-redux';

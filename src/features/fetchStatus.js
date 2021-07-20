@@ -1,0 +1,4 @@
+export const SLICER_INIT = 'INIT';
+export const AJAX_STATUES_LOADING = "AJAX_LOADING";
+export const AJAX_STATUES_SUCCESS = "AJAX_SUCCESS";
+export const AJAX_STATUES_FAILED = "AJAX_FAILED";

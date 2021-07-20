@@ -67,12 +67,15 @@ export const Search = ({
 export const LoadRecommendLocs = () => ({
   endpoint: API_SEARCH_GET_RECOMMEND,
   method: 'get',
-})
+});
 
 export const LoadRooms = (hotelId) => ({
   endpoint: API_HOTEL_GET_ROOMS,
   method: 'get',
-})
+  query: {
+    hotel: hotelId,
+  }
+});
 
 export const GetHotelInfo = (hotelId) => ({
   endpoint: API_HOTEL_GET_INFO,
@@ -80,7 +83,7 @@ export const GetHotelInfo = (hotelId) => ({
   query: {
     hotel: hotelId,
   }
-})
+});
 
 // TODO: add auth
 export const Login = (username, password) => ({

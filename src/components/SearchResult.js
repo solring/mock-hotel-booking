@@ -13,7 +13,7 @@ function Hotels(props) {
   if (!rooms) return <div></div>;
   return (
     <ul className="list-divider-info no-divider-down-sm">
-      {rooms.map((r) => <HotelCard room={r} />)}
+      {rooms.map((r) => <HotelCard key={r.name} room={r} />)}
     </ul>
   );
 }

@@ -7,33 +7,25 @@ import Footer from '../components/Footer';
 import MemberProfile from '../components/MemberProfile';
 import ConfirmedBooking from '../components/ConfirmedBooking';
 
-import api, { GetMemberInfo, GetMemberOrders } from '../api/mockApi';
+import { fetchMemberInfo } from '../features/member/memberSlicer';
+import { fetchMemberOrder } from '../features/member/memberOrderSlicer';
+import { SLICER_INIT, AJAX_STATUES_SUCCESS, AJAX_STATUES_LOADING } from '../features/fetchStatus';
+import { useSelector, useDispatch } from 'react-redux'
 
 function Page (){
 
-  const defaultUser = {
-    name: "User",
-    email: "",
-    phone: "",
-    pic: "",
-    payments: []
-  };
-  const [bookings, setBooking] = useState([]);
-  const [memberData, setMemberData] = useState(null);
+  const dispatch = useDispatch();
+  const bookings = useSelector(state => state.morder.orders);
+  const memberData = useSelector(state => state.member.info);
+  const statusBooking = useSelector(state => state.morder.status);
+  const statusMember = useSelector(state => state.member.status);
 
   useEffect(() => {
-    if (memberData!==null) return;
-    api(GetMemberInfo('fakeId')).then((r) => {
-      setMemberData(r.data);
-    }).catch(() => {
-      console.log("failed to load user info.");
-    });
+    if (statusMember === SLICER_INIT)
+      dispatch(fetchMemberInfo("fakeId"));
 
-    api(GetMemberOrders('fakeId')).then((r) => {
-      setBooking(r.data);
-    }).catch(() => {
-      console.log("failed to load user orders.");
-    });
+    if (statusBooking === SLICER_INIT)
+      dispatch(fetchMemberOrder("fakeId"));
   });
 
   const Content = () => {
@@ -44,12 +36,10 @@ function Page (){
         <div className="col-lg-8">
           <h2 className="h4 my-4">My Bookings</h2>
 
-          <ConfirmedBooking data={bookings} />
+          <ConfirmedBooking data={bookings} loading={statusBooking === AJAX_STATUES_LOADING}/>
         </div>
 
-        <MemberProfile member={
-          (memberData === null) ? defaultUser : memberData
-        } />
+        <MemberProfile member={memberData} loaded={statusMember === AJAX_STATUES_SUCCESS} />
       </div>
     </div>
     );

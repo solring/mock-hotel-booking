@@ -48,13 +48,16 @@ export default function() {
       this.post(apis.API_ORDER_SUBMIT, (schema, request)=> {
         let json = JSON.parse(request.requestBody);
         console.log(json);
-        return { success: true, order: { order: "fakeOrderNum"} };
+        return { success: true, order: "fakeOrderNum" };
       })
 
       this.post(apis.API_ORDER_GET, (schema, request) => {
         let json = JSON.parse(request.requestBody);
         console.log(`ORDER: order id=${json.id}`);
-        return { data: data.orderDetail};
+        return {
+          user: data.memberData,
+          orders: [data.orderDetail],
+        };
       })
 
       this.post(apis.API_MEMBER_GET_INFO, (schema, request) => {

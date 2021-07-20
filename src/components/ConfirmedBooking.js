@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { Tab, Nav } from 'react-bootstrap';
+import Loading from './Loading';
 
 function ConfirmedBooking(props) {
-  const { data } = props;
+  const { data, loading } = props;
 
   const tabs = [
     "Upcoming", "Completed"
@@ -76,7 +77,10 @@ function ConfirmedBooking(props) {
     <Tab.Content>
       {tabs.map((tab) => (
         <Tab.Pane eventKey={tab}>
-          {genBookings(data.filter(booking => booking.status === tab))}
+          {
+            loading ? <Loading /> :
+            genBookings(data.filter(booking => booking.status === tab))
+          }
         </Tab.Pane>
       ))}
     </Tab.Content>

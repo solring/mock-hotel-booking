@@ -30,6 +30,7 @@ function Subscription(props) {
     };
 
     return (
+      <React.Fragment>
       <form className={`input-group input-group-lg ${validating}`}
         noValidate
         onSubmit={subscribe}
@@ -41,8 +42,9 @@ function Subscription(props) {
         <div className="input-group-append">
           <button className="btn btn-primary" type="submit">Subscribe</button>
         </div>
-        <div className="invalid-feedback">Please enter valid email.</div>
       </form>
+      <div className="invalid-feedback">Please enter valid email.</div>
+      </React.Fragment>
     );
   };
 

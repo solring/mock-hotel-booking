@@ -4,7 +4,8 @@ import { useMediaQuery } from '@material-ui/core';
 import queryString from 'query-string';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { update } from '../features/search/searchSlicer';
+import { update } from '../features/searchSlicer';
+import { reset } from '../features/hotelSlicer';
 
 import NumberPicker from './NumberPicker';
 import DatePicker from './DatePicker';
@@ -85,8 +86,11 @@ function SearchBar (props) {
   };
 
   const doSearch = (e) => {
-    console.log("doSearch");
     e.preventDefault();
+    // clear previous search result
+    globalDispatch(reset());
+
+    // make query string
     let searchOptions = {
       country,
       city,

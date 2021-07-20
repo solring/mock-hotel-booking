@@ -7,32 +7,25 @@ import SearchBar from '../components/SearchBar';
 
 import RoomDetail from '../components/RoomDetail';
 import Subscription from '../components/Subscription';
+import Loading from '../components/Loading';
 
-import api, { GetHotelInfo } from '../api/mockApi';
+import { useSelector, useDispatch } from 'react-redux'
+import { reset, fetchHotelDetail } from '../features/detail/detailSlicer';
+import { SLICER_INIT, AJAX_STATUES_SUCCESS } from '../features/fetchStatus';
 
 function DetailPage (props){
 
-  const defaultInfo = {
-    name: "",
-    star: 0,
-    review: 0,
-    addr: "",
-    desc: "",
-  };
-  const [hotelInfo, setHotelInfo] = useState(null);
-  const [hotelPics, setHotelPics] = useState([]);
+  const hotelInfo = useSelector(state => state.detail.detail);
+  const hotelPics = useSelector(state => state.detail.images);
+  const status = useSelector(state => state.detail.status);
+  const dispatch = useDispatch();
 
-  let info = hotelInfo ? hotelInfo : defaultInfo;
 
   // Init
   useEffect(() => {
-    if (hotelInfo!==null) return;
-    api(GetHotelInfo('fakeId')).then((r) => {
-      setHotelInfo(r.info);
-      setHotelPics(r.imgs);
-    }).catch(() => {
-      console.log("failed to load hotel intro.");
-    });
+    if(status === SLICER_INIT)
+      dispatch(fetchHotelDetail("fakeId"));
+    //return () => dispatch(reset());
   });
 
   return (
@@ -42,7 +35,10 @@ function DetailPage (props){
         <SearchBar withReturn={true} simplified={false} />
       </Layout.Header>
       <Layout.Content>
-        <RoomDetail hotelInfo={info} hotelPics={hotelPics} />
+        { status === AJAX_STATUES_SUCCESS ?
+        <RoomDetail hotelInfo={hotelInfo} hotelPics={hotelPics} /> :
+        <Loading />
+        }
         <Subscription size="small" />
         <Footer short={false} />
       </Layout.Content>
