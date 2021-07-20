@@ -1,14 +1,14 @@
 function NumberPicker(props) {
-  const {number, numSetter} = props;
+  const {number, onNumChange} = props;
 
   const minus = () => {
     if(number === 0) return;
-    numSetter(number-1);
+    onNumChange(number-1);
   }
 
   const plus = () => {
     if(number > 99) return;
-    numSetter(number+1);
+    onNumChange(number+1);
   }
 
   return (

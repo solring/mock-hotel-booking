@@ -33,7 +33,6 @@ function OrderPage(props){
   // redux
   const orders = useSelector(state => state.cart.orders);
   const status = useSelector(state => state.cart.status);
-  const history = useSelector(state => state.cart.completed);
   const globalDispatch = useDispatch();
 
   const doReserve = async (e) => {

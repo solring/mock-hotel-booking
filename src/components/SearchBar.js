@@ -221,7 +221,7 @@ function SearchBar (props) {
           <div className="d-flex justify-content-between">
             <p>{option[0]}</p>
             <NumberPicker number={option[1]}
-              numSetter={(num) => updateGlobal({ [option[2]]: num })} />
+              onNumChange={(num) => updateGlobal({ [option[2]]: num })} />
           </div>
       </li>
     ));

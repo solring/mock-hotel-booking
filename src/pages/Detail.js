@@ -6,27 +6,43 @@ import Footer from '../components/Footer';
 import SearchBar from '../components/SearchBar';
 
 import RoomDetail from '../components/RoomDetail';
+import HotelDesc from '../components/HotelDesc';
 import Subscription from '../components/Subscription';
 import Loading from '../components/Loading';
 
 import { useSelector, useDispatch } from 'react-redux'
-import { reset, fetchHotelDetail } from '../features/detail/detailSlicer';
+import { fetchHotelDetail } from '../features/detail/detailSlicer';
+import { fetchHotelRooms } from '../features/detail/roomSlicer';
 import { SLICER_INIT, AJAX_STATUES_SUCCESS } from '../features/fetchStatus';
 
 function DetailPage (props){
 
   const hotelInfo = useSelector(state => state.detail.detail);
   const hotelPics = useSelector(state => state.detail.images);
+  const rooms = useSelector(state => state.room.rooms);
   const status = useSelector(state => state.detail.status);
+  const status2 = useSelector(state => state.room.status);
   const dispatch = useDispatch();
 
-
+  let loaded = status === AJAX_STATUES_SUCCESS;
   // Init
   useEffect(() => {
     if(status === SLICER_INIT)
       dispatch(fetchHotelDetail("fakeId"));
-    //return () => dispatch(reset());
+    if(status2 === SLICER_INIT)
+      dispatch(fetchHotelRooms("fakeId"));
   });
+
+  const Content = () => (
+    <div className="pt-md-4 Hotel__pageContainer">
+      {
+         loaded ?
+        <HotelDesc hotelInfo={hotelInfo} hotelPics={hotelPics} /> :
+        <Loading />
+      }
+      { rooms.length > 0 && <RoomDetail hotelInfo={hotelInfo} availableRooms={rooms} />}
+    </div>
+  );
 
   return (
     <Layout>
@@ -35,10 +51,7 @@ function DetailPage (props){
         <SearchBar withReturn={true} simplified={false} />
       </Layout.Header>
       <Layout.Content>
-        { status === AJAX_STATUES_SUCCESS ?
-        <RoomDetail hotelInfo={hotelInfo} hotelPics={hotelPics} /> :
-        <Loading />
-        }
+        {Content()}
         <Subscription size="small" />
         <Footer short={false} />
       </Layout.Content>
