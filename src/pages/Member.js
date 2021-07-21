@@ -9,7 +9,7 @@ import ConfirmedBooking from '../components/member/ConfirmedBooking';
 
 import { fetchMemberInfo } from '../features/member/memberSlicer';
 import { fetchMemberOrder } from '../features/member/memberOrderSlicer';
-import { SLICER_INIT, AJAX_STATUES_SUCCESS, AJAX_STATUES_LOADING } from '../features/fetchStatus';
+import { AJAX_STATUES_SUCCESS, AJAX_STATUES_LOADING } from '../features/fetchStatus';
 import { useSelector, useDispatch } from 'react-redux'
 
 function Page (){
@@ -21,12 +21,9 @@ function Page (){
   const statusMember = useSelector(state => state.member.status);
 
   useEffect(() => {
-    if (statusMember === SLICER_INIT)
       dispatch(fetchMemberInfo("fakeId"));
-
-    if (statusBooking === SLICER_INIT)
       dispatch(fetchMemberOrder("fakeId"));
-  });
+  },[]);
 
   const Content = () => {
     return (

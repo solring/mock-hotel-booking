@@ -48,13 +48,12 @@ function SearchBar (props) {
   const [destText, setDestText] = useState("");
 
   useEffect(() => {
-    if(suggestLocs.length > 0) return;
     api(LoadRecommendLocs()).then((res) => {
       setSuggestLocs(res.data);
     }).catch((e) => {
       console.error("No suggested destinations.");
     });
-  })
+  }, []);
 
   let isSmallScreen = useMediaQuery(`(max-width:${constants.BS_BREAKPOINT_MD})`);
   let isMidcreen = useMediaQuery(`(max-width:${constants.BS_BREAKPOINT_XL})`);

@@ -11,7 +11,7 @@ import Subscription from '../components/Subscription';
 import Loading from '../components/Loading';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { SLICER_INIT, AJAX_STATUES_SUCCESS } from '../features/fetchStatus';
+import { AJAX_STATUES_SUCCESS } from '../features/fetchStatus';
 import { fetchHotels } from '../features/hotelSlicer';
 
 function SearchPage (props){
@@ -24,8 +24,8 @@ function SearchPage (props){
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(status === SLICER_INIT) dispatch(fetchHotels(query));
-  })
+    dispatch(fetchHotels(query));
+  }, [])
 
   return (
     <Layout>

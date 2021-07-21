@@ -22,9 +22,8 @@ function Page (props){
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(status === SLICER_INIT)
-      dispatch(fetchOrders(orderId));
-  });
+    dispatch(fetchOrders(orderId));
+  },[]);
 
 
   const Content = () => {

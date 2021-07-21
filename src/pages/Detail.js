@@ -27,11 +27,9 @@ function DetailPage (props){
   let loaded = status === AJAX_STATUES_SUCCESS;
   // Init
   useEffect(() => {
-    if(status === SLICER_INIT)
-      dispatch(fetchHotelDetail("fakeId"));
-    if(status2 === SLICER_INIT)
-      dispatch(fetchHotelRooms("fakeId"));
-  });
+    dispatch(fetchHotelDetail("fakeId"));
+    dispatch(fetchHotelRooms("fakeId"));
+  },[]);
 
   const Content = () => (
     <div className="pt-md-4 Hotel__pageContainer">
