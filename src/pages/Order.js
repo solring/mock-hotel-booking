@@ -12,7 +12,7 @@ import { submitOrder } from '../features/cartSlicer';
 import {
   AJAX_STATUES_LOADING,
   AJAX_STATUES_SUCCESS,
-  AJAX_STATUES_FAILED
+  AJAX_STATUES_FAILED,
 } from '../features/fetchStatus';
 
 import { CONFIRMATION } from '../utils/links';
@@ -44,7 +44,7 @@ function OrderPage(props){
     if(status !== AJAX_STATUES_LOADING) {
       let res = await globalDispatch(submitOrder(orders))
       console.log(res);
-      if(status === AJAX_STATUES_SUCCESS)
+      if(res.payload.order)
         window.location.href = CONFIRMATION + "?" + qs.stringify({order: res.payload.order});
     }
   }
@@ -69,6 +69,12 @@ function OrderPage(props){
     </form>
   );
 
+  const failMsg = (
+    <div className="alert alert-danger mt-4">
+      Oops! There is something wrong with the server. Please submit later.
+    </div>
+  );
+
   const Content = (
   <div className="container pt-0 pt-md-4">
   <div className="row no-gutters justify-content-center">
@@ -76,18 +82,12 @@ function OrderPage(props){
 
       <div className="row flex-md-row-reverse">
         <div className="col-md-6 px-0 px-sm-3">
+
           <OrderDetail orders={orders}/>
         </div>
         <div className="col-md-6 mb-5">
-          {
-            status === AJAX_STATUES_LOADING ?
-            <Loading /> :
-            Form
-          }
-          <div className={status === AJAX_STATUES_FAILED ?
-              "alert alert-danger mt-4" : "invisible" }>
-            Oops! There is something wrong with the server. Please try it later.
-          </div>
+          {status === AJAX_STATUES_LOADING ?  <Loading /> : Form }
+          {status === AJAX_STATUES_FAILED && failMsg}
         </div>
       </div>
 

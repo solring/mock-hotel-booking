@@ -9,7 +9,7 @@ import Loading from '../components/Loading';
 import { INDEX } from '../utils/links';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { SLICER_INIT, AJAX_STATUES_SUCCESS } from '../features/fetchStatus';
+import { switchFetchStatus } from '../features/fetchStatus';
 import { fetchOrders } from '../features/orderSlicer';
 
 function Page (props){
@@ -81,17 +81,21 @@ function Page (props){
     );
   }
 
+  const failMsg = (
+    <div className="container">
+      <div className="alert alert-primary">
+        Oops! Something is wrong loading the order. Please refresh the page.
+      </div>
+    </div>
+  )
+
   return (
     <Layout>
       <Layout.Header>
         <Header simple={false} member={false} />
       </Layout.Header>
       <Layout.Content>
-        {
-          status === AJAX_STATUES_SUCCESS ?
-          Content() :
-          <Loading />
-        }
+        {switchFetchStatus(status, Content(), <Loading />, failMsg)}
       </Layout.Content>
       <Footer short={true} />
     </Layout>

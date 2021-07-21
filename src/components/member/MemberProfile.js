@@ -1,9 +1,7 @@
 import Loading from '../Loading';
 
 function MemberProfile(props) {
-  const {member, loaded} = props;
-
-  if(!member) return <div></div>;
+  const {member, loading} = props;
 
   const cardBtnStyles = "btn btn-light btn-block bg-light p-3";
 
@@ -26,7 +24,15 @@ function MemberProfile(props) {
     </ul>
   );
 
-  const Profile = () => (
+  const Profile = () => {
+
+    if(!member || Object.keys(member).length === 0) return (
+      <div className="card-body">
+        <h6>No data.</h6>
+      </div>
+    );
+
+    return (
     <div className="card-body">
 
       <div className="row">
@@ -49,7 +55,8 @@ function MemberProfile(props) {
       </div>
 
     </div>
-  );
+    )
+  };
 
   return (
     <div className="col-lg-4 mb-5">
@@ -57,7 +64,7 @@ function MemberProfile(props) {
       <div className="d-flex justify-content-between my-4">
         <h2 className="h4">
           Profile
-          { loaded && member.verified &&
+          { member && member.verified &&
             <span className="badge badge-primary badge-pill small align-icons ml-2">
               <span className="material-icons">done</span> Verified
             </span>
@@ -67,7 +74,7 @@ function MemberProfile(props) {
       </div>
 
       <div className="card bg-info">
-        { loaded ? Profile() : <div className="card-body"><Loading /></div> }
+        { loading ? <div className="card-body"><Loading /></div> : Profile() }
       </div>
 
     </div>

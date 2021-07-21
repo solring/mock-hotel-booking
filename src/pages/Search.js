@@ -11,7 +11,7 @@ import Subscription from '../components/Subscription';
 import Loading from '../components/Loading';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { AJAX_STATUES_SUCCESS } from '../features/fetchStatus';
+import { switchFetchStatus } from '../features/fetchStatus';
 import { fetchHotels } from '../features/hotelSlicer';
 
 function SearchPage (props){
@@ -34,11 +34,11 @@ function SearchPage (props){
         <SearchBar withReturn={false} simplified={false}/>
       </Layout.Header>
       <Layout.Content>
-        {
-          status === AJAX_STATUES_SUCCESS ?
-          <SearchResult hotelData={hotels} query={queryBackup} /> :
-          <Loading />
-        }
+        {switchFetchStatus(status,
+          <SearchResult hotelData={hotels} query={queryBackup} />,
+          <Loading />,
+          <div className="alert alert-danger">Oops, something was wrong. Please search again.</div>
+        )}
         <Subscription size="small" />
         <Footer short={false} />
       </Layout.Content>

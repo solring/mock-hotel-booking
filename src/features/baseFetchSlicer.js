@@ -18,6 +18,7 @@ export default (feature) => {
       await new Promise((resolve) => setTimeout(resolve(), 30000));
       const json = await api(req(...args));
       return json;
+      //return new Promise.reject("test reject");
     }),
 
     createFetchSlice: (initStates, customReducers={}, onSuccess=()=>{}) => createSlice({

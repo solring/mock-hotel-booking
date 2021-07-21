@@ -9,7 +9,7 @@ import ConfirmedBooking from '../components/member/ConfirmedBooking';
 
 import { fetchMemberInfo } from '../features/member/memberSlicer';
 import { fetchMemberOrder } from '../features/member/memberOrderSlicer';
-import { AJAX_STATUES_SUCCESS, AJAX_STATUES_LOADING } from '../features/fetchStatus';
+import { AJAX_STATUES_LOADING } from '../features/fetchStatus';
 import { useSelector, useDispatch } from 'react-redux'
 
 function Page (){
@@ -36,7 +36,7 @@ function Page (){
           <ConfirmedBooking data={bookings} loading={statusBooking === AJAX_STATUES_LOADING}/>
         </div>
 
-        <MemberProfile member={memberData} loaded={statusMember === AJAX_STATUES_SUCCESS} />
+        <MemberProfile member={memberData} loading={statusMember === AJAX_STATUES_LOADING} />
       </div>
     </div>
     );

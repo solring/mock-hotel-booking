@@ -11,6 +11,13 @@ function ConfirmedBooking(props) {
   const [currTab, setCurrTab ] = useState(tabs[0]);
 
   const genBookings = (bookings) => {
+    if(!bookings || bookings.length === 0)
+      return (
+        <div className="alert alert-primary">
+          <h6>No bookings.</h6>
+        </div>
+      );
+
     return (
 
     <ul className="list-divider-info mb-4">
