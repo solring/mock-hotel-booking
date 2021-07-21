@@ -25,15 +25,17 @@
 
 @import './assets/style/animation/_animation.scss';
 
-@import './components/Banner.scss';
 @import './components/FullscreenCollapse.scss';
 @import './components/Filter.scss';
 @import './components/SearchBar.scss';
-@import './components/HotelCard.scss';
 @import './components/Subscription.scss';
-@import './components/RoomDetail.scss';
 @import './components/BottomModal.scss';
-@import './components/OrderDetail.scss';
-@import './components/ConfirmedBooking.scss';
+
+@import './components/index/Banner.scss';
+@import './components/search/HotelCard.scss';
+@import './components/detail/RoomDetail.scss';
+@import './components/order/OrderDetail.scss';
+@import './components/member/ConfirmedBooking.scss';
+
 
 @import './pages/Login.scss';

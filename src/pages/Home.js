@@ -2,12 +2,12 @@ import React from 'react';
 import Layout from '../layout/Layout';
 
 import Header from '../components/Header';
-import Banner from '../components/Banner';
+import Banner from '../components/index/Banner';
 import Footer from '../components/Footer';
 
-import TopChoices from '../components/TopChoices';
-import PopularDestination from '../components/PopularDest';
-import BlogPosts from '../components/BlogPosts';
+import TopChoices from '../components/index/TopChoices';
+import PopularDestination from '../components/index/PopularDest';
+import BlogPosts from '../components/index/BlogPosts';
 import Subscription from '../components/Subscription';
 
 import api, { LoadRecommendation } from '../api/mockApi';

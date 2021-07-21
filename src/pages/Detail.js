@@ -5,8 +5,8 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import SearchBar from '../components/SearchBar';
 
-import RoomDetail from '../components/RoomDetail';
-import HotelDesc from '../components/HotelDesc';
+import RoomDetail from '../components/detail/RoomDetail';
+import HotelDesc from '../components/detail/HotelDesc';
 import Subscription from '../components/Subscription';
 import Loading from '../components/Loading';
 

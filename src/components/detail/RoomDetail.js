@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { addBatch } from '../features/cartSlicer';
+import { addBatch } from '../../features/cartSlicer';
 
-import * as links from '../utils/links';
+import * as links from '../../utils/links';
 
-import NumberPicker from './NumberPicker';
-import BottomModal from './BottomModal';
+import NumberPicker from '../NumberPicker';
+import BottomModal from '../BottomModal';
 
-import { genGuestStr } from '../utils/utils';
-import { diffDate } from '../utils/dates';
+import { genGuestStr } from '../../utils/utils';
+import { diffDate } from '../../utils/dates';
 
 
 function RoomList(props) {

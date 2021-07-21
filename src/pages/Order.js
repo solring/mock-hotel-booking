@@ -5,7 +5,7 @@ import Layout from '../layout/Layout';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Loading from '../components/Loading';
-import OrderDetail from '../components/OrderDetail';
+import OrderDetail from '../components/order/OrderDetail';
 
 import { useSelector, useDispatch } from 'react-redux'
 import { submitOrder } from '../features/cartSlicer';

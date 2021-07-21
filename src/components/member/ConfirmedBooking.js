@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Tab, Nav } from 'react-bootstrap';
-import Loading from './Loading';
+import Loading from '../Loading';
 
 function ConfirmedBooking(props) {
   const { data, loading } = props;

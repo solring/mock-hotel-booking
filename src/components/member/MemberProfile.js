@@ -1,4 +1,4 @@
-import Loading from './Loading';
+import Loading from '../Loading';
 
 function MemberProfile(props) {
   const {member, loaded} = props;

@@ -6,7 +6,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import SearchBar from '../components/SearchBar';
 
-import SearchResult from '../components/SearchResult'
+import SearchResult from '../components/search/SearchResult'
 import Subscription from '../components/Subscription';
 import Loading from '../components/Loading';
 

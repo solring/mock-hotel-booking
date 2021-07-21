@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Collapse } from 'react-bootstrap';
 
-import { genGuestStr } from '../utils/utils';
+import { genGuestStr } from '../../utils/utils';
 import dayjs from 'dayjs';
 
 function OrderDetail(props) {

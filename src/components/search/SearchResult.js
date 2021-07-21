@@ -2,11 +2,11 @@ import { useState } from 'react';
 import { Nav, Tab, Dropdown } from "react-bootstrap";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-import Filter from './Filter';
+import Filter from '../Filter';
 import HotelCard from './HotelCard';
-import NumPagenation from './NumPagenation.js'
+import NumPagenation from '../NumPagenation.js'
 
-import * as constants from '../utils/constants';
+import * as constants from '../../utils/constants';
 
 function Hotels(props) {
   const {rooms} = props;

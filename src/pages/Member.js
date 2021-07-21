@@ -4,8 +4,8 @@ import Layout from '../layout/Layout';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
-import MemberProfile from '../components/MemberProfile';
-import ConfirmedBooking from '../components/ConfirmedBooking';
+import MemberProfile from '../components/member/MemberProfile';
+import ConfirmedBooking from '../components/member/ConfirmedBooking';
 
 import { fetchMemberInfo } from '../features/member/memberSlicer';
 import { fetchMemberOrder } from '../features/member/memberOrderSlicer';

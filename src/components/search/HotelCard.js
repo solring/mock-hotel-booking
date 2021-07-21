@@ -5,7 +5,7 @@ import SwiperCore, { Navigation } from 'swiper/core';
 import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss';
 
-import { Stars } from './UtilComponents';
+import { Stars } from '../UtilComponents';
 
 SwiperCore.use([Navigation]);
 
