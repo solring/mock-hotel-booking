@@ -9,11 +9,7 @@ export const roomSlice = roomSlicer.createFetchSlice(
   {
     rooms: []
   },
-  {
-    reset: state => {
-      state.rooms = [];
-    },
-  },
+  {},
   (state, payload) => {
     state.rooms = payload.data;
   },

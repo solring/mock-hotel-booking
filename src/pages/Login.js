@@ -3,7 +3,14 @@ import { useState } from 'react';
 import Layout from '../layout/Layout';
 import Header from '../components/Header';
 
-import api, { Login } from '../api/mockApi';
+import { useSelector, useDispatch } from 'react-redux';
+import { doLogin } from '../features/loginSlicer';
+import {
+  AJAX_STATUES_LOADING,
+  AJAX_STATUES_FAILED,
+  AJAX_STATUES_SUCCESS,
+} from '../features/fetchStatus'
+
 import { MEMBER } from '../utils/links';
 
 function Page (){
@@ -13,28 +20,35 @@ function Page (){
   const [pwd, setPwd] = useState("");
   const [remember, setRemember] = useState(false);
 
+  const dispatch = useDispatch();
+  const status = useSelector(state => state.login.status);
+  const authorized = useSelector(state => state.login.authorized);
+
   const [validating, setValidating] = useState("");
 
-  const login = (e) => {
+  const login = async (e) => {
     e.preventDefault();
     setValidating('was-validated');
 
     if (e.target.checkValidity()===false) return;
 
-    console.log("Login");
-    // remember username/pwd if needed
+    setValidating("");
     // submit
-    api(Login(user, pwd)).then((r) => {
-      if(r.success === true) {
+    if(status !== AJAX_STATUES_LOADING) {
+      const r = await dispatch(doLogin(user, pwd));
+      if(r.payload.success === true) {
         window.location.href = MEMBER;
-      } else {
-        throw Error("Server: Login failed.")
       }
-    }).catch((e) => {
-      console.error("Failed trying login.");
-      console.error(e);
-    })
+    }
   };
+
+  const errServer = "Something is wrong with the server. Please try again later.";
+  const errAuthFail = "Incorrect email or password.";
+  const errMsg = (msg) => (
+    <div className="invalid-feedback d-inline">
+      {msg}
+    </div>
+  )
 
   const loginForm = (
     <form className={validating} noValidate data-aos="fade-left"
@@ -57,7 +71,10 @@ function Page (){
           value={pwd} onChange={(e) => setPwd(e.target.value)}
         />
         <div className="invalid-feedback">Please enter password.</div>
+        {status === AJAX_STATUES_FAILED && errMsg(errServer)}
+        {status === AJAX_STATUES_SUCCESS && !authorized && errMsg(errAuthFail)}
       </div>
+
 
       <p className="small text-secondary mt-4">
         By signing in or creating an account, you agree with our <a href="#">Terms & Conditions</a> and <a href="#">Privacy Statement</a>
@@ -114,7 +131,7 @@ function Page (){
       <div className="Login__background login-bg position-fixed vh-100"></div>
 
       <nav className="fixed-top">
-        <Header simple={true} member={false} />
+        <Header simple={true} />
       </nav>
       <Layout.Content>
         {Content()}

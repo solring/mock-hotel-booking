@@ -30,7 +30,7 @@ function SearchPage (props){
   return (
     <Layout>
       <Layout.Header>
-        <Header simple={false} member={false}/>
+        <Header simple={false} />
         <SearchBar withReturn={false} simplified={false}/>
       </Layout.Header>
       <Layout.Content>

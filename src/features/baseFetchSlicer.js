@@ -7,8 +7,6 @@ import {
   AJAX_STATUES_FAILED
 } from './fetchStatus';
 
-
-
 export default (feature) => {
   const path = `${feature}/fetch`;
 

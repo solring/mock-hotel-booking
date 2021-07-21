@@ -43,7 +43,7 @@ function DetailPage (props){
   return (
     <Layout>
       <Layout.Header>
-        <Header simple={false} member={false}/>
+        <Header simple={false} />
         <SearchBar withReturn={true} simplified={false} />
       </Layout.Header>
       <Layout.Content>

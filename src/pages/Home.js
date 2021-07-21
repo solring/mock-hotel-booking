@@ -42,7 +42,7 @@ import api, { LoadRecommendation } from '../api/mockApi';
   render() { return (
     <Layout>
       <Layout.Header>
-        <Header simple={false} member={false} />
+        <Header simple={false} />
       </Layout.Header>
 
       <Layout.Content>

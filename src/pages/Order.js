@@ -11,7 +11,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import { submitOrder } from '../features/cartSlicer';
 import {
   AJAX_STATUES_LOADING,
-  AJAX_STATUES_SUCCESS,
   AJAX_STATUES_FAILED,
 } from '../features/fetchStatus';
 

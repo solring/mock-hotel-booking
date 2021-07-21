@@ -10,12 +10,14 @@ import roomSlicer from './features/detail/roomSlicer';
 import orderSlicer from './features/orderSlicer';
 import memberSlicer from './features/member/memberSlicer'
 import memberOrderSlicer from './features/member/memberOrderSlicer'
+import loginSlicer from './features/loginSlicer';
 
 import { sessionStorageMidwareInit, loadSessionStorage } from './middleware/sessionStorageMidware';
 
 const toSave = [
   "cart",
-  "search"
+  "search",
+  "login",
 ];
 
 const sessionStorageMidware = sessionStorageMidwareInit(toSave);
@@ -34,6 +36,7 @@ export default function configureAppStore() {
       order: orderSlicer,
       member: memberSlicer,
       morder: memberOrderSlicer,
+      login: loginSlicer,
     },
     middleware: [thunkMiddleware, sessionStorageMidware],
     preloadedState,

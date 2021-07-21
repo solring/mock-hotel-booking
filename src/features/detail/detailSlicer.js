@@ -10,12 +10,7 @@ export const detailSlice = detailSlicer.createFetchSlice(
     detail: null,
     images: []
   },
-  {
-    reset: state => {
-      state.detail = null;
-      state.images = [];
-    },
-  },
+  {},
   (state, payload) => {
     state.detail = payload.info;
     state.images= payload.imgs;

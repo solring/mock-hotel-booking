@@ -7,11 +7,7 @@ export const fetchHotels = hotelSlicer.createFetchApi(Search);
 
 export const hotelSlice = hotelSlicer.createFetchSlice(
   { hotels: [] },
-  {
-    reset: state => {
-      state.hotels = [];
-    },
-  },
+  {},
   (state, payload) => {state.hotels = payload.data},
 )
 

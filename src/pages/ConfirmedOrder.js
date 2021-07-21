@@ -92,7 +92,7 @@ function Page (props){
   return (
     <Layout>
       <Layout.Header>
-        <Header simple={false} member={false} />
+        <Header simple={false} />
       </Layout.Header>
       <Layout.Content>
         {switchFetchStatus(status, Content(), <Loading />, failMsg)}

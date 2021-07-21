@@ -10,12 +10,7 @@ export const orderSlice = orderSlicer.createFetchSlice(
     user: {},
     orders: []
   },
-  {
-    reset: state => {
-      state.orders = [];
-      state.user = {};
-    },
-  },
+  {},
   (state, payload) => {
     state.orders = payload.orders;
     state.user = payload.user;

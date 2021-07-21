@@ -13,7 +13,13 @@ export default function() {
       this.post(apis.API_MEMBER_LOGIN, (schema, request) =>{
         let json = JSON.parse(request.requestBody);
         console.log(`LOGIN: ${json.username}/${json.password}`);
-        return { success: true, mid: "fakeToken" };
+        return {
+          success: true,
+          id: "userId",
+          token: "fakeToken",
+          name: "David Lin",
+          profilePic: data.profilePic,
+        };
       })
 
       this.post(apis.API_NEWS_SUBSCRIBE, (schema, request) =>{
