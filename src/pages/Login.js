@@ -7,8 +7,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { doLogin } from '../features/loginSlicer';
 import {
   AJAX_STATUES_LOADING,
-  AJAX_STATUES_FAILED,
-  AJAX_STATUES_SUCCESS,
 } from '../features/fetchStatus'
 
 import { MEMBER } from '../utils/links';
@@ -26,29 +24,31 @@ function Page (){
 
   const [validating, setValidating] = useState("");
 
+  const [errMsg, setErrMsg] = useState("");
+  const errServer = "Something is wrong with the server. Please try again later.";
+  const errAuthFail = "Incorrect email or password.";
+
   const login = async (e) => {
     e.preventDefault();
-    setValidating('was-validated');
 
+    if (authorized) window.location.href = MEMBER;
+
+    setValidating('was-validated');
     if (e.target.checkValidity()===false) return;
 
     setValidating("");
     // submit
     if(status !== AJAX_STATUES_LOADING) {
-      const r = await dispatch(doLogin(user, pwd));
-      if(r.payload.success === true) {
+      const r = await dispatch(doLogin({user, pwd}));
+      if(!r.payload){
+        setErrMsg(errServer);
+      } else if(r.payload.success === true) {
         window.location.href = MEMBER;
+      } else {
+        setErrMsg(errAuthFail);
       }
     }
   };
-
-  const errServer = "Something is wrong with the server. Please try again later.";
-  const errAuthFail = "Incorrect email or password.";
-  const errMsg = (msg) => (
-    <div className="invalid-feedback d-inline">
-      {msg}
-    </div>
-  )
 
   const loginForm = (
     <form className={validating} noValidate data-aos="fade-left"
@@ -67,12 +67,11 @@ function Page (){
       <div className="form-group">
         <label className="text-secondary" forHtml="loginPwd">Password</label>
         <input id="loginPwd" type="password" className="form-control form-control-lg"
-          required pattern="[\w\d\!\?\$\^%@#-]+" aria-label="Login Password"
+          required aria-label="Login Password"
           value={pwd} onChange={(e) => setPwd(e.target.value)}
         />
         <div className="invalid-feedback">Please enter password.</div>
-        {status === AJAX_STATUES_FAILED && errMsg(errServer)}
-        {status === AJAX_STATUES_SUCCESS && !authorized && errMsg(errAuthFail)}
+        <div className="invalid-feedback d-inline">{errMsg}</div>
       </div>
 
 

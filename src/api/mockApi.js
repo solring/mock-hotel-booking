@@ -86,7 +86,7 @@ export const GetHotelInfo = (hotelId) => ({
 });
 
 // TODO: add auth
-export const Login = (username, password) => ({
+export const Login = ({user: username, pwd: password}) => ({
   endpoint: API_MEMBER_LOGIN,
   method: 'post',
   json: {

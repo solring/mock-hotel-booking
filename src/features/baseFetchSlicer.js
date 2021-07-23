@@ -11,10 +11,10 @@ export default (feature) => {
   const path = `${feature}/fetch`;
 
   return ({
-    createFetchApi: (req) => createAsyncThunk(path, async (...args) => {
+    createFetchApi: (req) => createAsyncThunk(path, async arg => {
       // mimic delay
       await new Promise((resolve) => setTimeout(resolve(), 30000));
-      const json = await api(req(...args));
+      const json = await api(req(arg));
       return json;
       //return new Promise.reject("test reject");
     }),

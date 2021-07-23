@@ -11,17 +11,36 @@ const hotels = data.hotelData.concat(data.hotelData)
 
 export default function() {
   createServer({
+    seeds(server) {
+      server.db.loadData({
+        users:[
+          {account: "test@email.cc", password: "123456", id: "userId"}
+        ],
+      })
+    },
+
     routes() {
-      this.post(apis.API_MEMBER_LOGIN, (schema, request) =>{
-        let json = JSON.parse(request.requestBody);
-        console.log(`LOGIN: ${json.username}/${json.password}`);
-        return {
-          success: true,
-          id: "userId",
-          token: "fakeToken",
-          name: "David Lin",
-          profilePic: data.profilePic,
-        };
+      this.post(apis.API_MEMBER_LOGIN, (schema, request) => {
+        const json = JSON.parse(request.requestBody);
+        const {username, password} = json;
+        console.log(`LOGIN: ${username}/${password}`);
+
+        let db = schema.db;
+        let res = db.users.filter(e => e.account === username);
+
+        if ( res.length > 0 && res[0].password === password) {
+          return {
+            success: true,
+            id: res.id,
+            token: "fakeToken",
+            name: "David Lin",
+            profilePic: data.profilePic,
+          };
+        } else {
+          return {
+            success: false,
+          };
+        }
       })
 
       this.post(apis.API_NEWS_SUBSCRIBE, (schema, request) =>{
