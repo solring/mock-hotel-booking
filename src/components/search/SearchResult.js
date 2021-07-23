@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { Nav, Tab, Dropdown } from "react-bootstrap";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
@@ -8,12 +8,24 @@ import NumPagenation from '../NumPagenation.js'
 
 import * as constants from '../../utils/constants';
 
+const ITEMS_PER_PAGE = 5;
+
 function Hotels(props) {
-  const {rooms} = props;
+  const {on, rooms, pageSize, index=1} = props;
+
+  // NOTE: index start from 1
+  const len = Math.ceil(rooms.length/pageSize);
+  const curr = Math.min(len-1, index-1);
+  const start = curr * pageSize;
+  const end = Math.min(start + pageSize, rooms.length);
+  const range = rooms.slice(start, end);
+
   if (!rooms) return <div></div>;
+  if(!pageSize) pageSize = rooms.length;
+
   return (
-    <ul className="list-divider-info no-divider-down-sm">
-      {rooms.map((r) => <HotelCard key={r.name} room={r} />)}
+    <ul className={`fade list-divider-info no-divider-down-sm ${on ? "show" : ""}`}>
+      {range.map((r, idx) => <HotelCard key={idx} room={r} />)}
     </ul>
   );
 }
@@ -29,10 +41,23 @@ function SearchResult(props) {
   ];
 
   const [currTab, setCurrTab ] = useState(tabs[0][0]);
+  const [currPage, setCurrPage] = useState(1);
+  const [show, setShow] = useState(true);
 
   const isSmallScreen = useMediaQuery(`(max-width:${constants.BS_BREAKPOINT_MD})`);
+  const isMidScreen = useMediaQuery(`(max-width:${constants.BS_BREAKPOINT_LG})`);
   const [filterOn, setFilterOn] = useState(false);
 
+  // Handler
+  const onPageChange = (i) => {
+    setShow(false);
+    setTimeout(() => {
+      setCurrPage(i);
+      setShow(true)
+    }, 150); //BS fade setting
+  }
+
+  // Helper Function
   const filterRooms = (category) => {
     let copied = [...hotelData];
     switch(category) {
@@ -54,7 +79,12 @@ function SearchResult(props) {
     <Tab.Content>
     {tabs.map(([short, title]) => (
       <Tab.Pane key={short} eventKey={short} >
-        <Hotels rooms={filterRooms(short)} />
+        <Hotels
+          rooms={filterRooms(short)}
+          index={currPage}
+          pageSize={ITEMS_PER_PAGE}
+          on={show}
+        />
       </Tab.Pane>
     ))}
     </Tab.Content>
@@ -126,7 +156,7 @@ function SearchResult(props) {
         <div className="row align-items-basline mb-3">
           <div className="col-md-4 text-center text-md-left">
             <h2 className="fixed-size mb-0">
-              {query.city}<span className="notation-lg text-primary">{hotelData.length}</span>
+              {query.city}<span className="text-primary"><sup>{hotelData.length}</sup></span>
             </h2>
           </div>
 
@@ -146,10 +176,11 @@ function SearchResult(props) {
             {genPanes()}
 
             <NumPagenation
-              start={12}
-              end={18}
+              curr={currPage}
+              window={isMidScreen ? 5 : 9}
               min={1}
-              max={20}
+              max={Math.ceil(hotelData.length/ITEMS_PER_PAGE)}
+              onIndex={onPageChange}
             />
           </div>
         </div>

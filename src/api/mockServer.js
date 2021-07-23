@@ -2,7 +2,9 @@ import { createServer } from 'miragejs';
 import * as data from '../utils/mockdata';
 import * as apis from './mockApi';
 
-const hotels = data.hotelData.map((h) => {
+const hotels = data.hotelData.concat(data.hotelData)
+  .concat(data.hotelData)
+  .concat(data.hotelData).map((h) => {
   h.url = './detail';
   return h;
 });

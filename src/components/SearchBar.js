@@ -21,14 +21,13 @@ function SearchItemBtn(props) {
   const { title, onToggle } = props;
   return (
   <Dropdown onToggle={onToggle}>
-        <Dropdown.Toggle variant="light"  bsPrefix="no-toggle"
-          className="btn btn-block text-left pl-3" data-offset="0,8"
-        >
-          {title}
-        </Dropdown.Toggle>
-        <Dropdown.Menu className="list-unstyled w-100">
-          {props.children}
-        </Dropdown.Menu>
+    <Dropdown.Toggle variant="light"  bsPrefix="no-toggle"
+      className="btn btn-block text-left pl-3 text-nowrap" data-offset="0,8">
+      {title}
+    </Dropdown.Toggle>
+    <Dropdown.Menu className="list-unstyled w-100">
+      {props.children}
+    </Dropdown.Menu>
   </Dropdown>
   );
 }
@@ -56,7 +55,8 @@ function SearchBar (props) {
   }, []);
 
   let isSmallScreen = useMediaQuery(`(max-width:${constants.BS_BREAKPOINT_MD})`);
-  let isMidcreen = useMediaQuery(`(max-width:${constants.BS_BREAKPOINT_XL})`);
+  let isMidScreen = useMediaQuery(`(max-width:${constants.BS_BREAKPOINT_LG})`);
+  let isLargeScreen = useMediaQuery(`(max-width:${constants.BS_BREAKPOINT_XL})`);
 
   let formStyle = "py-2 py-md-4 Search__bar container";
   if (withReturn) {
@@ -64,11 +64,17 @@ function SearchBar (props) {
   }
 
   // Helpers
-  const _getDateStr = (d) => {
-    let format = isMidcreen ? 'DD MMM' : 'DD MMMM';
+  const getDateStr = (d) => {
+    return parseDate(d).format('DD MMM');
+  };
+
+  const getDateStrLg = (d) => {
+    let format = isLargeScreen ? 'DD MMM' : 'DD MMMM';
     return parseDate(d).format(format);
   };
-  let dateRangeStr = [_getDateStr(startDate), _getDateStr(endDate)];
+
+  let dateRangeStrLg = [getDateStrLg(startDate), getDateStrLg(endDate)];
+  let dateRangeStr = [getDateStr(startDate), getDateStr(endDate)];
 
   // Handlers
   const setDestination = (city, country) => {
@@ -128,26 +134,26 @@ function SearchBar (props) {
     if(isSmallScreen) {
       return (
         <div className="d-md-none text-secondary">
-          {dateRangeStr[0]} / {dateRangeStr[1]}
+          {dateRangeStrLg[0]} / {dateRangeStrLg[1]}
         </div>
       );
     } else return (
       <div className="d-none d-md-flex align-items-center">
         <div className="material-icons pr-lg-3 pr-2">date_range</div>
 
-        <ul className="list-unstyled list-row-divider-info d-none d-lg-flex">
+        <ul className="list-unstyled list-row-divider-info d-none d-lg-flex text-nowrap">
           <li>
             <h5 className="Search__title">check-in</h5>
-            <p className="Search__subtitle">{dateRangeStr[0]}</p>
+            <p className="Search__subtitle">{dateRangeStrLg[0]}</p>
           </li>
           <li>
             <h5 className="Search__title">check-out</h5>
-            <p className="Search__subtitle">{dateRangeStr[1]}</p>
+            <p className="Search__subtitle">{dateRangeStrLg[1]}</p>
           </li>
         </ul>
         <div className="text-left d-lg-none">
           <h5 className="Search__title">check-in / out</h5>
-          <p className="Search__subtitle">{dateRangeStr[0]} / {dateRangeStr[1]}</p>
+          <p className="Search__subtitle">{dateRangeStrLg[0]} / {dateRangeStrLg[1]}</p>
         </div>
 
       </div>
@@ -174,22 +180,27 @@ function SearchBar (props) {
     </div>
   );
 
-  const guestBtnLg = () => (
-    <div>
-    <div className="d-none d-md-flex align-items-center">
-      <div className="material-icons pr-lg-3 pr-2">person</div>
-      <div className="text-left">
-        <h5 className="Search__title">guests</h5>
-        <p className="Search__subtitle">
-          {genGuestStr(adult, child, room)}
-        </p>
+  const guestBtnLg = () => {
+    const guestStr = isMidScreen ?
+      `${adult}+${child}・${room} room(s)`:
+      genGuestStr(adult, child, room);
+    return (
+      <div>
+      <div className="d-none d-md-flex align-items-center">
+        <div className="material-icons pr-lg-3 pr-2">person</div>
+        <div className="text-left">
+          <h5 className="Search__title">guests</h5>
+          <p className="Search__subtitle">
+            {guestStr}
+          </p>
+        </div>
       </div>
-    </div>
-    <div className="d-md-none text-secondary">
-        {genGuestStr(adult, child, room)}
-    </div>
-    </div>
-  );
+      <div className="d-md-none text-secondary">
+          {guestStr}
+      </div>
+      </div>
+    )
+  };
 
   const destinations = () => {
     return suggestLocs.map(([country, city]) => (
@@ -258,7 +269,7 @@ function SearchBar (props) {
       <li key="guest" className="mb-3 mb-lg-0">
         <SearchItemBtn onToggle={() => setTouchedGuest(true)}
         title={(
-          <div className="align-icons">
+          <div className="d-flex align-items-center">
             <span className="material-icons mr-2">person</span>
             {touchedGuest ? genGuestStr(adult, child, room) : "Guest"}
           </div>

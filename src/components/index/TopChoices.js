@@ -66,7 +66,7 @@ function TopChoices(props) {
   const genNavs = () => {
     return locations.map((loc) => (
       <Nav.Item key={loc}>
-        <Nav.Link eventKey={loc}><h4>{loc}<span className="notation">{hotelTopChoices[loc].length}</span></h4></Nav.Link>
+        <Nav.Link eventKey={loc}><h4>{loc}<sup>{hotelTopChoices[loc].length}</sup></h4></Nav.Link>
       </Nav.Item>
     ));
   };
