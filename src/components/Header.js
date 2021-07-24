@@ -1,10 +1,11 @@
-import { Dropdown } from 'react-bootstrap';
+import { Nav, Navbar, Dropdown } from 'react-bootstrap';
 import { LANGUAGES } from '../utils/language';
 
 import { useSelector, useDispatch } from 'react-redux'
 import { logout } from '../features/loginSlicer';
 
 import { INDEX, LOGIN, MEMBER } from '../utils/links';
+import React from 'react';
 
 function Header(props) {
   const {simple} = props;
@@ -28,12 +29,14 @@ function Header(props) {
       return (
         <li className="nav-item ml-4">
           <Dropdown>
-            <Dropdown.Toggle variant="light" bsPrefix="no-toggle" className="d-flex centering-total-row px-3">
-              <img src={profilePic} alt="profile picture thumbnail" className="border border-primary thumbnail-sm rounded-circle mr-2" />
+            <Dropdown.Toggle id="UserOptions"
+              variant="light" bsPrefix="no-toggle" className="d-flex centering-total-row px-3">
+              <img src={profilePic} alt="profile thumbnail" className="border border-primary thumbnail-sm rounded-circle mr-2" />
               <span className="d-none d-md-inline">{user}</span>
               <span className="material-icons p d-none d-md-inline">arrow_drop_down</span>
             </Dropdown.Toggle >
-            <Dropdown.Menu aria-labelledby="DropdownMember">
+            <Dropdown.Menu aria-labelledby="UserOptions"
+              className="dropdown-menu-right position-absolute">
               <Dropdown.Item key='acc' href={MEMBER}>Account</Dropdown.Item>
               <Dropdown.Item key='booking' href={MEMBER}>My bookings</Dropdown.Item>
               <Dropdown.Item key='privacy' href={INDEX}>Privacy</Dropdown.Item>
@@ -55,8 +58,9 @@ function Header(props) {
     if (simple) return;
 
     return (
-      <ul className="navbar-nav">
-        <div className="navbar-collapse collapse" id="navbarContent">
+      <React.Fragment>
+      <Navbar.Collapse id="navbar-menu" className="order-3 order-md-2">
+        <Nav className="ml-auto">
           <li className="nav-item">
             <Dropdown>
               <Dropdown.Toggle id="languageDropdown"
@@ -72,30 +76,35 @@ function Header(props) {
           </li>
           {
             !login &&
-            <li className="nav-item ml-4">
-              <a href="" className="nav-link">Sign up</a>
+            <li className="nav-item">
+              <a className="nav-link" href="/index">
+                Sign up
+              </a>
             </li>
           }
-        </div>
+        </Nav>
+      </Navbar.Collapse>
+      <Nav className="order-2 order-md-3">
         {memberOptions()}
-      </ul>
+      </Nav>
+      </React.Fragment>
     );
   };
 
   return (
-    <div className={navbarStyle}>
+    <Navbar expand="md">
       <div className="container justify-content-between">
-        {simple &&(
-          <button className="navbar-toggler" type="button" data-toggle="Dropdown" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        {!simple &&
+          <Navbar.Toggle aria-controls="navbar-menu">
           <span className="material-icons">menu</span>
-          </button>
-        )}
+          </Navbar.Toggle>
+        }
 
-        <h1 className="navbar-brand logo"><a href={INDEX}>ALOHA</a></h1>
+        <h1 className="navbar-brand logo m-auto"><a href={INDEX}>ALOHA</a></h1>
 
         {genDropdown()}
       </div>
-    </div>
+    </Navbar>
   );
 }
 
