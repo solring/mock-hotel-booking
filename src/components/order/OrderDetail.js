@@ -20,20 +20,24 @@ function OrderDetail(props) {
     return dayjs(longStr).format('DD MMMM');
   }
 
+  const TitleBtn = (props) => (
+    <a className={`p-3 d-block d-md-none ${collapsed}`} onClick={() => setCollapseOn(!collapseOn)}>
+      <div className="d-flex justify-content-between">
+        <p className="text-dark animate-title-fadeout">
+          <span className="text-sub text-secondary mr-3">Total</span>
+          <span className="font-weight-bold">TWD {total}</span>
+        </p>
+        <p className="text-primary text-uppercase font-weight-bold">
+          Detail
+          <span className="material-icons icon-lg animate-icon animate-icon-spin">keyboard_arrow_up</span>
+        </p>
+      </div>
+    </a>
+  );
+
   return (
 <div className="card rounded-lg-up-md bg-info">
-  <a className={`p-3 d-block d-md-none ${collapsed}`} onClick={() => setCollapseOn(!collapseOn)}>
-    <div className="d-flex justify-content-between">
-      <p className="text-dark animate-title-fadeout">
-        <span className="text-sub text-secondary mr-3">Total</span>
-        <span className="font-weight-bold">TWD {total}</span>
-      </p>
-      <p className="text-primary text-uppercase font-weight-bold">
-        Detail
-        <span className="material-icons icon-lg animate-icon animate-icon-spin">keyboard_arrow_up</span>
-      </p>
-    </div>
-  </a>
+  <TitleBtn />
   <Collapse in={collapseOn} className="Order__detail bg-info w-100 collapse-absolute collapse-disabled-md">
     <div> {/* essential for current react-bootstrap collapse */}
     <ul className="list-unstyled list-divider-white py-3 py-md-4 mx-3 mx-md-4 rounded-bottom border-top border-light">
