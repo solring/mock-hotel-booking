@@ -2,7 +2,7 @@ import { Nav, Navbar, Dropdown } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 
 import MemberMenu from './memberMenu';
-import { LANGUAGES } from '../utils/language';
+import { LANGUAGES } from '../utils/constants';
 import { INDEX } from '../utils/links';
 import React from 'react';
 
@@ -49,7 +49,7 @@ function Header(props) {
   };
 
   return (
-    <Navbar expand="md" className={simple ? "" : "bg-light"}>
+    <Navbar as="header" expand="md" className={simple ? "" : "bg-light"}>
       <div className="container justify-content-between">
         {!simple &&
           <Navbar.Toggle aria-controls="navbar-menu">

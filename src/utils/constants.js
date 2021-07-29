@@ -17,3 +17,10 @@ export const SESSION_STORAGE_KEY = "MockHotelBooking";
 export const DEFAULT_CITY_STR = "City";
 export const DEFAULT_COUNTRY_STR = "Country";
 
+export let LANGUAGES = [
+  'English', '中文', '日本語'
+]
+
+export let CURRENCIES = [
+  'TWD', 'JPY', 'USD'
+];

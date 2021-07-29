@@ -1,4 +1,4 @@
-import { LANGUAGES } from '../utils/language';
+import { LANGUAGES, CURRENCIES } from '../utils/constants';
 import { Dropdown } from 'react-bootstrap';
 
 import { useState } from 'react';
@@ -6,13 +6,8 @@ import { useState } from 'react';
 function Footer(props) {
   const {short} = props;
 
-  //TODO: lift states
-  const [lang, setLang] = useState('English');
-  const [curr, setCurr] = useState('TWD');
-
-  const currencies = [
-    'TWD', 'JPY', 'USD'
-  ];
+  const [lang, setLang] = useState(LANGUAGES[0]);
+  const [curr, setCurr] = useState(CURRENCIES[0]);
 
   const langItem = (title) => (
     <Dropdown.Item key={title} onClick={(e) => setLang(title)}>
@@ -60,7 +55,7 @@ function Footer(props) {
   let justifyContentLg = (short === true) ? "" : "justify-content-lg-start";
 
   return (
-      <div className={`navbar navbar-expand navbar-light ${navbarClass}`}>
+      <footer className={`navbar navbar-expand navbar-light ${navbarClass}`}>
         <div className={`container justify-content-between ${containerClass}`}>
           <div className="d-flex w-100 justify-content-between">
             <div className={`d-flex flex-column-reverse flex-md-row justify-content-between flex-fill ${justifyContentLg}`}>
@@ -75,7 +70,7 @@ function Footer(props) {
             {genOptions()}
           </div>
         </div>
-      </div>
+      </footer>
   );
 }
 
