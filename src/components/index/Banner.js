@@ -1,5 +1,5 @@
 import { Carousel } from 'react-bootstrap';
-import SearchBar from '../SearchBar';
+import SearchBar from '../SearchBar/SearchBar';
 import banner1 from '../../assets/images/index-banner.jpg';
 import banner2 from '../../assets/images/RangRak.jpg';
 import banner3 from '../../assets/images/Watana2.jpg';

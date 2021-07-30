@@ -4,7 +4,7 @@ import Layout from '../layout/Layout';
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import SearchBar from '../components/SearchBar';
+import SearchBar from '../components/SearchBar/SearchBar';
 
 import SearchResult from '../components/search/SearchResult'
 import Subscription from '../components/Subscription';
