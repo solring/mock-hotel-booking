@@ -8,6 +8,7 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "aos": "^2.3.4",
     "bootstrap": "^4.5.3",
     "dayjs": "^1.10.6",
     "extract-text-webpack-plugin": "^3.0.2",

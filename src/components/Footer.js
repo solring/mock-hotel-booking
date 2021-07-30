@@ -42,7 +42,7 @@ function Footer(props) {
                 <span className="material-icons icon-md">attach_money</span> {curr}
               </Dropdown.Toggle>
               <Dropdown.Menu aria-labelledby="dropdownFooterLang">
-                {currencies.map(currItem)}
+                {CURRENCIES.map(currItem)}
               </Dropdown.Menu>
           </Dropdown>
         </li>

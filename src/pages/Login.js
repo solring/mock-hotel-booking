@@ -51,7 +51,7 @@ function Page (){
   };
 
   const loginForm = (
-    <form className={validating} noValidate data-aos="fade-left"
+    <form className={validating} noValidate
       onSubmit={login}
     >
       <h2 className="mb-3">Login</h2>
@@ -97,11 +97,11 @@ function Page (){
   );
 
   const slogan = (
-    <div className="row position-relative">
-        <div className="col-9" data-aos="fade-up">
-          <h2 className="fz-title mb-3">An ideal hotel makes a wonderful Trip.</h2>
-          <p className="text-sub text-secondary">Discover your dream destination and hotel on ALOHA.com</p>
-        </div>
+    <div className="row position-relative" data-aos="fade-up">
+      <div className="col-9" >
+        <h2 className="fz-title mb-3">An ideal hotel makes a wonderful Trip.</h2>
+        <p className="text-sub text-secondary">Discover your dream destination and hotel on ALOHA.com</p>
+      </div>
     </div>
   );
 
