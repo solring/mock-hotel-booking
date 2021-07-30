@@ -1,19 +1,21 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import Layout from '../layout/Layout';
 
+import Loading from '../components/Loading';
 import Header from '../components/Header';
-import Banner from '../components/index/Banner';
 import Footer from '../components/Footer';
 
 import TopChoices from '../components/index/TopChoices';
 import PopularDestination from '../components/index/PopularDest';
 import BlogPosts from '../components/index/BlogPosts';
+
 import Subscription from '../components/Subscription';
 
 import api, { LoadRecommendation } from '../api/mockApi';
-//import { blogPosts, hotelTopChoices, popCities } from '../utils/mockdata';
 
- class HomePage extends React.Component{
+const Banner = React.lazy(() => import('../components/index/Banner'));
+
+class HomePage extends React.Component{
   constructor(props) {
     super(props);
 
@@ -46,8 +48,9 @@ import api, { LoadRecommendation } from '../api/mockApi';
       </Layout.Header>
 
       <Layout.Content>
-
-        <Banner />
+        <Suspense fallback={<Loading />}>
+          <Banner />
+        </Suspense>
 
         <section className="container">
           <h3 className="mb-4">Top Choices</h3>

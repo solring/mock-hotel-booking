@@ -1,4 +1,4 @@
-export const INDEX = "/index";
+export const INDEX = "/";
 export const SEARCH = "/search";
 export const DETAIL = "/detail";
 export const ORDER = "/order";
