@@ -259,8 +259,10 @@ function SearchBar (props) {
       {/* Field 2: Calendar */}
       <li key="calendar" className="mb-3 mb-lg-0">
         <DatePicker name="small" handler={setDate}>
-          <span className="material-icons mr-2">date_range</span>
-          {touchedCal ? `${dateRangeStr[0]} / ${dateRangeStr[1]}` : "Check-in / Check-out"}
+          <div className="text-nowrap overflow-scroll">
+            <span className="material-icons mr-2">date_range</span>
+            {touchedCal ? `${dateRangeStr[0]} / ${dateRangeStr[1]}` : "Check-in / Check-out"}
+          </div>
         </DatePicker>
       </li>
 
@@ -293,7 +295,7 @@ function SearchBar (props) {
 
   <form className={formStyle} onSubmit={doSearch}>
 
-    <ul className="Search__options Search__collapse-sm">
+    <ul className="Search__options Search__collapse-sm" role="nav">
 
       {/* Field 1: Destination */}
       <li key="destination">

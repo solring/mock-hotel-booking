@@ -24,11 +24,11 @@ function Banner(props) {
 
   return (
 <div>
-  <Carousel id="carouselMain" className={`Banner`} data-ride="carousel" data-aos="fade-in">
+  <Carousel id="carouselMain" className={`Banner`}>
     {carouselItems()}
   </Carousel>
 
-  <div className="container-custom-md" data-aos="fade-up"  data-aos-delay="200">
+  <div className="container-custom-md">
     <SearchBar withReturn={false} simplified={true} />
   </div>
 </div>
