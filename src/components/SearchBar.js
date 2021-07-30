@@ -227,13 +227,13 @@ function SearchBar (props) {
       ['Room', room, "room"],
     ];
     return numberOptions.map((option) => (
-      <li key={option[0]} className="dropdown-item">
-          <div className="d-flex justify-content-between">
-            <p>{option[0]}</p>
-            <NumberPicker number={option[1]}
-              onNumChange={(num) => updateGlobal({ [option[2]]: num })} />
-          </div>
-      </li>
+      <Dropdown.Item as="div" key={option[0]}>
+        <div className="d-flex justify-content-between">
+          <p>{option[0]}</p>
+          <NumberPicker number={option[1]}
+            onNumChange={(num) => updateGlobal({ [option[2]]: num })} />
+        </div>
+      </Dropdown.Item>
     ));
   };
 

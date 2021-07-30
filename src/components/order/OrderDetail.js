@@ -57,8 +57,8 @@ function OrderDetail(props) {
       <li key="price">
         <h6 className="mb-3">Price summary</h6>
         <ul className="list-unstyled">
-          {orders.map((item) => (
-            <li key={item.hotel} className="d-flex justify-content-between">
+          {orders.map((item, i) => (
+            <li key={i} className="d-flex justify-content-between">
               <p className="text-sub text-secondary">{item.room}</p>
               <p className="text-sub text-secondary">
                 TWD {item.price * item.number * item.night}

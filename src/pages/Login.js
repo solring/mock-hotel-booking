@@ -51,13 +51,11 @@ function Page (){
   };
 
   const loginForm = (
-    <form className={validating} noValidate
-      onSubmit={login}
-    >
+    <form className={validating} noValidate onSubmit={login} >
       <h2 className="mb-3">Login</h2>
 
       <div className="form-group">
-        <label className="text-secondary" forHtml="loginEmail">Email</label>
+        <label className="text-secondary" htmlFor="loginEmail">Email</label>
         <input id="loginEmail" type="email" className="form-control form-control-lg"
           required aria-label="Login Email"
           value={user} onChange={(e) => setUser(e.target.value)}
@@ -65,7 +63,7 @@ function Page (){
         <div className="invalid-feedback">Please enter valid email.</div>
       </div>
       <div className="form-group">
-        <label className="text-secondary" forHtml="loginPwd">Password</label>
+        <label className="text-secondary" htmlFor="loginPwd">Password</label>
         <input id="loginPwd" type="password" className="form-control form-control-lg"
           required aria-label="Login Password"
           value={pwd} onChange={(e) => setPwd(e.target.value)}

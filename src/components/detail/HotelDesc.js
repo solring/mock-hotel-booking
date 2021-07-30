@@ -47,7 +47,7 @@ export default (props) => {
       observer={true}
       observeParents={true}
       slidesPerView={1}
-      navigatio
+      navigation
     >
       {hotelPics.map((img, i) => (
         <SwiperSlide key={i}>
@@ -58,13 +58,13 @@ export default (props) => {
   )
 
   return (
-    <div>
+    <div data-aos="fade-up">
 
     {picGrid}
     {picSwiper}
 
     {/* Hotel Description */}
-    <div className="px-3 px-sm-0" data-aos="fade-up">
+    <div className="px-3 px-sm-0">
       <div className="d-flex flex-column flex-md-row align-items-md-center pt-md-4 pt-3">
         <h2 className="mr-3">{hotelInfo.name}</h2>
         <div className="align-icons">
