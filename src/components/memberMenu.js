@@ -9,7 +9,7 @@ import { BS_BREAKPOINT_MD } from '../utils/constants';
 
 import { INDEX, LOGIN, MEMBER } from '../utils/links';
 
-export default (props) => {
+function MemberMenu (props) {
 
   // login state
   const dispatch = useDispatch();
@@ -87,4 +87,6 @@ export default (props) => {
       </li>
     );
   }
-};
+}
+
+export default MemberMenu;

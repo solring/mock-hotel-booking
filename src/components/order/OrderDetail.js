@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+
 import { useState } from 'react';
 import { Collapse } from 'react-bootstrap';
 
@@ -44,7 +46,7 @@ function OrderDetail(props) {
       <li key="detail">
         <h6 className="mb-3">Booking details</h6>
         <ul className="list-unstyled list-divider-white">
-          {orders.map((order, i) => (
+          {orders && orders.map((order, i) => (
             <li className="mb-3" key={i}>
               <p className="text-sub text-secondary">{formatDate(order.startDate)} - {formatDate(order.endDate)}・{order.night} night(s)</p>
               <p className="text-sub text-secondary">{genGuestStr(order.adult, order.child, order.room)}</p>
@@ -57,7 +59,7 @@ function OrderDetail(props) {
       <li key="price">
         <h6 className="mb-3">Price summary</h6>
         <ul className="list-unstyled">
-          {orders.map((item, i) => (
+          {orders && orders.map((item, i) => (
             <li key={i} className="d-flex justify-content-between">
               <p className="text-sub text-secondary">{item.room}</p>
               <p className="text-sub text-secondary">
@@ -88,6 +90,22 @@ function OrderDetail(props) {
   </Collapse>
 </div>
   )
+}
+
+OrderDetail.propTypes = {
+  orders: PropTypes.arrayOf(
+    PropTypes.shape({
+      hotel: PropTypes.string.isRequired,
+      room: PropTypes.string.isRequired,
+      number: PropTypes.number.isRequired,
+      price: PropTypes.number.isRequired,
+      startDate: PropTypes.string.isRequired,
+      endDate: PropTypes.string.isRequired,
+      adult: PropTypes.number.isRequired,
+      child: PropTypes.number.isRequired,
+      night: PropTypes.number.isRequired,
+    }),
+  ),
 }
 
 export default OrderDetail;

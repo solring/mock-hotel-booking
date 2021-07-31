@@ -1,5 +1,5 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import api, { Subscribe } from '../api/mockApi';
 
 function Subscription(props) {
@@ -103,6 +103,10 @@ function Subscription(props) {
   } else {
     return <SmallForm />;
   }
+}
+
+Subscription.propTypes = {
+  size: PropTypes.string,
 }
 
 export default Subscription;

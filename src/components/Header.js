@@ -1,10 +1,12 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+
 import { Nav, Navbar, Dropdown } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 
-import MemberMenu from './memberMenu';
+import MemberMenu from './MemberMenu';
 import { LANGUAGES } from '../utils/constants';
 import { INDEX } from '../utils/links';
-import React from 'react';
 
 function Header(props) {
   const {simple} = props;
@@ -63,6 +65,10 @@ function Header(props) {
       </div>
     </Navbar>
   );
+}
+
+Header.propTypes = {
+  simple: PropTypes.bool,
 }
 
 export default Header;

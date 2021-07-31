@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+
 import { Nav, Tab } from 'react-bootstrap';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -86,6 +88,10 @@ function TopChoices(props) {
       </Tab.Content>
     </Tab.Container>
   );
+}
+
+TopChoices.propTypes = {
+  data: PropTypes.object,
 }
 
 export default TopChoices;

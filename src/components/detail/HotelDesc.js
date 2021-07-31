@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import { Swiper, SwiperSlide } from 'swiper/react';
 // swiper react does not include navigation by default
 import SwiperCore, { Navigation } from 'swiper/core';
@@ -6,7 +7,7 @@ import 'swiper/components/navigation/navigation.scss'
 
 SwiperCore.use([Navigation])
 
-export default (props) => {
+function HotelDesc(props) {
   const {hotelPics, hotelInfo} = props;
 
   // ===== Rengerers & Components =====
@@ -80,3 +81,16 @@ export default (props) => {
     </div>
   );
 };
+
+HotelDesc.propTypes = {
+  hotelPics: PropTypes.arrayOf(PropTypes.string),
+  hotelInfo: PropTypes.shape({
+    name: PropTypes.string,
+    star: PropTypes.number,
+    review: PropTypes.number,
+    addr: PropTypes.string,
+    desc: PropTypes.string,
+  }),
+}
+
+export default HotelDesc;

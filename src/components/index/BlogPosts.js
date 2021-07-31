@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+
 import { Swiper, SwiperSlide } from 'swiper/react';
 // swiper react does not include navigation by default
 import SwiperCore, { Navigation } from 'swiper/core';
@@ -6,8 +8,9 @@ import 'swiper/components/navigation/navigation.scss'
 
 SwiperCore.use([Navigation]);
 
-export default (props) => {
+function BlogPosts(props) {
   const {posts} = props;
+  if (!posts || posts.length === 0) return <div></div>;
   return (
     <Swiper className="w-100"
       observer={true}
@@ -31,3 +34,9 @@ export default (props) => {
     </Swiper>
   );
 }
+
+BlogPosts.propTypes = {
+  posts: PropTypes.array,
+};
+
+export default BlogPosts;

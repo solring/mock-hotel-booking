@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+
 function PopularDestination(props) {
   const {cities} = props;
   if (!cities || cities.length === 0) return <div></div>;
@@ -21,6 +23,15 @@ function PopularDestination(props) {
       ))}
     </ul>
   );
+}
+
+PopularDestination.propTypes = {
+  cities: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      country: PropTypes.string,
+    }),
+  ),
 }
 
 export default PopularDestination;

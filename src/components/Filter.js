@@ -7,7 +7,7 @@ import BottomModal from './BottomModal';
 
 import * as constants from '../utils/constants';
 
-let CustomSlider = withStyles({
+const CustomSlider = withStyles({
   root: {
     color: constants.PRIMARY_COLOR,
     height: 3,

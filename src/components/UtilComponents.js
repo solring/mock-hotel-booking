@@ -1,4 +1,6 @@
-export function Stars(props) {
+import PropTypes from 'prop-types';
+
+function Stars(props) {
   const {star} = props;
   return (
     <span className="material-icons fz-grade">
@@ -6,3 +8,9 @@ export function Stars(props) {
     </span>
   );
 };
+
+Stars.propTypes = {
+  star: PropTypes.number.isRequired,
+}
+
+export { Stars };

@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+
 import { LANGUAGES, CURRENCIES } from '../utils/constants';
 import { Dropdown } from 'react-bootstrap';
 
@@ -72,6 +74,10 @@ function Footer(props) {
         </div>
       </footer>
   );
+}
+
+Footer.propTypes = {
+  short: PropTypes.bool,
 }
 
 export default Footer;

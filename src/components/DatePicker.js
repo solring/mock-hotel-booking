@@ -1,7 +1,14 @@
-import LitePicker from 'litepicker';
 import React from 'react';
+import PropTypes from 'prop-types';
+import LitePicker from 'litepicker';
 
 class DatePicker extends React.Component {
+
+  static propTypes = {
+    name: PropTypes.string,
+    handler: PropTypes.func.isRequired,
+  }
+
   constructor(props) {
     super(props);
     this.handler = props.handler || null;

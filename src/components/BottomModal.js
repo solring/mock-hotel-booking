@@ -1,6 +1,7 @@
+import PropTypes from 'prop-types';
 import { Collapse } from 'react-bootstrap';
 
-function ButtomModel(props) {
+function BottomModal(props) {
   const {
     toggle,
     clearHandler,
@@ -47,4 +48,13 @@ function ButtomModel(props) {
   );
 }
 
-export default ButtomModel;
+BottomModal.propTypes = {
+  toggle: PropTypes.bool.isRequired,
+  clearHandler: PropTypes.func.isRequired,
+  confirmText: PropTypes.string,
+  confirmAction: PropTypes.func.isRequired, 
+  direction: PropTypes.string,
+  collapse: PropTypes.bool,
+};
+
+export default BottomModal;

@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 function NumPagenation(props) {
   const {
     curr, window,
@@ -45,5 +47,13 @@ function NumPagenation(props) {
     </nav>
   )
 }
+
+NumPagenation.propTypes = {
+  curr: PropTypes.number.isRequired,
+  window: PropTypes.number.isRequired,
+  min: PropTypes.number.isRequired,
+  max: PropTypes.number.isRequired,
+  onIndex: PropTypes.func.isRequired,
+};
 
 export default NumPagenation;

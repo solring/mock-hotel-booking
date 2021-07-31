@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { addBatch } from '../../features/cartSlicer';
@@ -236,6 +237,12 @@ function RoomDetail(props) {
 
     </div>
   );
+}
+
+RoomDetail.propTypes = {
+  rooms: PropTypes.array.isRequired,
+  order: PropTypes.array.isRequired,
+  onOrderChange: PropTypes.func.isRequired,
 }
 
 export default RoomDetail;

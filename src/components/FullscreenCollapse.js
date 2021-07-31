@@ -1,6 +1,8 @@
+import PropTypes from 'prop-types';
+
 import { Collapse } from 'react-bootstrap';
 
-export default (props) => {
+function FullScreenCollapse (props) {
   const { toggle, onClose, title, footer} = props;
 
   return(
@@ -29,4 +31,14 @@ export default (props) => {
       </div>
     </Collapse>
   );
+}
+
+FullScreenCollapse.propTypes = {
+  toggle: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  title: PropTypes.string,
+  footer: PropTypes.string,
 };
+
+export default FullScreenCollapse;
+

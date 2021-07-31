@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+
 function NumberPicker(props) {
   const {number, onNumChange} = props;
 
@@ -18,6 +20,11 @@ function NumberPicker(props) {
       <a onClick={plus} className="material-icons text-dark ml-3">add</a>
     </div>
   );
+}
+
+NumberPicker.propTypes = {
+  number: PropTypes.number.isRequired,
+  onNumChange: PropTypes.func.isRequired,
 }
 
 export default NumberPicker;
