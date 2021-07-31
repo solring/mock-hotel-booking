@@ -29,9 +29,9 @@ function GuestButtonLg(props) {
 }
 
 GuestButtonLg.propTypes = {
-  adult: PropTypes.string,
-  child: PropTypes.string,
-  room: PropTypes.string,
+  adult: PropTypes.number,
+  child: PropTypes.number,
+  room: PropTypes.number,
   short: PropTypes.bool,
 };
 

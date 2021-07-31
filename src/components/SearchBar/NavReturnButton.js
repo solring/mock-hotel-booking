@@ -25,9 +25,9 @@ NavReturnButton.propTypes = {
   city: PropTypes.string,
   start: PropTypes.string,
   end: PropTypes.string,
-  adult: PropTypes.string,
-  child: PropTypes.string,
-  room: PropTypes.string,
+  adult: PropTypes.number,
+  child: PropTypes.number,
+  room: PropTypes.number,
 };
 
 export default NavReturnButton;

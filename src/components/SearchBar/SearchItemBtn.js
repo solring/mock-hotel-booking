@@ -17,7 +17,7 @@ function SearchItemBtn(props) {
 };
 
 SearchItemBtn.propTypes = {
-  title: PropTypes.string,
+  title: PropTypes.object,
   onToggle: PropTypes.func,
 }
 
