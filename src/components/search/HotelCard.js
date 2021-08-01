@@ -1,13 +1,14 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 // swiper react does not include navigation by default
-import SwiperCore, { Navigation } from 'swiper/core';
+import SwiperCore, { Navigation, Lazy } from 'swiper/core';
 
 import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss';
+import 'swiper/components/lazy/lazy.scss';
 
 import { Stars } from '../UtilComponents';
 
-SwiperCore.use([Navigation]);
+SwiperCore.use([Navigation, Lazy]);
 
 function HotelCard(props) {
   const {room} = props;
@@ -47,11 +48,14 @@ function HotelCard(props) {
       observer={true}
       observeParents={true}
       slidesPerView={1}
+      preloadImages={false}
+      lazy={true}
       navigation
     >
       {images.map((image, idx) => (
         <SwiperSlide key={idx}>
-          <img className={`HotelCard__cardImg pic-height-sm`} src={image} alt="hotel picture"/>
+          <img className={`HotelCard__cardImg pic-height-sm swiper-lazy`} data-src={image} />
+          <div className="swiper-lazy-preloader"></div>
         </SwiperSlide>
       ))}
     </Swiper>

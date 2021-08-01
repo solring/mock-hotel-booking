@@ -4,13 +4,14 @@ import { Nav, Tab } from 'react-bootstrap';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 // swiper react does not include navigation by default
-import SwiperCore, { Navigation } from 'swiper/core';
+import SwiperCore, { Navigation, Lazy } from 'swiper/core';
 import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss';
+import 'swiper/components/lazy/lazy.scss';
 
 import { Stars } from '../UtilComponents';
 
-SwiperCore.use([Navigation]);
+SwiperCore.use([Navigation, Lazy]);
 
 function TopChoices(props) {
   const { data:hotelTopChoices } = props;
@@ -20,7 +21,10 @@ function TopChoices(props) {
     return group.map((hotel, idx) => (
       <SwiperSlide key={idx}>
         <a className="d-block text-dark" href={hotel.url}>
-          <img className="pic-height-sm rounded-lg" src={hotel.pic} alt={`hotel ${idx}`} />
+          <div className="position-relative">
+            <img className="pic-height-sm rounded-lg swiper-lazy" data-src={hotel.pic} />
+            <div className="swiper-lazy-preloader"></div>
+          </div>
           <h5 className="my-2">{hotel.name}</h5>
             <Stars star={hotel.star} />
           {hotel.star}.0<span className="text-muted small">・{hotel.reviews} reviews</span>
@@ -40,6 +44,8 @@ function TopChoices(props) {
           observeParents={true}
           slidesPerView={1}
           spaceBetween={10}
+          preloadImages={false}
+          lazy={true}
           navigation={{
             nextEl: '#swiperHotelNext',
             prevEl: '#swiperHotelPrev',
