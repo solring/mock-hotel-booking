@@ -1,3 +1,23 @@
+.animate-onload {
+  transition-property: opacity, transform;
+  transition-timing-function: ease;
+  transition-duration: .8s;
+}
+
+.animate-fade-up {
+  opacity: 0;
+  transform: translate3d(0, 100px, 0);
+
+  &.show {
+    opacity: 1;
+    transform: translateZ(0);
+  }
+}
+
+.animate-delay-500 {
+  transition-delay: .5s;
+}
+
 .animate-icon {
   -webkit-transition: transform .35s ease-in-out;
   transition: transform .35s ease-in-out;

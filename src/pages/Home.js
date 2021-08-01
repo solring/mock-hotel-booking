@@ -1,10 +1,10 @@
-import React, { Suspense } from 'react';
-import Layout from '../layout/Layout';
+import React from 'react';
 
-import Loading from '../components/Loading';
+import Layout from '../layout/Layout';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
+import Banner from '../components/index/Banner';
 import TopChoices from '../components/index/TopChoices';
 import PopularDestination from '../components/index/PopularDest';
 import BlogPosts from '../components/index/BlogPosts';
@@ -12,8 +12,6 @@ import BlogPosts from '../components/index/BlogPosts';
 import Subscription from '../components/Subscription';
 
 import api, { LoadRecommendation } from '../api/mockApi';
-
-const Banner = React.lazy(() => import('../components/index/Banner'));
 
 class HomePage extends React.Component{
   constructor(props) {
@@ -48,22 +46,19 @@ class HomePage extends React.Component{
       </Layout.Header>
 
       <Layout.Content>
-        <Suspense fallback={<Loading />}>
-          <Banner />
-        </Suspense>
+        <Banner />
 
-        <section className="container">
+        <section className="container" data-aos="fade-up">
           <h3 className="mb-4">Top Choices</h3>
           <TopChoices data={this.state.tops}/>
         </section>
 
-
-        <section className="container">
+        <section className="container" data-aos="fade-up">
           <h3 className="mb-4">Popular Destinations</h3>
           <PopularDestination cities={this.state.popCities}/>
         </section>
 
-        <section className="mb-5 container">
+        <section className="mb-5 container" data-aos="fade-up">
           <div className="d-flex justify-content-between align-items-start">
             <h3 className="mb-4">Get Inspiration</h3>
             <a href="#" className="btn btn-outline-primary text-uppercase">See More</a>

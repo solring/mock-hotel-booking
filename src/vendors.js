@@ -12,4 +12,5 @@ AOS.init({
   disable: 'phone',
   once: true,
   offset: 150,
+  anchorPlacement: 'top-center',
 });
