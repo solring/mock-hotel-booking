@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import Layout from '../layout/Layout';
-import Header from '../components/Header';
+import Header from '../components/Header/Header';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { doLogin } from '../features/loginSlicer';

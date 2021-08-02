@@ -3,11 +3,10 @@ import { useMediaQuery } from '@material-ui/core';
 import { Nav, Button, Dropdown, Collapse } from 'react-bootstrap';
 
 import { useSelector, useDispatch } from 'react-redux'
-import { logout } from '../features/loginSlicer';
+import { logout } from '../../features/loginSlicer';
 
-import { BS_BREAKPOINT_MD } from '../utils/constants';
-
-import { INDEX, LOGIN, MEMBER } from '../utils/links';
+import { BS_BREAKPOINT_MD } from '../../utils/constants';
+import { INDEX, LOGIN, MEMBER } from '../../utils/links';
 
 function MemberMenu (props) {
 
@@ -76,13 +75,13 @@ function MemberMenu (props) {
 
   if(login) {
     return (
-      <li className="nav-item ml-4">
+      <li className="nav-item ml-md-3">
         {userDropdown()}
       </li>
     );
   } else {
     return (
-      <li className="nav-item ml-4">
+      <li className="nav-item ml-md-3">
           <a href={LOGIN} className="nav-link">Login</a>
       </li>
     );

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import qs from 'query-string';
 import Layout from '../layout/Layout';
 
-import Header from '../components/Header';
+import Header from '../components/Header/Header';
 import Footer from '../components/Footer';
 import Loading from '../components/Loading';
 import OrderDetail from '../components/order/OrderDetail';

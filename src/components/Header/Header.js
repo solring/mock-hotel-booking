@@ -5,8 +5,8 @@ import { Nav, Navbar, Dropdown } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 
 import MemberMenu from './MemberMenu';
-import { LANGUAGES } from '../utils/constants';
-import { INDEX } from '../utils/links';
+import { LANGUAGES } from '../../utils/constants';
+import { INDEX } from '../../utils/links';
 
 function Header(props) {
   const {simple} = props;
@@ -59,7 +59,7 @@ function Header(props) {
           </Navbar.Toggle>
         }
 
-        <h1 className="navbar-brand logo m-auto"><a href={INDEX}>ALOHA</a></h1>
+        <h1 className="navbar-brand logo mx-auto mx-md-0"><a href={INDEX}>ALOHA</a></h1>
 
         {genNavs()}
       </div>
