@@ -222,7 +222,11 @@ function SearchBar (props) {
 
         {/* Field 2: Calendar */}
         <li key="datePicker">
-          <DatePicker name="large" handler={setDate}>
+          <DatePicker
+            start={parseDate(startDate).toDate()}
+            end={parseDate(endDate).toDate()}
+            name="large"
+            handler={setDate} >
             <DateButtonLg
               small={isSmallScreen}
               start={dateRangeStrLg[0]}

@@ -16,7 +16,16 @@ class DatePicker extends React.Component {
     this.divId = `litepicker_${this.name}`;
     this.picker = null;
 
+    this.start = props.start || new Date();
+    this.end = props.end || this._getTomorrow();
+
     this.onSelected = this.onSelected.bind(this);
+  }
+
+  _getTomorrow() {
+    let tmr = new Date();
+    tmr.setDate(tmr.getDate() +1 );
+    return tmr;
   }
 
   onSelected (date1, date2) {
@@ -35,6 +44,8 @@ class DatePicker extends React.Component {
       selectForward: true,
       singleMode: false,
       autoApply: true,
+      startDate: this.start,
+      endDate: this.end,
       format: 'MM/DD/YYYY',
       setup: (picker) => {
         picker.on('preselect', this.onSelected)
