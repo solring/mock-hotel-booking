@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import * as constants from '../utils/constants';
+import dayjs from 'dayjs';
 import { parseDate, serializeDate } from '../utils/dates';
 
 const keys = [
@@ -18,8 +19,8 @@ const initState = {
   adult: 2,
   child: 0,
   room: 1,
-  startDate: serializeDate(parseDate()), // default is today
-  endDate: serializeDate(parseDate()),
+  startDate: serializeDate(dayjs()), // default is today
+  endDate: serializeDate(dayjs().add(1, 'day')),
 }
 
 // Can use mutating code inside createSlice
