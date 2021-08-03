@@ -61,7 +61,7 @@ class HomePage extends React.Component{
           <Banner />
 
           <Reveal effect="fadeInUp" when={animation}>
-            <section className="container" style={{height: "500px"}}>
+            <section className="container" style={{"min-height": "400px"}}>
               <h3 className="mb-4">Top Choices</h3>
               <TopChoices data={tops}/>
             </section>
