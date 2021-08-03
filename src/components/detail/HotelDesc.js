@@ -1,4 +1,6 @@
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
+import { Reveal } from 'react-reveal';
+
 import { Swiper, SwiperSlide } from 'swiper/react';
 // swiper react does not include navigation by default
 import SwiperCore, { Navigation } from 'swiper/core';
@@ -12,7 +14,7 @@ function HotelDesc(props) {
 
   // ===== Rengerers & Components =====
   const picGrid = (
-    <div className="row Hotel__picGroup no-gutters d-none d-md-flex" data-aos="fade-down">
+    <div className="row Hotel__picGroup no-gutters d-none d-md-flex">
       <div className="col-md-7 h-100">
         <div className="pic-fill-container">
           <img src={hotelPics[0] ? hotelPics[0] : ""} alt="room pic 1" />
@@ -59,25 +61,28 @@ function HotelDesc(props) {
   )
 
   return (
-    <div data-aos="fade-up">
+    <div>
+      <Reveal down>
+      {picGrid}
+      {picSwiper}
+      </Reveal>
 
-    {picGrid}
-    {picSwiper}
-
-    {/* Hotel Description */}
-    <div className="px-3 px-sm-0">
-      <div className="d-flex flex-column flex-md-row align-items-md-center pt-md-4 pt-3">
-        <h2 className="mr-3">{hotelInfo.name}</h2>
-        <div className="align-icons">
-          <span className="material-icons align-center">
-            {"star ".repeat(hotelInfo.star)}
-          </span>
-          <span className="text-secondary text-sub">{hotelInfo.star}.0({hotelInfo.review})</span>
+      {/* Hotel Description */}
+      <Reveal effect="fadeInUp">
+        <div className="px-3 px-sm-0">
+          <div className="d-flex flex-column flex-md-row align-items-md-center pt-md-4 pt-3">
+            <h2 className="mr-3">{hotelInfo.name}</h2>
+            <div className="align-icons">
+              <span className="material-icons align-center">
+                {"star ".repeat(hotelInfo.star)}
+              </span>
+              <span className="text-secondary text-sub">{hotelInfo.star}.0({hotelInfo.review})</span>
+            </div>
+          </div>
+          <p className="mb-md-4 mb-3"><a href="#" className="text-primary text-sub">{hotelInfo.addr}</a></p>
+          <p className="text-secondary mb-6">{hotelInfo.desc}</p>
         </div>
-      </div>
-      <p className="mb-md-4 mb-3"><a href="#" className="text-primary text-sub">{hotelInfo.addr}</a></p>
-      <p className="text-secondary mb-6">{hotelInfo.desc}</p>
-    </div>
+      </Reveal>
     </div>
   );
 };

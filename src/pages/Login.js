@@ -1,6 +1,6 @@
 import { useState } from 'react';
+import { Reveal } from 'react-reveal';
 
-import Layout from '../layout/Layout';
 import Header from '../components/Header/Header';
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -95,7 +95,7 @@ function Page (){
   );
 
   const slogan = (
-    <div className="row position-relative" data-aos="fade-up">
+    <div className="row position-relative">
       <div className="col-9" >
         <h2 className="fz-title mb-3">An ideal hotel makes a wonderful Trip.</h2>
         <p className="text-sub text-secondary">Discover your dream destination and hotel on ALOHA.com</p>
@@ -103,24 +103,11 @@ function Page (){
     </div>
   );
 
-  const Content = () => {
-    return (
-<div className="container vh-100 position-relative Login__content">
-  <div className="row h-100 justify-content-center">
-    <div className="d-none d-lg-block col-lg-8 Login__padding">
-      {slogan}
+  const locationTag = (
+    <div className="bg-dark rounded px-3 py-2 text-light d-none d-sm-inline-block text-sub Login__location text-nowrap">
+      <span className="material-icons">place</span>Osaka Castel, Japan
     </div>
-
-    <div className="col-md-6 col-lg-4 Login__padding Login__right">
-      {loginForm}
-    </div>
-  </div>
-  <div className="bg-dark rounded px-3 py-2 text-light d-none d-sm-inline-block text-sub Login__location text-nowrap">
-    <span className="material-icons">place</span>Osaka Castel, Japan
-  </div>
-</div>
-    );
-  }
+  );
 
   return (
     <div>
@@ -130,10 +117,24 @@ function Page (){
       <nav className="fixed-top">
         <Header simple={true} />
       </nav>
-      <Layout.Content>
-        {Content()}
-      </Layout.Content>
 
+      <div className="container vh-100 position-relative Login__content">
+        <div className="row h-100 justify-content-center">
+          <div className="d-none d-lg-block col-lg-8 Login__padding">
+            <Reveal effect="fadeInUp">
+              {slogan}
+            </Reveal>
+          </div>
+
+          <div className="col-md-6 col-lg-4 Login__padding Login__right">
+            <Reveal right>
+              {loginForm}
+            </Reveal>
+          </div>
+        </div>
+
+        {locationTag}
+      </div>
     </div>
   );
 }

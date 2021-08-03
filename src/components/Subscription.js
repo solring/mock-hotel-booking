@@ -90,7 +90,7 @@ function Subscription(props) {
     )
 
     return (
-      <section className={`Subscribe--lg bg-info`} data-aos="fade-up">
+      <section className={`Subscribe--lg bg-info`}>
         <div className="container d-flex flex-column justify-content-center align-items-center">
           {subscribed ? successMsg : subform}
         </div>

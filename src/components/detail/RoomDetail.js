@@ -1,15 +1,16 @@
 import PropTypes from 'prop-types'
 import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux'
-import { addBatch } from '../../features/cartSlicer';
+import { useSelector, useDispatch } from 'react-redux';
+import { Reveal } from 'react-reveal';
 
-import * as links from '../../utils/links';
+import { addBatch } from '../../features/cartSlicer';
 
 import RoomList from './RoomList';
 import BottomModal from '../BottomModal';
 
 import { genGuestStr } from '../../utils/utils';
 import { diffDate } from '../../utils/dates';
+import * as links from '../../utils/links';
 
 function RoomDetail(props) {
   const {hotelInfo, availableRooms} = props;
@@ -66,22 +67,24 @@ function RoomDetail(props) {
   return (
     <div>
       {/* Room options */}
-      <div className="py-4 mx-3 mx-md-0" data-aos="fade-up">
-        <h3 className="mb-3 mb-md-4">Select your room</h3>
-        <div className="d-none d-md-flex align-items-center mb-md-5">
-          <div className="div-badge bg-info">{searchOptions.city}, {searchOptions.country}</div>
-          <div className="div-badge bg-info">{searchOptions.startDate} - {searchOptions.endDate}</div>
-          <div className="div-badge bg-info">
-            {genGuestStr(searchOptions.adult, searchOptions.child, searchOptions.room)}
+      <Reveal effect="fadeInUp" duration={1500}>
+        <div className="py-4 mx-3 mx-md-0">
+          <h3 className="mb-3 mb-md-4">Select your room</h3>
+          <div className="d-none d-md-flex align-items-center mb-md-5">
+            <div className="div-badge bg-info">{searchOptions.city}, {searchOptions.country}</div>
+            <div className="div-badge bg-info">{searchOptions.startDate} - {searchOptions.endDate}</div>
+            <div className="div-badge bg-info">
+              {genGuestStr(searchOptions.adult, searchOptions.child, searchOptions.room)}
+            </div>
+            <a href="#" className="text-uppercase text font-weight-bold ml-4">edit detail</a>
           </div>
-          <a href="#" className="text-uppercase text font-weight-bold ml-4">edit detail</a>
+          <RoomList
+            rooms={availableRooms}
+            orders={orders}
+            onOrderChange={onOrderChangeHandler}
+          />
         </div>
-        <RoomList
-          rooms={availableRooms}
-          orders={orders}
-          onOrderChange={onOrderChangeHandler}
-        />
-      </div>
+      </Reveal>
 
       {/* CartModal*/}
       <BottomModal

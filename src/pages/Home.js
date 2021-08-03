@@ -1,4 +1,5 @@
 import React from 'react';
+import { Reveal } from 'react-reveal';
 
 import Layout from '../layout/Layout';
 import Header from '../components/Header/Header';
@@ -21,6 +22,7 @@ class HomePage extends React.Component{
       blogsPosts: [],
       tops: [],
       popCities: [],
+      animation: false,
     }
   }
 
@@ -31,46 +33,65 @@ class HomePage extends React.Component{
         blogsPosts: blogs,
         tops: hotels,
         popCities: locations,
+        animation: true,
       });
       console.log(this.state);
+
     }).catch((e) => {
       console.error("Failed to get recommendation.");
       console.error(e);
     });
   }
 
-  render() { return (
-    <Layout>
-      <Layout.Header>
-        <Header simple={false} />
-      </Layout.Header>
+  render() {
+    const {
+      blogsPosts,
+      tops,
+      popCities,
+      animation,
+    } = this.state;
 
-      <Layout.Content>
-        <Banner />
+    return (
+      <Layout>
+        <Layout.Header>
+          <Header simple={false} />
+        </Layout.Header>
+        <Layout.Content>
 
-        <section className="container" data-aos="fade-up">
-          <h3 className="mb-4">Top Choices</h3>
-          <TopChoices data={this.state.tops}/>
-        </section>
+          <Banner />
 
-        <section className="container" data-aos="fade-up">
-          <h3 className="mb-4">Popular Destinations</h3>
-          <PopularDestination cities={this.state.popCities}/>
-        </section>
+          <Reveal effect="fadeInUp" when={animation}>
+            <section className="container" style={{height: "500px"}}>
+              <h3 className="mb-4">Top Choices</h3>
+              <TopChoices data={tops}/>
+            </section>
+          </Reveal>
 
-        <section className="mb-5 container" data-aos="fade-up">
-          <div className="d-flex justify-content-between align-items-start">
-            <h3 className="mb-4">Get Inspiration</h3>
-            <a href="#" className="btn btn-outline-primary text-uppercase">See More</a>
-          </div>
-          <BlogPosts posts={this.state.blogsPosts} />
-        </section>
+          <Reveal effect="fadeInUp" when={animation}>
+          <section className="container">
+            <h3 className="mb-4">Popular Destinations</h3>
+            <PopularDestination cities={popCities}/>
+          </section>
+          </Reveal>
 
-        <Subscription size="large" />
-        <Footer short={false} />
+          <Reveal effect="fadeInUp" when={animation}>
+          <section className="mb-5 container">
+            <div className="d-flex justify-content-between align-items-start">
+              <h3 className="mb-4">Get Inspiration</h3>
+              <a href="#" className="btn btn-outline-primary text-uppercase">See More</a>
+            </div>
+            <BlogPosts posts={blogsPosts} />
+          </section>
+          </Reveal>
 
-      </Layout.Content>
-    </Layout>
+          <Reveal effect="fadeInUp" when={animation}>
+            <Subscription size="large" />
+          </Reveal>
+
+          <Footer short={false} />
+
+        </Layout.Content>
+      </Layout>
   );}
 }
 

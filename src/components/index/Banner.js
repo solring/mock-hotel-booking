@@ -23,6 +23,7 @@ function Banner(props) {
           alt={`carousel ${idx}`}
           src={image} // use normal <img> attributes as props
           width={`100%`}
+          height={'320px'}
           effect="blur"
           afterLoad={() => setLoad(true)}
         />
@@ -35,7 +36,7 @@ function Banner(props) {
   }
 
   return (
-    <div>
+    <div >
       <Carousel
         id="carouselMain"
         className={`Banner animate-onload animate-fade-up animate-delay-500 ${load ? "show" : ""}`}

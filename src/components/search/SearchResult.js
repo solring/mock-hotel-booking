@@ -1,6 +1,8 @@
-import { useLayoutEffect, useState } from 'react';
+import { useState } from 'react';
 import { Nav, Tab, Dropdown } from "react-bootstrap";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+
+import { Reveal } from 'react-reveal';
 
 import Filter from '../Filter';
 import HotelCard from './HotelCard';
@@ -107,7 +109,7 @@ function SearchResult(props) {
       return <Filter toggle={filterOn} toggleSetter={setFilterOn} fullscreen={isSmallScreen}/> ;
     } else {
       return (
-        <div className="col-md-4 d-none d-md-block mb-4" data-aos="fade-right">
+        <div className="col-md-4 d-none d-md-block mb-4">
             <nav className="card bg-info border-0">
               <div className="card-body">
               <Filter toggle={filterOn} toggleSetter={setFilterOn} fullscreen={isSmallScreen}/>
@@ -170,19 +172,24 @@ function SearchResult(props) {
 
         <div className="row ">
 
-          {genFilter()}
+          <Reveal effect="fadeInLeft" duration={1300}>
+            {genFilter()}
+          </Reveal>
 
-          <div className="col-md-8" data-aos="fade-up">
-            {genPanes()}
+          <Reveal effect="fadeInUp" duration={1300}>
+            <div className="col-md-8">
+              {genPanes()}
 
-            <NumPagenation
-              curr={currPage}
-              window={isMidScreen ? 5 : 9}
-              min={1}
-              max={Math.ceil(hotelData.length/ITEMS_PER_PAGE)}
-              onIndex={onPageChange}
-            />
-          </div>
+              <NumPagenation
+                curr={currPage}
+                window={isMidScreen ? 5 : 9}
+                min={1}
+                max={Math.ceil(hotelData.length/ITEMS_PER_PAGE)}
+                onIndex={onPageChange}
+              />
+            </div>
+          </Reveal>
+
         </div>
       </Tab.Container>
     </div>
