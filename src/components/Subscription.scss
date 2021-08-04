@@ -10,7 +10,7 @@
           line-height: 24px;
       }
   }
-  .input-group {
+  form {
       width: 100%;
       @include media-breakpoint-up(md) {
           width: 570px;

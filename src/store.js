@@ -11,6 +11,7 @@ import orderSlicer from './features/orderSlicer';
 import memberSlicer from './features/member/memberSlicer'
 import memberOrderSlicer from './features/member/memberOrderSlicer'
 import loginSlicer from './features/loginSlicer';
+import subscribeSlicer from './features/subscribeSlicer';
 
 import { sessionStorageMidwareInit, loadSessionStorage } from './middleware/sessionStorageMidware';
 
@@ -37,6 +38,7 @@ export default function configureAppStore() {
       member: memberSlicer,
       morder: memberOrderSlicer,
       login: loginSlicer,
+      subscribe: subscribeSlicer,
     },
     middleware: [thunkMiddleware, sessionStorageMidware],
     preloadedState,

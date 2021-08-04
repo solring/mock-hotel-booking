@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import * as constants from '../utils/constants';
 import dayjs from 'dayjs';
-import { parseDate, serializeDate } from '../utils/dates';
+import { serializeDate } from '../utils/dates';
 
 const keys = [
   "city",

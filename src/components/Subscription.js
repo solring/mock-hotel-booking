@@ -1,11 +1,19 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import api, { Subscribe } from '../api/mockApi';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { doSubscribe } from '../features/subscribeSlicer';
+import {
+  AJAX_STATUES_SUCCESS,
+  AJAX_STATUES_FAILED,
+} from '../features/fetchStatus'
 
 function Subscription(props) {
   const {size} = props;
 
-  const [subscribed, setSubscribed] = useState(false);
+  const dispatch = useDispatch();
+  const status = useSelector(state => state.subscribe.status);
+  const subscribed = useSelector(state => state.subscribe.success);
 
   const title = "Subscribe for Exclusive Offer";
   const thankMsg = "Thanks for your subscription!";
@@ -21,30 +29,27 @@ function Subscription(props) {
       setValidating("was-validated");
       if(e.target.checkValidity()===false) return;
 
-      api(Subscribe(email)).then((r) => {
-        if(r.success === true) setSubscribed(true);
-      }).catch((e) => {
-        console.error("failed sending subscription.");
-        console.error(e);
-      });
+      dispatch(doSubscribe(email));
     };
 
     return (
-      <React.Fragment>
-      <form className={`input-group input-group-lg ${validating}`}
+      <form className={`${validating}`}
         noValidate
-        onSubmit={subscribe}
-      >
-        <input type="email" className="form-control" name="subscribeEmail"
-          placeholder="Your email address" required
-          value={email} onChange={(e) => setEmail(e.target.value)}
-        />
-        <div className="input-group-append">
-          <button className="btn btn-primary" type="submit">Subscribe</button>
+        onSubmit={subscribe}>
+
+        <div className="input-group input-group-lg">
+          <input type="email" className="form-control" name="subscribeEmail"
+            placeholder="Your email address" required
+            value={email} onChange={(e) => setEmail(e.target.value)}
+          />
+          <div className="input-group-append">
+            <button className="btn btn-primary" type="submit">Subscribe</button>
+          </div>
         </div>
+        { (status === AJAX_STATUES_FAILED || status == AJAX_STATUES_SUCCESS && !subscribed) &&
+          <div className="invalid-feedback d-inline">Something is wrong. Please try again later.</div>
+        }
       </form>
-      <div className="invalid-feedback">Please enter valid email.</div>
-      </React.Fragment>
     );
   };
 

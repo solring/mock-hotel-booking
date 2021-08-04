@@ -1,5 +1,3 @@
-import { createSlice } from '@reduxjs/toolkit';
-
 import fetchSlicer from './baseFetchSlicer';
 import { SubmitOrder } from '../api/mockApi';
 
