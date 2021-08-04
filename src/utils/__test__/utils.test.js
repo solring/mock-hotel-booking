@@ -1,4 +1,4 @@
-import { genGuestStr } from './utils'
+import { genGuestStr } from '../utils'
 
 test('utils: test genGuestsString - basics', () => {
   let testcases = [

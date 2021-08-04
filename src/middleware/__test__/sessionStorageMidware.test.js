@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware } from 'redux';
-import { sessionStorageMidwareInit, loadSessionStorage } from "./sessionStorageMidware";
-import { SESSION_STORAGE_KEY } from '../utils/constants';
+import { sessionStorageMidwareInit, loadSessionStorage } from "../sessionStorageMidware";
+import { SESSION_STORAGE_KEY } from '../../utils/constants';
 
 const module = 'sessionStorage';
 const testTitle = (subtitle) => `${module}: ${subtitle}`;

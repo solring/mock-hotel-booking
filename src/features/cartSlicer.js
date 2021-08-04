@@ -7,6 +7,15 @@ const cartSlicer= fetchSlicer('cart');
 
 export const submitOrder = cartSlicer.createFetchApi(SubmitOrder);
 
+function delElement( arr, toDel ) {
+  let newArr = [];
+  for (let i = 0; i < arr.length; i++) {
+    if(toDel.includes(i)) continue;
+    newArr.push(arr[i]);
+  }
+  return newArr;
+}
+
 // Can use mutating code inside createSlice
 export const cartSlice = cartSlicer.createFetchSlice(
   {
@@ -19,15 +28,32 @@ export const cartSlice = cartSlicer.createFetchSlice(
       state.completed = [];
     },
     del: (state, action) => {
-      let idx = action.payload || state.orders.length-1;
-      state.orders.splice(idx, 1);
+      const payload = action.payload;
+      if(Array.isArray(payload)) {
+
+        state.orders = delElement(state.orders, payload);
+
+      } else if(Number.isInteger(payload)) {
+
+        if (payload < 0 || payload > state.orders.length-1 ) return; // not allow negative splice
+        state.orders.splice(payload, 1);
+
+      } else if(payload === undefined) {
+        state.orders.splice(-1, 1); // delete the last one
+      }
+
     },
     add: (state, action) => {
-      state.orders.push(action.payload);
+      if (Array.isArray(action.payload)) {
+
+        state.orders = state.orders.concat(action.payload);
+
+      } else if (typeof(action.payload) === "object") {
+
+        state.orders.push(action.payload);
+
+      }
     },
-    addBatch: (state, action) => {
-      state.orders = state.orders.concat(action.payload);
-    }
   },
   (state, payload) => {
     state.orders = [];
@@ -35,6 +61,6 @@ export const cartSlice = cartSlicer.createFetchSlice(
   }
 );
 
-export const { clear, del, add, addBatch } = cartSlice.actions;
+export const { clear, del, add } = cartSlice.actions;
 
 export default cartSlice.reducer;

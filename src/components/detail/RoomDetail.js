@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Reveal } from 'react-reveal';
 
-import { addBatch } from '../../features/cartSlicer';
+import { add } from '../../features/cartSlicer';
 
 import RoomList from './RoomList';
 import BottomModal from '../BottomModal';
@@ -59,7 +59,7 @@ function RoomDetail(props) {
         });
       }
     })
-    globalDispatch(addBatch(arr));
+    globalDispatch(add(arr));
     // call api and goto comfirmation page
     window.location.href = links.ORDER;
   }
