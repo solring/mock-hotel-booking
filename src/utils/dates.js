@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { DAYJS_PARSE_FORMATE } from './constants';
 
-dayjs.extend(customParseFormat)
+dayjs.extend(customParseFormat);
 
 function serializeDate(date) {
   if (!date) return "";
@@ -11,7 +11,11 @@ function serializeDate(date) {
 
 function parseDate(str) {
   if (!str) return dayjs(); // default is now
-  return dayjs(str);
+
+  let day = dayjs(str, DAYJS_PARSE_FORMATE, true);
+
+  if(day.isValid()) return day;
+  else return null;
 }
 
 function parseJSDate(date) {
