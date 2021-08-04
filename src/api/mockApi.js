@@ -135,6 +135,8 @@ async function callApi(endpoint, method, json, {...customConfigs}) {
 
   let data;
   try {
+    // mimic delay
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     const response = await window.fetch(endpoint, config);
     data = await response.json();
     if (response.ok) {
