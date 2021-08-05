@@ -28,6 +28,7 @@ function DestButton(props) {
       <div className="d-flex align-items-center">
             <span className="material-icons mr-2">location_on</span>
             <input
+              aria-label="destination"
               type="text" placeholder={genLocStr(city, country)}
               value={destText} onChange={localOnChange}
             />
@@ -40,8 +41,8 @@ function DestButton(props) {
           <div className="d-flex align-items-center">
             <div className="material-icons pr-lg-3 pr-2">location_on</div>
             <div className="text-left">
-              <h5 className="Search__title">destination</h5>
-              <input className="Search__subtitle"
+              <h5 id="btn-destination" className="Search__title">destination</h5>
+              <input className="Search__subtitle" aria-labelledby="btn-destination"
                 type="text" placeholder={genLocStr(city, country)}
                 value={destText} onChange={localOnChange}
               />

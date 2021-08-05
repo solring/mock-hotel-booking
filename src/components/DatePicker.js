@@ -56,7 +56,8 @@ class DatePicker extends React.Component {
   render() {
     return (
       <div>
-      <button  type="button"
+      <button type="button"
+        aria-label="calendar"
         className="btn btn-light btn-block"
         onClick={(e) => {
           this.picker.show();

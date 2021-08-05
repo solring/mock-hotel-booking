@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Dropdown } from 'react-bootstrap';
 import { useMediaQuery } from '@material-ui/core';
 import queryString from 'query-string';
@@ -100,18 +101,17 @@ function SearchBar (props) {
   // Renderers
   const destinations = () => {
     return suggestLocs.map(([country, city]) => (
-      <Dropdown.Item key={city}>
-        <a className="d-block"
-          onClick={() => setDestination(country, city)}
-        >
-          <div className="d-flex align-items-center">
-            <div className="material-icons icon-lg mr-2">grade</div>
-            <div>
-              <p>{country}</p>
-              <p className="small">{city}</p>
-            </div>
+      <Dropdown.Item
+        key={city}
+        onClick={() => setDestination(country, city)}
+      >
+        <div className="d-flex align-items-center">
+          <div className="material-icons icon-lg mr-2">grade</div>
+          <div>
+            <p>{country}</p>
+            <p className="small">{city}</p>
           </div>
-        </a>
+        </div>
       </Dropdown.Item>
     ));
   };
@@ -142,12 +142,12 @@ function SearchBar (props) {
     <ul className="Search__options flex-column flex-lg-row">
       {/* Field Destination */}
       <li key="destination" className="mb-3 mb-lg-0">
-        <SearchItemBtn title={
+        <SearchItemBtn label="dest" title={
           <DestButton
             city={city}
             country={country}
             small={true}
-            onChange={() => {}}
+            onChange={() => {}} // TODO: should connect to auto complete or othre queries.
           />
         }>
           {destinations()}
@@ -167,7 +167,7 @@ function SearchBar (props) {
 
       {/* Field 3: Guests */}
       <li key="guest" className="mb-3 mb-lg-0">
-        <SearchItemBtn onToggle={() => setTouchedGuest(true)}
+        <SearchItemBtn label="guest" onToggle={() => setTouchedGuest(true)}
         title={(
           <div className="d-flex align-items-center">
             <span className="material-icons mr-2">person</span>
@@ -208,7 +208,7 @@ function SearchBar (props) {
 
         {/* Field 1: Destination */}
         <li key="destination">
-          <SearchItemBtn title={
+          <SearchItemBtn label="dest" title={
             <DestButton
               city={city}
               country={country}
@@ -238,7 +238,7 @@ function SearchBar (props) {
 
         {/* Field 3: Guests */}
         <li key="guests" className="border-right-0">
-          <SearchItemBtn title={
+          <SearchItemBtn label="guest" title={
             <GuestButtonLg
               adult={adult}
               child={child}
@@ -250,7 +250,7 @@ function SearchBar (props) {
           </SearchItemBtn>
         </li>
 
-        <li key="buttons" className="flex-grow-0 flex-shrink-0 d-none d-md-block">
+        <li key="buttons" className="flex-grow-0 flex-shrink-0 d-none">
           <button className="btn btn-primary Search__btn text-uppercase" type="submit">Search</button>
         </li>
       </ul>
@@ -265,5 +265,10 @@ function SearchBar (props) {
     return searchBarLarge;
   }
 }
+
+SearchBar.propTypes = {
+  simplified: PropTypes.bool,
+  withReturn: PropTypes.bool,
+};
 
 export default SearchBar;
