@@ -127,9 +127,7 @@ function Page (){
           </div>
 
           <div className="col-md-6 col-lg-4 Login__padding Login__right">
-            <Reveal right>
-              {loginForm}
-            </Reveal>
+            <Reveal effect="fadeIn">{loginForm}</Reveal>
           </div>
         </div>
 

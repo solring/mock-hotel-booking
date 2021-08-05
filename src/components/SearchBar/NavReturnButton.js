@@ -13,7 +13,7 @@ function NavReturnButton(props) {
       className="d-md-none btn container py-3 px-3"
       onClick={goBack}
     >
-      <span className="material-icons text-dark">arrow_back</span>
+      <span className="material-icons text-dark mr-1">arrow_back</span>
       <span className="text-secondary small">
         {city}・{start} - {end}・{genGuestStr(adult, child, room)}
       </span>

@@ -6,12 +6,12 @@ function DateButtonLg(props) {
 
   if(small) {
     return (
-      <div className="d-md-none text-secondary">
+      <div className="text-secondary">
         {start}-{end}
       </div>
     );
   } else return (
-    <div className="d-none d-md-flex align-items-center">
+    <div className="d-none d-md-flex align-items-center text-left pl-3">
       <div className="material-icons pr-lg-3 pr-2">date_range</div>
 
       <ul className="list-unstyled list-row-divider-info d-none d-lg-flex text-nowrap">

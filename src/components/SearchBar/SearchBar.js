@@ -157,7 +157,7 @@ function SearchBar (props) {
       {/* Field 2: Calendar */}
       <li key="calendar" className="mb-3 mb-lg-0">
         <DatePicker name="small" handler={setDate}>
-          <div className="text-nowrap overflow-scroll">
+          <div className="pl-2 text-left text-nowrap overflow-scroll">
             <span className="material-icons mr-2">date_range</span>
             {touchedCal ? `${dateRangeStr[0]} / ${dateRangeStr[1]}` : "Check-in / Check-out"}
           </div>
