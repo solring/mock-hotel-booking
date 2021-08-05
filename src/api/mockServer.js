@@ -10,7 +10,7 @@ const hotels = data.hotelData.concat(data.hotelData)
 });
 
 export default function() {
-  createServer({
+  return createServer({
     seeds(server) {
       server.db.loadData({
         users:[

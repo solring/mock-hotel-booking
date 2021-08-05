@@ -34,16 +34,18 @@ function Subscription(props) {
 
     return (
       <form className={`${validating}`}
+
         noValidate
         onSubmit={subscribe}>
 
         <div className="input-group input-group-lg">
-          <input type="email" className="form-control" name="subscribeEmail"
+          <input type="email" className="form-control"
+            aria-labelledby="subs-btn"
             placeholder="Your email address" required
             value={email} onChange={(e) => setEmail(e.target.value)}
           />
           <div className="input-group-append">
-            <button className="btn btn-primary" type="submit">Subscribe</button>
+            <button id="subs-btn" className="btn btn-primary" type="submit">Subscribe</button>
           </div>
         </div>
         { (status === AJAX_STATUES_FAILED || status == AJAX_STATUES_SUCCESS && !subscribed) &&
@@ -63,7 +65,7 @@ function Subscription(props) {
     const subform = (
       <React.Fragment>
       <div className="col-md-4 col-lg-5 text-center text-md-left">
-        <h2 className="mb-3 mb-md-0">{title}</h2>
+        <h2 id="subs-title" className="mb-3 mb-md-0">{title}</h2>
       </div>
       <div className="col-md-7">
         <EmailForm />

@@ -23,7 +23,7 @@ function BottomModal(props) {
       </div>
       <div className="row">
         <div className="col-6">
-          <button className="btn btn-outline-primary btn-lg btn-block text-uppercase" onClick={clearHandler}>cencel</button>
+          <button className="btn btn-outline-primary btn-lg btn-block text-uppercase" onClick={clearHandler}>cancel</button>
         </div>
         <div className="col-6">
           <button className="btn btn-primary btn-lg btn-block text-uppercase" onClick={confirmAction}>
@@ -37,12 +37,12 @@ function BottomModal(props) {
 
   if(collapse) {
     return (
-    <Collapse in={toggle} id="cartCollapse" className="BottomModal fixed-bottom">
+    <Collapse in={toggle} data-testid="bottom-modal" className="BottomModal fixed-bottom">
       {Content}
     </Collapse>
     )
   } else return (
-    <div className="BottomModal">
+    <div data-testid="bottom-modal" className="BottomModal">
       {Content}
     </div>
   );
@@ -52,7 +52,7 @@ BottomModal.propTypes = {
   toggle: PropTypes.bool.isRequired,
   clearHandler: PropTypes.func.isRequired,
   confirmText: PropTypes.string,
-  confirmAction: PropTypes.func.isRequired, 
+  confirmAction: PropTypes.func.isRequired,
   direction: PropTypes.string,
   collapse: PropTypes.bool,
 };
