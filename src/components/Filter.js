@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { Slider } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -43,9 +45,19 @@ const CustomSlider = withStyles({
 
 class Filter extends React.Component{
 
+  static propTypes = {
+    toggle: PropTypes.bool,
+    toggleSetter: PropTypes.func,
+    onFilter: PropTypes.func,
+    fullscreen: PropTypes.bool,
+    resNumber: PropTypes.number,
+  }
+
   constructor(props) {
     super(props);
     this.state = {};
+    this.onFilter = props.onFilter || null;
+    this.resNumber = props.resNumber || 0;
 
     this.sections = [
       {
@@ -119,8 +131,9 @@ class Filter extends React.Component{
 
     this.checkBoxHandler = this.checkBoxHandler.bind(this);
     this.sliderHandler = this.sliderHandler.bind(this);
+    this.sliderOnCommit = this.sliderOnCommit.bind(this);
     this.closeFilter = this.closeFilter.bind(this);
-    this._Filter = this._Filter.bind(this);
+    this.doFilter = this.doFilter.bind(this);
   }
 
   // Handlers
@@ -129,13 +142,23 @@ class Filter extends React.Component{
     const value = target.checked;
     const title = target.title;
     this.setState({ [title]: value });
+    if(this.onFilter) this.onFilter(this.state);
   }
 
-  sliderHandler(e, newValue) {
-    this.setState({'priceRange' : newValue});
+  sliderHandler(e, value) {
+    this.setState({'priceRange' : value});
+  }
+
+  sliderOnCommit(e, value) {
+    if(this.onFilter) this.onFilter(this.state);
   }
 
   closeFilter(e){
+    this.props.toggleSetter(false);
+  }
+
+  doFilter(e) {
+    if(this.onFilter) this.onFilter(this.state);
     this.props.toggleSetter(false);
   }
 
@@ -173,10 +196,10 @@ class Filter extends React.Component{
             <input
               type="checkbox" className="custom-control-input"
               id={`rate${i}_Check`} title={`rate${i}`}
-              value={this.state[`rage${i}`]}
+              value={this.state[`rate${i}`]}
               onChange={this.checkBoxHandler}
             />
-            <label htmlFor={`rate${i}_Check`} className="custom-control-label">
+            <label htmlFor={`rate${i}_Check`} className="custom-control-label" aria-label={`${i} star`}>
               <span className="material-icons">
               {"grade ".repeat(i)}
               </span>
@@ -197,9 +220,7 @@ class Filter extends React.Component{
     };
 
     return (
-
-      <form target="#" method="get" className="filter">
-
+      <form target="#" method="get" className="filter" aria-label="search filter">
       <ul className="list-divider-white">
 
         <li key="sec1">
@@ -214,8 +235,10 @@ class Filter extends React.Component{
           <h6 className="card-title">Budget</h6>
 
           <CustomSlider
+            data-testid="budget-slider"
             value={this.state.priceRange}
             onChange={this.sliderHandler}
+            //onChangeCommitted={this.sliderOnCommit}
             max={constants.MAX_FILTER_PRICE}
             min={constants.MIN_FILTER_PRICE}
             step={constants.FILTER_STEP}
@@ -261,16 +284,16 @@ class Filter extends React.Component{
 
   render() {
 
-    const bottomModal = (
+    const bottomModal = () => (
       <BottomModal
         toggle={true}
         clearHandler={this.closeFilter}
         confirmText="Filter"
-        confirmAction={this.closeFilter} //TODO: filter action
+        confirmAction={this.doFilter}
         direction="row"
         collapse={false}
       >
-        <h4 className="mb-4">Find 1,245 results</h4>
+        <h4 className="mb-4">Found {this.resNumber} results.</h4>
       </BottomModal>
     );
 
@@ -283,7 +306,7 @@ class Filter extends React.Component{
               <span className="material-icons icon-lg">filter_list</span> FILTER
           </div>
         )}
-        footer={bottomModal}
+        footer={bottomModal()}
       >
         {this._Filter()}
       </FullscreenCollapse>

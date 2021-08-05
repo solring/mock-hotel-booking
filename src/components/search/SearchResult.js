@@ -59,6 +59,11 @@ function SearchResult(props) {
     }, 150); //BS fade setting
   }
 
+  const onFilter = () => {
+    // TODO: yet to implement
+    console.log("SearchResult: onFilter");
+  }
+
   // Helper Function
   const filterRooms = (category) => {
     let copied = [...hotelData];
@@ -106,28 +111,41 @@ function SearchResult(props) {
 
   const genFilter = () => {
     if (isSmallScreen) {
-      return <Filter toggle={filterOn} toggleSetter={setFilterOn} fullscreen={isSmallScreen}/> ;
+      return (
+        <Filter
+          toggle={filterOn}
+          toggleSetter={setFilterOn}
+          fullscreen={isSmallScreen}
+          onFilter={onFilter}
+        />
+      );
     } else {
       return (
-        <div className="col-md-4 d-none d-md-block mb-4">
+        <Reveal effect="fadeInLeft" duration={1300}>
+          <div className="col-md-4 mb-4">
             <nav className="card bg-info border-0">
               <div className="card-body">
-              <Filter toggle={filterOn} toggleSetter={setFilterOn} fullscreen={isSmallScreen}/>
+                <Filter
+                  toggle={filterOn}
+                  toggleSetter={setFilterOn}
+                  fullscreen={isSmallScreen}
+                  onFilter={onFilter}
+                />
               </div>
             </nav>
-        </div>
+          </div>
+        </Reveal>
       )
     }
   }
 
   const toolbarPhone = () => {
     return (
-      <div className="d-md-none">
       <ul className="d-flex align-items-center justify-content-center w-100 mb-3">
         <li key="tab1" className="flex-fill border-right border-info">
           <a className="btn btn-link btn-block font-weight-bold text-dark text-sub"
             onClick={() => {
-              setFilterOn(!filterOn);
+              setFilterOn(true);
               console.log(filterOn);
             }}
           >
@@ -145,7 +163,6 @@ function SearchResult(props) {
           </Dropdown>
         </li>
       </ul>
-      </div>
     );
   }
 
@@ -168,13 +185,11 @@ function SearchResult(props) {
         </div>
 
         {/* toolbar on phones */}
-        {toolbarPhone()}
+        {isSmallScreen && toolbarPhone()}
 
         <div className="row ">
 
-          <Reveal effect="fadeInLeft" duration={1300}>
-            {genFilter()}
-          </Reveal>
+          {genFilter()}
 
           <Reveal effect="fadeInUp" duration={1300}>
             <div className="col-md-8">

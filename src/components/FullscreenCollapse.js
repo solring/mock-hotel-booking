@@ -6,7 +6,7 @@ function FullScreenCollapse (props) {
   const { toggle, onClose, title, footer} = props;
 
   return(
-    <Collapse in={toggle} className="Fullscreen__collapse">
+    <Collapse in={toggle} className="Fullscreen__collapse" data-testid="fs-collapse">
       <div> {/* Essential for Collapse to animate smoothly.*/}
       <div className="Fullscreen__collapse-wrapper">
 
@@ -36,8 +36,14 @@ function FullScreenCollapse (props) {
 FullScreenCollapse.propTypes = {
   toggle: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  title: PropTypes.string,
-  footer: PropTypes.string,
+  title: PropTypes.oneOfType([
+   PropTypes.string,
+   PropTypes.object,
+  ]),
+  footer: PropTypes.oneOfType([
+   PropTypes.string,
+   PropTypes.object,
+  ]),
 };
 
 export default FullScreenCollapse;
