@@ -58,67 +58,10 @@ class Filter extends React.Component{
     this.state = {};
     this.onFilter = props.onFilter || null;
     this.resNumber = props.resNumber || 0;
-
-    this.sections = [
-      {
-        title: "Deals",
-        options: [
-          {
-            title: "freeCancel",
-            text: "Free cancel",
-          },
-          {
-            title: "noPrepay",
-            text: "No prepayment",
-          },
-          {
-            title: "specialOffer",
-            text: "Special offer",
-          },
-        ],
-      },
-      {
-        title: "Popular Filters",
-        options: [
-          {
-            title: "breakfast",
-            text: "Breakfast included",
-          },
-          {
-            title: "freeWifi",
-            text: "Free Wifi",
-          },
-          {
-            title: "swimmingPool",
-            text: "Swimming pool",
-          },
-        ],
-      },
-      {
-        title: "Stay Type",
-        options: [
-          {
-            title: "hotel",
-            text: "Hotel",
-          },
-          {
-            title: "apartment",
-            text: "Apartment",
-          },
-          {
-            title: "unique",
-            text: "Unique",
-          },
-          {
-            title: "hostel",
-            text: "Hostel",
-          },
-        ],
-      },
-    ]
+    this.sections = props.sections || [];
 
     // check box data
-    this.sections.map((sec) =>{
+    Object.values(this.sections).map((sec) =>{
       sec.options.map((opt) => {
         this.state[opt.title] = false;
       })
@@ -134,6 +77,15 @@ class Filter extends React.Component{
     this.sliderOnCommit = this.sliderOnCommit.bind(this);
     this.closeFilter = this.closeFilter.bind(this);
     this.doFilter = this.doFilter.bind(this);
+    this.callOnFilter = this.callOnFilter.bind(this);
+  }
+
+  // Helpers
+  callOnFilter(newState) {
+    let data = {...this.state};
+    Object.assign(data, newState);
+    //this.props.dispatch(setFilter(data));
+    this.onFilter(data);
   }
 
   // Handlers
@@ -142,7 +94,7 @@ class Filter extends React.Component{
     const value = target.checked;
     const title = target.title;
     this.setState({ [title]: value });
-    if(this.onFilter) this.onFilter(this.state);
+    if(this.onFilter) this.callOnFilter({ [title]: value });
   }
 
   sliderHandler(e, value) {
@@ -150,7 +102,7 @@ class Filter extends React.Component{
   }
 
   sliderOnCommit(e, value) {
-    if(this.onFilter) this.onFilter(this.state);
+    if(this.onFilter) this.callOnFilter();
   }
 
   closeFilter(e){
@@ -158,14 +110,14 @@ class Filter extends React.Component{
   }
 
   doFilter(e) {
-    if(this.onFilter) this.onFilter(this.state);
+    if(this.onFilter) this.callOnFilter();
     this.props.toggleSetter(false);
   }
 
   // Filter implementation
   _Filter() {
 
-    /* ------ helper functions ------ */
+    /* ------ renderer ------ */
     const genCheckBox = (sec, prefix) => {
       return (
         <div>
@@ -209,7 +161,7 @@ class Filter extends React.Component{
         ))}
           <li key="unrated" className="custom-control custom-checkbox">
             <input type="checkbox" className="custom-control-input"
-              id="unrateCheck" title="unrate"
+              id="unrateCheck" title="rate0"
               value={this.state["rate0"]}
               onChange={this.checkBoxHandler}
             />
@@ -224,11 +176,11 @@ class Filter extends React.Component{
       <ul className="list-divider-white">
 
         <li key="sec1">
-          {genCheckBox(this.sections[0], "_")}
+          {genCheckBox(this.sections["deals"], "_")}
         </li>
 
         <li key="sec2">
-          {genCheckBox(this.sections[1], "_")}
+          {genCheckBox(this.sections["popular"], "_")}
         </li>
 
         <li key="sec3">
@@ -238,7 +190,7 @@ class Filter extends React.Component{
             data-testid="budget-slider"
             value={this.state.priceRange}
             onChange={this.sliderHandler}
-            //onChangeCommitted={this.sliderOnCommit}
+            onChangeCommitted={this.sliderOnCommit}
             max={constants.MAX_FILTER_PRICE}
             min={constants.MIN_FILTER_PRICE}
             step={constants.FILTER_STEP}
@@ -274,7 +226,7 @@ class Filter extends React.Component{
           {genGradeForm()}
         </li>
         <li key="sec5">
-          {genCheckBox(this.sections[2], "_")}
+          {genCheckBox(this.sections["stayType"], "_")}
         </li>
       </ul>
 
@@ -303,7 +255,7 @@ class Filter extends React.Component{
         onClose={this.closeFilter}
         title={(
           <div>
-              <span className="material-icons icon-lg">filter_list</span> FILTER
+            <span className="material-icons icon-lg">filter_list</span> FILTER
           </div>
         )}
         footer={bottomModal()}

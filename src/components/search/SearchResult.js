@@ -8,9 +8,12 @@ import Filter from '../Filter';
 import HotelCard from './HotelCard';
 import NumPagenation from '../NumPagenation.js'
 
+import filter, {sections, makeOptions } from './FilterImpl';
+
 import * as constants from '../../utils/constants';
 
 const ITEMS_PER_PAGE = 5;
+
 
 function Hotels(props) {
   const {on, rooms, pageSize, index=1} = props;
@@ -45,7 +48,9 @@ function SearchResult(props) {
   const [currTab, setCurrTab ] = useState(tabs[0][0]);
   const [currPage, setCurrPage] = useState(1);
   const [show, setShow] = useState(true);
+  const [filterOps, setFilterOps] = useState({});
 
+  // RWD
   const isSmallScreen = useMediaQuery(`(max-width:${constants.BS_BREAKPOINT_MD})`);
   const isMidScreen = useMediaQuery(`(max-width:${constants.BS_BREAKPOINT_LG})`);
   const [filterOn, setFilterOn] = useState(false);
@@ -57,19 +62,18 @@ function SearchResult(props) {
       setCurrPage(i);
       setShow(true)
     }, 150); //BS fade setting
-  }
+  };
 
-  const onFilter = () => {
-    // TODO: yet to implement
-    console.log("SearchResult: onFilter");
-  }
+  const onFilter = (data) => {
+    console.log(data);
+    setFilterOps(makeOptions(data));
+  };
 
-  // Helper Function
-  const filterRooms = (category) => {
-    let copied = [...hotelData];
+  // Helper functions
+  let filteredHotels = filter(hotelData, filterOps);
+  const sortRooms = (category) => {
+    let copied = [...filteredHotels];
     switch(category) {
-      case "recommend":
-        return copied.sort((a, b) => b.star - a.star);
       case "price":
         return copied.sort((a, b) => a.price - b.price);
       case "value":
@@ -77,9 +81,9 @@ function SearchResult(props) {
       case "distance":
         return copied.sort((a, b) => a.distance - b.distance);
       default:
-        return hotelData;
+        return filteredHotels;
     }
-  }
+  };
 
   // Renderers
   const genPanes = () => (
@@ -87,7 +91,7 @@ function SearchResult(props) {
     {tabs.map(([short, title]) => (
       <Tab.Pane key={short} eventKey={short} >
         <Hotels
-          rooms={filterRooms(short)}
+          rooms={sortRooms(short)}
           index={currPage}
           pageSize={ITEMS_PER_PAGE}
           on={show}
@@ -113,6 +117,7 @@ function SearchResult(props) {
     if (isSmallScreen) {
       return (
         <Filter
+          sections={sections}
           toggle={filterOn}
           toggleSetter={setFilterOn}
           fullscreen={isSmallScreen}
@@ -126,6 +131,7 @@ function SearchResult(props) {
             <nav className="card bg-info border-0">
               <div className="card-body">
                 <Filter
+                  sections={sections}
                   toggle={filterOn}
                   toggleSetter={setFilterOn}
                   fullscreen={isSmallScreen}
@@ -137,7 +143,7 @@ function SearchResult(props) {
         </Reveal>
       )
     }
-  }
+  };
 
   const toolbarPhone = () => {
     return (
@@ -164,7 +170,7 @@ function SearchResult(props) {
         </li>
       </ul>
     );
-  }
+  };
 
   return (
   <div>

@@ -3,16 +3,6 @@ import * as constants from '../utils/constants';
 import dayjs from 'dayjs';
 import { serializeDate } from '../utils/dates';
 
-const keys = [
-  "city",
-  "country",
-  "adult",
-  "child",
-  "room",
-  "startDate",
-  "endDate",
-]
-
 const initState = {
   city: constants.DEFAULT_CITY_STR,
   country: constants.DEFAULT_COUNTRY_STR,
@@ -38,7 +28,7 @@ export const searchSlice = createSlice({
       if(typeof(temp.adult)==='string') temp.adult = parseInt(temp.adult);
       if(typeof(temp.child)==='string') temp.child = parseInt(temp.child);
       if(typeof(temp.room)==='string') temp.room = parseInt(temp.room);
-      keys.map((key) => {
+      Object.keys(initState).map((key) => {
         if (temp[key]!==undefined){
           state[key] = temp[key];
         }

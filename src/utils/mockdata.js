@@ -214,7 +214,7 @@ export const hotelData = [
     price: 1980,
     location: "Rachada, Bangkok",
     distance: 2,
-    tags: [0, 1],
+    tags: ["freeCancel", "noPrepay"],
   },
   {
     imgs: [Phaya],
@@ -226,7 +226,7 @@ export const hotelData = [
     oldPrice: 1980,
     location: "Phaya Thai, Bangkok",
     distance: 2.9,
-    tags: [0],
+    tags: ["freeCancel"],
   },
   {
     imgs: [Bangkapi],
@@ -237,7 +237,7 @@ export const hotelData = [
     price: 2460,
     location: "Bangkapi, Bangkok",
     distance: 14,
-    tags: [0],
+    tags: ["freeCancel"],
   },
   {
     imgs: [Chatuchack1, Chatuchack2],
@@ -249,7 +249,7 @@ export const hotelData = [
     oldPrice: 2880,
     location: "Chatuchack, Bangkok",
     distance: 12,
-    tags: [1],
+    tags: ["freeCancel", "noPrepay"],
   },
   {
     imgs: [Chatuchack2],
@@ -261,7 +261,7 @@ export const hotelData = [
     oldPrice: 2120,
     location: "Chatuchack, Bangkok",
     distance: 8,
-    tags: [1],
+    tags: ["noPrepay"],
   },
   {
     imgs: [RangRak],
@@ -272,7 +272,7 @@ export const hotelData = [
     price: 2090,
     location: "Rang Rak, Bangkok",
     distance: 4.4,
-    tags: [0],
+    tags: ["freeCancel"],
   },
   {
     imgs: [Watana1],
@@ -283,7 +283,7 @@ export const hotelData = [
     price: 880,
     location: "Watana, Bangkok",
     distance: 6,
-    tags: [0, 1],
+    tags: ["freeCancel", "noPrepay"],
   },
   {
     imgs: [Watana2],
@@ -295,7 +295,7 @@ export const hotelData = [
     oldPrice: 1280,
     location: "Watana, Bangkok",
     distance: 6,
-    tags: [0],
+    tags: ["freeCancel"],
   },
   {
     imgs: [DinDaeng1],
@@ -318,7 +318,7 @@ export const hotelData = [
     price: 3450,
     location: "Din Daeng, Bangkok",
     distance: 7,
-    tags: [2],
+    tags: ["noPrepay"],
   },
   {
     imgs: [Rachada3, Rachada4],
@@ -329,7 +329,7 @@ export const hotelData = [
     price: 2980,
     location: "Rachada, Bangkok",
     distance: 1.7,
-    tags: [0, 1],
+    tags: ["freeCancel", "noPrepay"],
   },
   {
     imgs: [Phaya],
@@ -341,7 +341,7 @@ export const hotelData = [
     oldPrice: 3980,
     location: "Phaya Thai, Bangkok",
     distance: 4,
-    tags: [0],
+    tags: ["freeCancel"],
   },
   {
     imgs: [Chatuchack2],
@@ -353,7 +353,7 @@ export const hotelData = [
     oldPrice: 1820,
     location: "Chatuchack, Bangkok",
     distance: 1.5,
-    tags: [1],
+    tags: ["noPrepay"],
   },
 ];
 

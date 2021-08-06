@@ -13,10 +13,10 @@ SwiperCore.use([Navigation, Lazy]);
 function HotelCard(props) {
   const {room} = props;
 
-  const tags = [
-    "Free cencellation",
-    "No prepayment"
-  ];
+  const tags = {
+    "freeCancel": "Free cancellation",
+    "noPrepay": "No prepayment",
+  };
 
   const genTags = (indes) => {
     return indes.map((idx) => (
