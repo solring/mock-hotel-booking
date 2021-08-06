@@ -102,7 +102,9 @@ function SearchBar (props) {
   const destinations = () => {
     return suggestLocs.map(([country, city]) => (
       <Dropdown.Item
+        as="li"
         key={city}
+        role="button"
         onClick={() => setDestination(country, city)}
       >
         <div className="d-flex align-items-center">
@@ -123,13 +125,14 @@ function SearchBar (props) {
       ['Room', room, "room"],
     ];
     return numberOptions.map((option) => (
-      <Dropdown.Item as="div" key={option[0]}>
+      // Not Dropdown component to prevent closing on click.
+      <li className="dropdown-item" key={option[0]}>
         <div className="d-flex justify-content-between">
           <p>{option[0]}</p>
           <NumberPicker number={option[1]}
             onNumChange={(num) => updateGlobal({ [option[2]]: num })} />
         </div>
-      </Dropdown.Item>
+      </li>
     ));
   };
 

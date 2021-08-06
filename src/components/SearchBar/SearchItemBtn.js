@@ -13,7 +13,7 @@ function SearchItemBtn(props) {
       className="btn btn-block text-left pl-3 text-nowrap" data-offset="0,8">
       {title}
     </Dropdown.Toggle>
-    <Dropdown.Menu className="list-unstyled w-100" aria-label={ariaLabel2}>
+    <Dropdown.Menu as="ul" className="list-unstyled w-100" aria-label={ariaLabel2}>
       {props.children}
     </Dropdown.Menu>
   </Dropdown>
