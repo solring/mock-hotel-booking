@@ -2,6 +2,7 @@ import '@testing-library/jest-dom/extend-expect';
 import { render , fireEvent, screen, resetStore } from '../../test-util';
 import MockServer from '../../api/mockServer';
 import SearchBar from '../SearchBar/SearchBar';
+import { findByText, findAllByText, getAllByText } from '@testing-library/react';
 
 const locations = [
   ['Bangkok', 'Thailand'],
@@ -28,13 +29,14 @@ const clickDestDropdownItems = async () => {
   const destBtn = screen.getByLabelText("searchItem-dest");
   expect(destBtn).toBeInTheDocument();
 
-  // click dest
+  // click toggle
   fireEvent.click(destBtn);
   let menu = await screen.findByLabelText("searchMenu-dest");
 
   let btns = menu.querySelectorAll(".dropdown-item");
   expect(btns.length).toBeGreaterThan(0);
 
+  // click all items in dropdown
   for (const btn of btns) {
     fireEvent.click(btn);
     let input = await destBtn.querySelector('input');
@@ -53,7 +55,7 @@ const clickDateBtn = async () => {
   const dateBtn = screen.getByLabelText("calendar");
   expect(dateBtn).toBeInTheDocument();
 
-  // click date
+  // click toggle
   fireEvent.click(dateBtn);
   let picker = document.querySelector(".litepicker");
   expect(picker).toBeInTheDocument();
@@ -68,11 +70,32 @@ const clickGuestBtn = async () => {
   const guestBtn = screen.getByLabelText("searchItem-guest");
   expect(guestBtn).toBeInTheDocument();
 
-  // click guest
+  // click toggle
   fireEvent.click(guestBtn);
   let menu = await screen.findByLabelText("searchMenu-guest");
   expect(menu).toBeInTheDocument();
   expect(menu).toHaveClass("show");
+
+  let addBtns = getAllByText(menu, "add");
+  let removeBtns = getAllByText(menu, "remove");
+  expect(addBtns.length).toBe(3);
+  expect(removeBtns.length).toBe(3);
+
+  // click all plus btns
+  for (const b of addBtns) {
+    fireEvent.click(b);
+  }
+  let str1 = await findAllByText(guestBtn, new RegExp("3 adults・1 child・2 rooms"));
+  expect(str1.length).toBeGreaterThan(0);
+
+
+  // click all minus btns
+  for (const b of removeBtns) {
+    fireEvent.click(b);
+  }
+  str1 = await findAllByText(guestBtn, new RegExp("2 adults・1 room"));
+  expect(str1.length).toBeGreaterThan(0);
+
 };
 
 
@@ -87,9 +110,7 @@ test('render simplified.', async () => {
 
   // Check buttons
   expect(screen.getByPlaceholderText("Destination")).toBeInTheDocument();
-
   expect(screen.getByText("Check-in / Check-out")).toBeInTheDocument();
-
   expect(screen.getByText(/Guest/)).toBeInTheDocument();
 
   await clickDestDropdownItems();
@@ -97,7 +118,6 @@ test('render simplified.', async () => {
   await clickDateBtn();
 
   await clickGuestBtn();
-
 });
 
 test('render normal.', async () => {
@@ -127,3 +147,4 @@ test('render normal.', async () => {
 
   await clickGuestBtn();
 });
+
