@@ -60,17 +60,26 @@ export const sections = {
 function makeOptions(data) {
   let options = {};
   options['deals'] = sections['deals'].options.map(x => x.title).filter(x => x !== 'specialOffer' && data[x] === true);
+  options['stayType'] = sections['stayType'].options.map(x => x.title).filter(x => data[x] === true);
+  options['services'] = sections['popular'].options.map(x => x.title).filter(x => data[x] === true);
   options['specialOffer'] = data['specialOffer'];
   options['stars'] = Object.keys(Array(6).fill(0)).map(x => data[`rate${x}`]);
   options['priceRange'] = data['priceRange'];
   return options;
 }
 
+function filterFields(data, field, tags) {
+  return data.filter(h =>
+    tags.map( t => h[field].includes(t))
+        .reduce((a, b) => a || b, false)
+  )
+}
+
 function filter(hotelData, options) {
   if(!hotelData || !options) return hotelData;
 
   let res = hotelData;
-  const { priceRange, deals, stars, specialOffer } = options;
+  const { priceRange, deals, stars, specialOffer, stayType, services } = options;
 
   if (priceRange) {
     const [min, max] = priceRange;
@@ -79,11 +88,10 @@ function filter(hotelData, options) {
   }
 
   if (deals && deals.length > 0) {
-    let tags = options.deals;
-    res = res.filter(h =>
-      tags.map( t => h.tags.includes(t))
-          .reduce((a, b) => a || b, false)
-    )
+    res = filterFields(res, "tags", deals);
+  }
+  if (services && services.length > 0) {
+    res = filterFields(res, "services", services);
   }
 
   if (specialOffer) {
@@ -92,6 +100,10 @@ function filter(hotelData, options) {
 
   if (stars && stars.reduce((a, b) => a || b, false) > 0) {
     res = res.filter( h => { return options.stars[h.star] });
+  }
+
+  if(stayType && stayType.length > 0) {
+    res = res.filter( h => stayType.includes(h.stayType) );
   }
 
   return res;

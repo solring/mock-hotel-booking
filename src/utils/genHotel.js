@@ -84,7 +84,26 @@ const fields = {
       "freeCancel",
       "noPrepay"
     ],
-  }
+  },
+  services: {
+    type: "randMulti",
+    range: [0,4],
+    options: [
+      "breakfast",
+      "swimmingPool",
+      "freeWifi"
+    ],
+  },
+  stayType: {
+    type: "randOne",
+    options: [
+      "hotel",
+      "apartment",
+      "unique",
+      "hostel"
+    ],
+  },
+
 }
 
 function random(min, max) {
