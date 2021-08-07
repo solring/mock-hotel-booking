@@ -7,6 +7,7 @@ import 'swiper/components/navigation/navigation.scss';
 import 'swiper/components/lazy/lazy.scss';
 
 import { Stars } from '../UtilComponents';
+import { DETAIL } from '../../utils/links';
 
 SwiperCore.use([Navigation, Lazy]);
 
@@ -18,6 +19,12 @@ function HotelCard(props) {
     "noPrepay": "No prepayment",
   };
 
+  // handler
+  const goToRoom = () => {
+    window.location.href = DETAIL;
+  }
+
+  // renderers
   const genTags = (indes) => {
     return indes.map((idx) => (
       <div key={idx} className="badge badge-info badge-pill mr-1 mb-1">{tags[idx]}</div>
@@ -66,7 +73,7 @@ function HotelCard(props) {
 
   return (
     <li key={room.name}>
-      <a href={room.url} className={`d-block text-dark card w-100 hover-shadow noBorder_sm`}>
+      <a className={`d-block text-dark card w-100 hover-shadow noBorder_sm`} onClick={goToRoom}>
         <div className="row no-gutters">
 
           <div className="col-5 col-md-4">

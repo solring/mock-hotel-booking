@@ -1,13 +1,7 @@
 import { createServer } from 'miragejs';
 import * as data from '../utils/mockdata';
 import * as apis from './mockApi';
-
-const hotels = data.hotelData.concat(data.hotelData)
-  .concat(data.hotelData)
-  .concat(data.hotelData).map((h) => {
-  h.url = './detail';
-  return h;
-});
+import { genHotel } from '../utils/genHotel';
 
 export default function() {
   return createServer({
@@ -59,9 +53,10 @@ export default function() {
         data: data.suggestLocs,
       }))
 
-      this.get(apis.API_SEARCH_GET_HOTELS, () => ({
-        data: hotels,
-      }))
+      this.get(apis.API_SEARCH_GET_HOTELS, () => {
+        const hotels = genHotel(100);
+        return { data: hotels };
+      })
 
       this.get(apis.API_HOTEL_GET_INFO, () => ({
         info: data.hotelInfo,
