@@ -86,7 +86,7 @@ function HotelCard(props) {
               <div className="col-md-7">
                 <p className="card-text">
                   <span className="text-primary">{room.location}</span>
-                  <span className="d-none d-lg-inline">・{room.distance}km from center</span>
+                  <span className="d-none d-lg-inline">・{room.distance}km from center.</span>
                 </p>
                 <h4 className="card-title HotelCard__title">{room.name}</h4>
               </div>
@@ -94,7 +94,7 @@ function HotelCard(props) {
               <div className="col-md-5">
                 <div className="d-flex flex-column align-items-md-end align-items-lg-center justify-content-lg-end flex-lg-row">
                     <Stars star={room.star} />
-                    <p className="ml-1 text-sub text-secondary">{room.star}.0({room.reviews})</p>
+                    <p className="ml-1 text-sub text-secondary">{room.star}.0 ({room.reviews})</p>
                 </div>
               </div>
 

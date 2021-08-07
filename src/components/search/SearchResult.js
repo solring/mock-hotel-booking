@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Nav, Tab, Dropdown } from "react-bootstrap";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
@@ -12,8 +12,7 @@ import filter, {sections, makeOptions } from './FilterImpl';
 
 import * as constants from '../../utils/constants';
 
-const ITEMS_PER_PAGE = 5;
-
+const ITEMS_PER_PAGE = 10;
 
 function Hotels(props) {
   const {on, rooms, pageSize, index=1} = props;
@@ -49,6 +48,10 @@ function SearchResult(props) {
   const [currPage, setCurrPage] = useState(1);
   const [show, setShow] = useState(true);
   const [filterOps, setFilterOps] = useState({});
+  const filteredHotels = useMemo(
+    () => filter(hotelData, filterOps),
+    [hotelData, filterOps]
+  );
 
   // RWD
   const isSmallScreen = useMediaQuery(`(max-width:${constants.BS_BREAKPOINT_MD})`);
@@ -70,7 +73,6 @@ function SearchResult(props) {
   };
 
   // Helper functions
-  let filteredHotels = filter(hotelData, filterOps);
   const sortRooms = (category) => {
     let copied = [...filteredHotels];
     switch(category) {
@@ -205,7 +207,7 @@ function SearchResult(props) {
                 curr={currPage}
                 window={isMidScreen ? 5 : 9}
                 min={1}
-                max={Math.ceil(hotelData.length/ITEMS_PER_PAGE)}
+                max={Math.ceil(filteredHotels.length/ITEMS_PER_PAGE)}
                 onIndex={onPageChange}
               />
             </div>

@@ -145,7 +145,7 @@ export function genHotel(len) {
         case "range":
           let [min, max] = f.range.map(e => e/f.unit);
           val = randomInt(min, max) * f.unit;
-          val = val.toFixed(1);
+          if(f.unit < 1) val = val.toFixed(1);
           break;
         case "oldPrice":
           let skip = randomInt(0,2) < 1;
