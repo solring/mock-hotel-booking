@@ -19,13 +19,12 @@ function Banner(props) {
   const carouselItems = () => {
     return banners.map(([image, title],idx) => (
       <Carousel.Item key={idx}>
-        <LazyLoadImage
+        <img
           alt={`carousel ${idx}`}
           src={image} // use normal <img> attributes as props
           width={`100%`}
           height={'320px'}
-          effect="blur"
-          afterLoad={() => setLoad(true)}
+          onLoad={() => setLoad(true)}
         />
 
         <Carousel.Caption>
