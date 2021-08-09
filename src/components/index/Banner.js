@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Carousel } from 'react-bootstrap';
 import SearchBar from '../SearchBar/SearchBar';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import banner1 from '../../assets/images/index-banner.jpg';
 import banner2 from '../../assets/images/RangRak.jpg';
