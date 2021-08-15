@@ -1,5 +1,8 @@
 import qs from 'query-string';
 
+/**
+ * Endpoints
+ */
 export const API_NEWS_SUBSCRIBE = "/api/subscribe";
 export const API_ORDER_SUBMIT= "/api/order/submit";
 export const API_ORDER_GET= "/api/order/get";
@@ -15,6 +18,9 @@ export const API_MEMBER_LOGIN = "/api/login";
 export const API_MEMBER_GET_INFO = "/api/member/info";
 export const API_MEMBER_GET_ORDERS = "/api/member/orders";
 
+/**
+ * Endpoint params
+ */
 export const Subscribe = (email) => ({
   endpoint: API_NEWS_SUBSCRIBE,
   method: 'post',
@@ -117,9 +123,12 @@ function makeQuery(endpoint, queryObj) {
   return `${endpoint}?${qs.stringify(queryObj)}`
 }
 
-const headers = { 'Content-Type': 'application/json' }
-
+/**
+ * callApi:
+ * Do the actual fetch operation
+ */
 async function callApi(endpoint, method, json, {...customConfigs}) {
+  const headers = { 'Content-Type': 'application/json' };
   const config = {
     method: method ? method : 'GET',
     ...customConfigs,
