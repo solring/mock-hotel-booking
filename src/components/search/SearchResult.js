@@ -5,6 +5,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { Reveal } from 'react-reveal';
 
 import Filter from '../Filter';
+import FilterWrapper from '../FilterWrapper';
 import HotelCard from './HotelCard';
 import NumPagenation from '../NumPagenation.js'
 
@@ -118,13 +119,15 @@ function SearchResult(props) {
   const genFilter = () => {
     if (isSmallScreen) {
       return (
-        <Filter
-          sections={sections}
+        <FilterWrapper
           toggle={filterOn}
           toggleSetter={setFilterOn}
-          fullscreen={isSmallScreen}
-          onFilter={onFilter}
-        />
+          resNumber={filteredHotels.length}>
+          <Filter
+            sections={sections}
+            onFilter={onFilter}
+          />
+        </FilterWrapper>
       );
     } else {
       return (
@@ -134,9 +137,6 @@ function SearchResult(props) {
               <div className="card-body">
                 <Filter
                   sections={sections}
-                  toggle={filterOn}
-                  toggleSetter={setFilterOn}
-                  fullscreen={isSmallScreen}
                   onFilter={onFilter}
                 />
               </div>

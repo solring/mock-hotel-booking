@@ -4,9 +4,6 @@ import PropTypes from 'prop-types';
 import { Slider } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
-import FullscreenCollapse from './FullscreenCollapse';
-import BottomModal from './BottomModal';
-
 import * as constants from '../utils/constants';
 
 const CustomSlider = withStyles({
@@ -46,18 +43,14 @@ const CustomSlider = withStyles({
 class Filter extends React.Component{
 
   static propTypes = {
-    toggle: PropTypes.bool,
-    toggleSetter: PropTypes.func,
-    onFilter: PropTypes.func,
-    fullscreen: PropTypes.bool,
-    resNumber: PropTypes.number,
+    sections: PropTypes.object.isRequired,
+    onFilter: PropTypes.func.isRequired,
   }
 
   constructor(props) {
     super(props);
     this.state = {};
     this.onFilter = props.onFilter || null;
-    this.resNumber = props.resNumber || 0;
     this.sections = props.sections || [];
 
     // check box data
@@ -75,8 +68,6 @@ class Filter extends React.Component{
     this.checkBoxHandler = this.checkBoxHandler.bind(this);
     this.sliderHandler = this.sliderHandler.bind(this);
     this.sliderOnCommit = this.sliderOnCommit.bind(this);
-    this.closeFilter = this.closeFilter.bind(this);
-    this.doFilter = this.doFilter.bind(this);
     this.callOnFilter = this.callOnFilter.bind(this);
   }
 
@@ -84,7 +75,6 @@ class Filter extends React.Component{
   callOnFilter(newState) {
     let data = {...this.state};
     Object.assign(data, newState);
-    //this.props.dispatch(setFilter(data));
     this.onFilter(data);
   }
 
@@ -105,82 +95,73 @@ class Filter extends React.Component{
     if(this.onFilter) this.callOnFilter();
   }
 
-  closeFilter(e){
-    this.props.toggleSetter(false);
-  }
+  // Renderers
+  genCheckBox(sec, prefix) {
+    return (
+      <div>
+        <h6 className="card-title">{sec.title}</h6>
+        <ul className="list-gap-8">
+          {sec.options.map((option, idx) => (
+            <li key={option.title} className="custom-control custom-checkbox">
+            <input type="checkbox" className="custom-control-input"
+              id={`${prefix}_${option.title}_Check`} title={option.title}
+              value={this.state[option.title]}
+              onChange={this.checkBoxHandler}
+            />
+            <label htmlFor={`${prefix}_${option.title}_Check`} className="custom-control-label text-secondary">{option.text}</label>
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  };
 
-  doFilter(e) {
-    if(this.onFilter) this.callOnFilter();
-    this.props.toggleSetter(false);
-  }
+  genGradeForm() {
+    let nums = [1, 2, 3, 4, 5];
+
+    return (
+      <ul>
+      {nums.map((i) => (
+        <li key={`rate${i}`}className="custom-control custom-checkbox">
+          <input
+            type="checkbox" className="custom-control-input"
+            id={`rate${i}_Check`} title={`rate${i}`}
+            value={this.state[`rate${i}`]}
+            onChange={this.checkBoxHandler}
+          />
+          <label htmlFor={`rate${i}_Check`} className="custom-control-label" aria-label={`${i} star`}>
+            <span className="material-icons">
+            {"grade ".repeat(i)}
+            </span>
+            <span className="text-secondary">{i}.0</span>
+          </label>
+        </li>
+      ))}
+        <li key="unrated" className="custom-control custom-checkbox">
+          <input type="checkbox" className="custom-control-input"
+            id="unrateCheck" title="rate0"
+            value={this.state["rate0"]}
+            onChange={this.checkBoxHandler}
+          />
+          <label htmlFor="unrateCheck" className="custom-control-label text-secondary">Unrated</label>
+        </li>
+      </ul>
+    );
+  };
 
   // Filter implementation
-  _Filter() {
-
-    /* ------ renderer ------ */
-    const genCheckBox = (sec, prefix) => {
-      return (
-        <div>
-          <h6 className="card-title">{sec.title}</h6>
-          <ul className="list-gap-8">
-            {sec.options.map((option, idx) => (
-              <li key={option.title} className="custom-control custom-checkbox">
-              <input type="checkbox" className="custom-control-input"
-                id={`${prefix}_${option.title}_Check`} title={option.title}
-                value={this.state[option.title]}
-                onChange={this.checkBoxHandler}
-              />
-              <label htmlFor={`${prefix}_${option.title}_Check`} className="custom-control-label text-secondary">{option.text}</label>
-              </li>
-            ))}
-          </ul>
-        </div>
-      );
-    };
-
-    const genGradeForm = () => {
-      let nums = [1, 2, 3, 4, 5];
-
-      return (
-        <ul>
-        {nums.map((i) => (
-          <li key={`rate${i}`}className="custom-control custom-checkbox">
-            <input
-              type="checkbox" className="custom-control-input"
-              id={`rate${i}_Check`} title={`rate${i}`}
-              value={this.state[`rate${i}`]}
-              onChange={this.checkBoxHandler}
-            />
-            <label htmlFor={`rate${i}_Check`} className="custom-control-label" aria-label={`${i} star`}>
-              <span className="material-icons">
-              {"grade ".repeat(i)}
-              </span>
-              <span className="text-secondary">{i}.0</span>
-            </label>
-          </li>
-        ))}
-          <li key="unrated" className="custom-control custom-checkbox">
-            <input type="checkbox" className="custom-control-input"
-              id="unrateCheck" title="rate0"
-              value={this.state["rate0"]}
-              onChange={this.checkBoxHandler}
-            />
-            <label htmlFor="unrateCheck" className="custom-control-label text-secondary">Unrated</label>
-          </li>
-        </ul>
-      );
-    };
+  render() {
 
     return (
       <form target="#" method="get" className="filter" aria-label="search filter">
       <ul className="list-divider-white">
 
         <li key="sec1">
-          {genCheckBox(this.sections["deals"], "_")}
+          {this.genCheckBox(this.sections["deals"], "_")}
         </li>
 
         <li key="sec2">
-          {genCheckBox(this.sections["popular"], "_")}
+          {this.genCheckBox(this.sections["popular"], "_")}
         </li>
 
         <li key="sec3">
@@ -223,45 +204,14 @@ class Filter extends React.Component{
 
         <li key="sec4">
           <h6 className="card-title">Rating</h6>
-          {genGradeForm()}
+          {this.genGradeForm()}
         </li>
         <li key="sec5">
-          {genCheckBox(this.sections["stayType"], "_")}
+          {this.genCheckBox(this.sections["stayType"], "_")}
         </li>
       </ul>
 
       </form>
-    );
-  }
-
-  render() {
-
-    const bottomModal = () => (
-      <BottomModal
-        toggle={true}
-        clearHandler={this.closeFilter}
-        confirmText="Filter"
-        confirmAction={this.doFilter}
-        direction="row"
-        collapse={false}
-      >
-        <h4 className="mb-4">Found {this.resNumber} results.</h4>
-      </BottomModal>
-    );
-
-    if(!this.props.fullscreen) return this._Filter();
-    else return (
-      <FullscreenCollapse toggle={this.props.toggle}
-        onClose={this.closeFilter}
-        title={(
-          <div>
-            <span className="material-icons icon-lg">filter_list</span> FILTER
-          </div>
-        )}
-        footer={bottomModal()}
-      >
-        {this._Filter()}
-      </FullscreenCollapse>
     );
   }
 }
