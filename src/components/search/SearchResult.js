@@ -209,8 +209,9 @@ function SearchResult(props) {
               <NumPagenation
                 curr={currPage}
                 window={isMidScreen ? 5 : 9}
-                min={1}
-                max={Math.ceil(filteredHotels.length/ITEMS_PER_PAGE)}
+                min={filteredHotels.length > 0 ? 1: null}
+                max={filteredHotels.length > 0 ?
+                  Math.ceil(filteredHotels.length/ITEMS_PER_PAGE) : null}
                 onIndex={onPageChange}
               />
             </div>

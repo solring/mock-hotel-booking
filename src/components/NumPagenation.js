@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import React from 'react';
 
 function NumPagenation(props) {
   const {
@@ -36,14 +37,16 @@ function NumPagenation(props) {
       </button>
       <ul className="pagination">
 
-        {min &&
+        {min && max > min &&
+          <React.Fragment>
           <li key="minPage" className="page-item">
             <a className="page-link" onClick={() => onIndex(min)} role="button">
               {min}
             </a>
           </li>
+          <li key="upperEllipsis" className="page-item text-primary">...</li>
+          </React.Fragment>
         }
-        {min && <li key="upperEllipsis" className="page-item text-primary">...</li>}
         {
           nums.map((n) =>
             <li key={n} className={`page-item d-none d-md-block ${ n === curr ? "active" : ""}`}>
@@ -51,13 +54,15 @@ function NumPagenation(props) {
             </li>
           )
         }
-        {max && <li key="lowerEllipsis" className="page-item text-primary">...</li>}
-        {max &&
+        {max && max > min &&
+          <React.Fragment>
+          <li key="lowerEllipsis" className="page-item text-primary">...</li>
           <li key="maxPage" className="page-item">
             <a className="page-link" onClick={()=>onIndex(max)} role="button">
               {max}
             </a>
           </li>
+          </React.Fragment>
         }
 
       </ul>
@@ -72,8 +77,8 @@ function NumPagenation(props) {
 NumPagenation.propTypes = {
   curr: PropTypes.number.isRequired,
   window: PropTypes.number.isRequired,
-  min: PropTypes.number.isRequired,
-  max: PropTypes.number.isRequired,
+  min: PropTypes.number,
+  max: PropTypes.number,
   onIndex: PropTypes.func.isRequired,
 };
 
