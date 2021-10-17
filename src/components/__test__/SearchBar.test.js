@@ -2,15 +2,8 @@ import '@testing-library/jest-dom/extend-expect';
 import { render , fireEvent, screen, resetStore } from '../../test-util';
 import MockServer from '../../api/mockServer';
 import SearchBar from '../SearchBar/SearchBar';
-import { findByText, findAllByText, getAllByText } from '@testing-library/react';
+import { findAllByText, getAllByText } from '@testing-library/react';
 
-const locations = [
-  ['Bangkok', 'Thailand'],
-  ['Osaka', 'Japan'],
-  ['Roma', 'Italy'],
-  ['Paris', 'France'],
-  ['Reykjavik', 'Iceland'],
-];
 let server = null;
 
 beforeAll(() => {
@@ -49,7 +42,7 @@ const clickDestDropdownItems = async () => {
 
 /**
  * Helper function:
- * - Click date picker toggle and check UI.
+ * Click date picker toggle and check UI.
  */
 const clickDateBtn = async () => {
   const dateBtn = screen.getByLabelText("calendar");

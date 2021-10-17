@@ -17,7 +17,6 @@ test('test genHotel', () => {
     expect(h.reviews).toBeGreaterThanOrEqual(0);
     expect(h.reviews).toBeLessThan(2001);
 
-    expect(h.distance).toBeGreaterThanOrEqual(0.1);
-    expect(h.distance).toBeLessThan(10);
+    expect(h.distance).toMatch(/[0-9]+\.[0-9]+/);
   }
 })
