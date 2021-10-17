@@ -9,7 +9,7 @@ import FilterWrapper from '../FilterWrapper';
 import HotelCard from './HotelCard';
 import NumPagenation from '../NumPagenation.js'
 
-import filter, {sections, makeOptions } from './FilterImpl';
+import filter, {sections, initFilterForm} from './FilterImpl';
 
 import * as constants from '../../utils/constants';
 
@@ -48,7 +48,7 @@ function SearchResult(props) {
   const [currTab, setCurrTab ] = useState(tabs[0][0]);
   const [currPage, setCurrPage] = useState(1);
   const [show, setShow] = useState(true);
-  const [filterOps, setFilterOps] = useState({});
+  const [filterOps, setFilterOps] = useState(initFilterForm());
   const filteredHotels = useMemo(
     () => filter(hotelData, filterOps),
     [hotelData, filterOps]
@@ -69,8 +69,9 @@ function SearchResult(props) {
   };
 
   const onFilter = (data) => {
-    console.log(data);
-    setFilterOps(makeOptions(data));
+    const newData = {...filterOps};
+    Object.assign(newData, data);
+    setFilterOps(newData);
   };
 
   // Helper functions
@@ -125,6 +126,7 @@ function SearchResult(props) {
           resNumber={filteredHotels.length}>
           <Filter
             sections={sections}
+            data={filterOps}
             onFilter={onFilter}
           />
         </FilterWrapper>
@@ -137,6 +139,7 @@ function SearchResult(props) {
               <div className="card-body">
                 <Filter
                   sections={sections}
+                  data={filterOps}
                   onFilter={onFilter}
                 />
               </div>

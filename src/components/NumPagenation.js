@@ -37,7 +37,7 @@ function NumPagenation(props) {
       <ul className="pagination">
 
         {min &&
-          <li key={min} className="page-item">
+          <li key="minPage" className="page-item">
             <a className="page-link" onClick={() => onIndex(min)} role="button">
               {min}
             </a>
@@ -53,7 +53,7 @@ function NumPagenation(props) {
         }
         {max && <li key="lowerEllipsis" className="page-item text-primary">...</li>}
         {max &&
-          <li key={max} className="page-item">
+          <li key="maxPage" className="page-item">
             <a className="page-link" onClick={()=>onIndex(max)} role="button">
               {max}
             </a>

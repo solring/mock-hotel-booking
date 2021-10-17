@@ -44,38 +44,22 @@ class Filter extends React.Component{
 
   static propTypes = {
     sections: PropTypes.object.isRequired,
+    data: PropTypes.object.isRequired,
     onFilter: PropTypes.func.isRequired,
   }
 
   constructor(props) {
     super(props);
-    this.state = {};
+
     this.onFilter = props.onFilter || null;
-    this.sections = props.sections || [];
 
-    // check box data
-    Object.values(this.sections).map((sec) =>{
-      sec.options.map((opt) => {
-        this.state[opt.title] = false;
-      })
-    });
-    [0,1,2,3,4,5].map((i) => {
-      this.state[`rate${i}`] = false;
-    })
-
-    this.state['priceRange'] = [1000, 5000];
+    // for buffering
+    this.state = {};
+    this.state['priceRange'] = props.data['priceRange'];
 
     this.checkBoxHandler = this.checkBoxHandler.bind(this);
     this.sliderHandler = this.sliderHandler.bind(this);
     this.sliderOnCommit = this.sliderOnCommit.bind(this);
-    this.callOnFilter = this.callOnFilter.bind(this);
-  }
-
-  // Helpers
-  callOnFilter(newState) {
-    let data = {...this.state};
-    Object.assign(data, newState);
-    this.onFilter(data);
   }
 
   // Handlers
@@ -83,8 +67,8 @@ class Filter extends React.Component{
     const target = e.target;
     const value = target.checked;
     const title = target.title;
-    this.setState({ [title]: value });
-    if(this.onFilter) this.callOnFilter({ [title]: value });
+    //this.setState({ [title]: value });
+    if(this.onFilter) this.onFilter({ [title]: value });
   }
 
   sliderHandler(e, value) {
@@ -92,7 +76,7 @@ class Filter extends React.Component{
   }
 
   sliderOnCommit(e, value) {
-    if(this.onFilter) this.callOnFilter();
+    if(this.onFilter) this.onFilter(this.state);
   }
 
   // Renderers
@@ -105,7 +89,7 @@ class Filter extends React.Component{
             <li key={option.title} className="custom-control custom-checkbox">
             <input type="checkbox" className="custom-control-input"
               id={`${prefix}_${option.title}_Check`} title={option.title}
-              value={this.state[option.title]}
+              value={this.props.data[option.title]}
               onChange={this.checkBoxHandler}
             />
             <label htmlFor={`${prefix}_${option.title}_Check`} className="custom-control-label text-secondary">{option.text}</label>
@@ -116,20 +100,21 @@ class Filter extends React.Component{
     );
   };
 
-  genGradeForm() {
+  genGradeForm(rates) {
     let nums = [1, 2, 3, 4, 5];
+    const keys = rates.titles;
 
     return (
       <ul>
       {nums.map((i) => (
-        <li key={`rate${i}`}className="custom-control custom-checkbox">
+        <li key={keys[i]}className="custom-control custom-checkbox">
           <input
             type="checkbox" className="custom-control-input"
-            id={`rate${i}_Check`} title={`rate${i}`}
-            value={this.state[`rate${i}`]}
+            id={`${keys[i]}_Check`} title={keys[i]}
+            value={this.props.data[keys[i]]}
             onChange={this.checkBoxHandler}
           />
-          <label htmlFor={`rate${i}_Check`} className="custom-control-label" aria-label={`${i} star`}>
+          <label htmlFor={`${keys[i]}_Check`} className="custom-control-label" aria-label={`${i} star`}>
             <span className="material-icons">
             {"grade ".repeat(i)}
             </span>
@@ -137,10 +122,10 @@ class Filter extends React.Component{
           </label>
         </li>
       ))}
-        <li key="unrated" className="custom-control custom-checkbox">
+        <li key={keys[0]} className="custom-control custom-checkbox">
           <input type="checkbox" className="custom-control-input"
-            id="unrateCheck" title="rate0"
-            value={this.state["rate0"]}
+            id="unrateCheck" title={keys[0]}
+            value={this.props.data[keys[0]]}
             onChange={this.checkBoxHandler}
           />
           <label htmlFor="unrateCheck" className="custom-control-label text-secondary">Unrated</label>
@@ -157,11 +142,11 @@ class Filter extends React.Component{
       <ul className="list-divider-white">
 
         <li key="sec1">
-          {this.genCheckBox(this.sections["deals"], "_")}
+          {this.genCheckBox(this.props.sections["deals"], "_")}
         </li>
 
         <li key="sec2">
-          {this.genCheckBox(this.sections["popular"], "_")}
+          {this.genCheckBox(this.props.sections["popular"], "_")}
         </li>
 
         <li key="sec3">
@@ -204,10 +189,10 @@ class Filter extends React.Component{
 
         <li key="sec4">
           <h6 className="card-title">Rating</h6>
-          {this.genGradeForm()}
+          {this.genGradeForm(this.props.sections["rates"])}
         </li>
         <li key="sec5">
-          {this.genCheckBox(this.sections["stayType"], "_")}
+          {this.genCheckBox(this.props.sections["stayType"], "_")}
         </li>
       </ul>
 
