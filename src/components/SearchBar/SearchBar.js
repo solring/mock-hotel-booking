@@ -228,6 +228,7 @@ function SearchBar (props) {
           <DatePicker
             start={parseDate(startDate).toDate()}
             end={parseDate(endDate).toDate()}
+            centered={isSmallScreen}
             name="large"
             handler={setDate} >
             <DateButtonLg

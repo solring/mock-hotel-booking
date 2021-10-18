@@ -5,13 +5,15 @@ import LitePicker from 'litepicker';
 class DatePicker extends React.Component {
 
   static propTypes = {
+    start: PropTypes.object,
+    end: PropTypes.object,
+    centered: PropTypes.bool,
     name: PropTypes.string,
     handler: PropTypes.func.isRequired,
   }
 
   constructor(props) {
     super(props);
-    this.handler = props.handler || null;
     this.name = props.name || "";
     this.divId = `litepicker_${this.name}`;
     this.picker = null;
@@ -29,8 +31,8 @@ class DatePicker extends React.Component {
   }
 
   onSelected (date1, date2) {
-    if(this.handler!==null) {
-      this.handler(
+    if(this.props.handler) {
+      this.props.handler(
         date1 ? date1.toJSDate() : undefined,
         date2 ? date2.toJSDate() : undefined
       );
@@ -54,6 +56,12 @@ class DatePicker extends React.Component {
   }
 
   render() {
+    const styles = this.props.centered ?
+      {
+        position: "relative",
+        left: "calc(50% - 138px)",
+      }
+      : null;
     return (
       <div>
       <button type="button"
@@ -64,7 +72,7 @@ class DatePicker extends React.Component {
         }}>
         {this.props.children}
       </button>
-      <div id={this.divId}></div>
+      <div style={styles} id={this.divId}></div>
       </div>
     );
   }
