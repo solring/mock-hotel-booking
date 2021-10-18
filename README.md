@@ -5,12 +5,17 @@ It is currently [deployed on Heroku](https://mock-hotel-booking.herokuapp.com) w
 
 ## Implemented Features
 
-- Search bar
-- Search result page with filter.
-- Shopping cart.
-- Member detail and orders.
-- Log-in/out.
-- RWD. (Phone/Tablet/PC)
+### Search bar
+![search](https://raw.githubusercontent.com/solring/mock-hotel-booking/main/docs/aloha-home-search2.gif)
+### Search result page with filter.
+  ![search](https://raw.githubusercontent.com/solring/mock-hotel-booking/main/docs/aloha-search-filter.gif)
+### Shopping cart.
+  ![search](https://raw.githubusercontent.com/solring/mock-hotel-booking/main/docs/aloha-cart.gif)
+### Member detail and orders.
+  ![search](https://raw.githubusercontent.com/solring/mock-hotel-booking/main/docs/aloha-member.gif)
+### Log-in/out.
+  ![search](https://raw.githubusercontent.com/solring/mock-hotel-booking/main/docs/aloha-login.gif)
+### RWD. (Phone/Tablet/PC)
 
 ## Available Scripts
 
