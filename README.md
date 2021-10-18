@@ -1,6 +1,16 @@
 # Introduction
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+An mock hotel booking site bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+It is currently [deployed on Heroku](https://mock-hotel-booking.herokuapp.com) with client-side routing using [React Router](https://reactrouter.com/).
+
+## Implemented Features
+
+- Search bar
+- Search result page with filter.
+- Shopping cart.
+- Member detail and orders.
+- Log-in/out.
+- RWD. (Phone/Tablet/PC)
 
 ## Available Scripts
 
@@ -30,13 +40,14 @@ For other options, please refer to the official documents.
 
 Using Bootstrap 4(4.3.5) and SCSS. Please refer to `src/index.scss` to see the whole structure.
 
-# Third-party Components
+# Third-party Components/Library
 
 - Sliding bar: [Material-UI](https://material-ui.com/components/slider/)
-- Date picker: TBD.
-- Other bootstrap lagacy components with JS: [react-bootstrap](https://react-bootstrap.netlify.app/)
+- Date picker: [Lite Picker](https://litepicker.com/)
+- Touch Slider: [Swiper](https://swiperjs.com/)
+- Bootstrap: [react-bootstrap](https://react-bootstrap.netlify.app/)
+- Scroll effect animation: [react-reveal](https://www.react-reveal.com/)
+- Date library: [Day.js](https://day.js.org/)
+- API mocking: [Mirage](https://miragejs.com/)
 
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
