@@ -128,7 +128,7 @@ function SearchBar (props) {
       // Not Dropdown component to prevent closing on click.
       <li className="dropdown-item" key={option[0]}>
         <div className="d-flex justify-content-between">
-          <p>{option[0]}</p>
+          <p className="mr-2">{option[0]}</p>
           <NumberPicker number={option[1]}
             onNumChange={(num) => updateGlobal({ [option[2]]: num })} />
         </div>

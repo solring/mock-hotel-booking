@@ -7,13 +7,18 @@ function SearchItemBtn(props) {
   const ariaLabel = `searchItem-${label}`;
   const ariaLabel2 = `searchMenu-${label}`;
 
+  const menuStyle = {
+    minWidth: "max-content",
+    width: "100%",
+  }
+
   return (
   <Dropdown onToggle={onToggle}>
     <Dropdown.Toggle variant="light" bsPrefix="no-toggle" aria-label={ariaLabel}
       className="btn btn-block text-left pl-3 text-nowrap" data-offset="0,8">
       {title}
     </Dropdown.Toggle>
-    <Dropdown.Menu as="ul" className="list-unstyled w-100" aria-label={ariaLabel2}>
+    <Dropdown.Menu as="ul" className="list-unstyled" style={menuStyle} aria-label={ariaLabel2}>
       {props.children}
     </Dropdown.Menu>
   </Dropdown>
