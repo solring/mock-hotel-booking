@@ -6,16 +6,21 @@ It is currently [deployed on Heroku](https://mock-hotel-booking.herokuapp.com) w
 ## Implemented Features
 
 ### Search bar
-![search](https://raw.githubusercontent.com/solring/mock-hotel-booking/main/docs/aloha-home-search2.gif)
+  ![search](https://raw.githubusercontent.com/solring/mock-hotel-booking/main/docs/aloha-home-search2.gif)
 ### Search result page with filter.
-  ![search](https://raw.githubusercontent.com/solring/mock-hotel-booking/main/docs/aloha-search-filter.gif)
+  ![result](https://raw.githubusercontent.com/solring/mock-hotel-booking/main/docs/aloha-search-filter.gif)
 ### Shopping cart.
-  ![search](https://raw.githubusercontent.com/solring/mock-hotel-booking/main/docs/aloha-cart.gif)
+  ![cart](https://raw.githubusercontent.com/solring/mock-hotel-booking/main/docs/aloha-cart.gif)
 ### Member detail and orders.
-  ![search](https://raw.githubusercontent.com/solring/mock-hotel-booking/main/docs/aloha-member.gif)
+  ![member](https://raw.githubusercontent.com/solring/mock-hotel-booking/main/docs/aloha-member.gif)
 ### Log-in/out.
-  ![search](https://raw.githubusercontent.com/solring/mock-hotel-booking/main/docs/aloha-login.gif)
+  ![login](https://raw.githubusercontent.com/solring/mock-hotel-booking/main/docs/aloha-login.gif)
 ### RWD. (Phone/Tablet/PC)
+  ![phone home](https://raw.githubusercontent.com/solring/mock-hotel-booking/main/docs/aloha-phone-home.png)
+  ![phone filter](https://raw.githubusercontent.com/solring/mock-hotel-booking/main/docs/aloha-phone-filter.gif)
+  ![phone cart](https://raw.githubusercontent.com/solring/mock-hotel-booking/main/docs/aloha-phone-cart.gif)
+  ![phone order](https://raw.githubusercontent.com/solring/mock-hotel-booking/main/docs/aloha-phone-order.gif)
+  ![phone member](https://raw.githubusercontent.com/solring/mock-hotel-booking/main/docs/aloha-phone-member.gif)
 
 ## Available Scripts
 
