@@ -79,7 +79,7 @@ function HotelDesc(props) {
               <span className="text-secondary text-sub">{hotelInfo.star}.0({hotelInfo.review})</span>
             </div>
           </div>
-          <p className="mb-md-4 mb-3"><button className="btn btn-link text-primary text-sub p-0">{hotelInfo.addr}</button></p>
+          <p className="mb-md-4 mb-3"><button className="btn btn-link text-primary text-sub text-left p-0">{hotelInfo.addr}</button></p>
           <p className="text-secondary mb-6">{hotelInfo.desc}</p>
         </div>
       </Reveal>
