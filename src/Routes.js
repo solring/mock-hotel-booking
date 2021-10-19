@@ -15,7 +15,7 @@ const MemberPage = React.lazy(() => import('./pages/Member'));
 const LoginPage = React.lazy(() => import('./pages/Login'));
 
 
-export default (props) => {
+export default function Routes(props){
   return (
     <Router>
       <Suspense fallback={<Loading />}>

@@ -157,7 +157,7 @@ async function callApi(endpoint, method, json, {...customConfigs}) {
   }
 }
 
-export default ({endpoint, method, query, json}) => {
+export default function api({endpoint, method, query, json}){
   endpoint = query ? makeQuery(endpoint, query) : endpoint;
 
   return callApi(endpoint, method, json, {});

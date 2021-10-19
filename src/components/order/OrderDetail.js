@@ -23,7 +23,7 @@ function OrderDetail(props) {
   }
 
   const TitleBtn = (props) => (
-    <a className={`p-3 d-block d-md-none ${collapsed}`} onClick={() => setCollapseOn(!collapseOn)}>
+    <button className={`btn btn-link p-3 d-block d-md-none ${collapsed}`} onClick={() => setCollapseOn(!collapseOn)}>
       <div className="d-flex justify-content-between">
         <p className="text-dark animate-title-fadeout">
           <span className="text-sub text-secondary mr-3">Total</span>
@@ -34,7 +34,7 @@ function OrderDetail(props) {
           <span className="material-icons icon-lg animate-icon animate-icon-spin">keyboard_arrow_up</span>
         </p>
       </div>
-    </a>
+    </button>
   );
 
   return (

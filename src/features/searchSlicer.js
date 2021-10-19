@@ -28,6 +28,7 @@ export const searchSlice = createSlice({
       if(typeof(temp.adult)==='string') temp.adult = parseInt(temp.adult);
       if(typeof(temp.child)==='string') temp.child = parseInt(temp.child);
       if(typeof(temp.room)==='string') temp.room = parseInt(temp.room);
+      // eslint-disable-next-line
       Object.keys(initState).map((key) => {
         if (temp[key]!==undefined){
           state[key] = temp[key];

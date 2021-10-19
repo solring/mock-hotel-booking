@@ -12,6 +12,7 @@ const sessionStorageMidwareInit = feature => storeapi => next => action =>{
       if(states[feature]) toSave[feature] = states[feature];
     } else if (Array.isArray(feature)) {
       toSave = {};
+      // eslint-disable-next-line
       feature.map((path) => {
         if(states[path]) toSave[path] = states[path];
       });

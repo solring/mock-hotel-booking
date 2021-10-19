@@ -22,7 +22,7 @@ function TopChoices(props) {
       <SwiperSlide key={idx}>
         <a className="d-block text-dark" href={hotel.url}>
           <div className="position-relative">
-            <img className="pic-height-sm rounded-lg swiper-lazy" data-src={hotel.pic} />
+            <img className="pic-height-sm rounded-lg swiper-lazy" data-src={hotel.pic} alt={`${hotel.name} ${idx}`}/>
             <div className="swiper-lazy-preloader"></div>
           </div>
           <h5 className="my-2">{hotel.name}</h5>

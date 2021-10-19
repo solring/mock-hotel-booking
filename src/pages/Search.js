@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import qs from 'query-string';
 import Layout from '../layout/Layout';
 
@@ -25,7 +25,7 @@ function SearchPage (props){
 
   useEffect(() => {
     dispatch(fetchHotels(query));
-  }, [])
+  }, [dispatch, query])
 
   return (
     <Layout>

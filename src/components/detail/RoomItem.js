@@ -129,7 +129,7 @@ function RoomItem(props) {
   ];
 
   const genPrices = (price, oldPrice) => {
-    if (oldPrice != undefined) {
+    if (oldPrice) {
       return (
         <div>
           <p className="text-secondary text-sub"><del>TWD {oldPrice}</del></p>
@@ -142,7 +142,7 @@ function RoomItem(props) {
   };
 
   const img = (
-    <img className="pic-height-sm Room__cardImg" src={room.img} alt="room picture" />
+    <img className="pic-height-sm Room__cardImg" src={room.img} alt="room interior" />
   );
 
   const tags = (

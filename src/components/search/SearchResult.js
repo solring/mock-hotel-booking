@@ -16,7 +16,7 @@ import * as constants from '../../utils/constants';
 const ITEMS_PER_PAGE = 10;
 
 function Hotels(props) {
-  const {on, rooms, pageSize, index=1} = props;
+  const {on, rooms, pageSize=1, index=1} = props;
 
   // NOTE: index start from 1
   const len = Math.ceil(rooms.length/pageSize);
@@ -26,7 +26,6 @@ function Hotels(props) {
   const range = rooms.slice(start, end);
 
   if (!rooms) return <div></div>;
-  if(!pageSize) pageSize = rooms.length;
 
   return (
     <ul className={`fade list-divider-info no-divider-down-sm ${on ? "show" : ""}`}>
@@ -154,22 +153,26 @@ function SearchResult(props) {
     return (
       <ul className="d-flex align-items-center justify-content-center w-100 mb-3">
         <li key="tab1" className="flex-fill border-right border-info">
-          <a className="btn btn-link btn-block font-weight-bold text-dark text-sub"
+          <button className="btn btn-link btn-block font-weight-bold text-dark text-sub"
             onClick={() => {
               setFilterOn(true);
               console.log(filterOn);
             }}
           >
             <span className="material-icons icon-lg">filter_list</span> FILTER
-          </a>
+          </button>
         </li>
         <li key="tab2" className="flex-fill">
           <Dropdown>
-            <Dropdown.Toggle variant="light" className="btn btn-link btn-block font-weight-bold text-dark text-sub">
+            <Dropdown.Toggle variant="light" bsPrefix="no-toggle" className="btn btn-link btn-block font-weight-bold text-dark text-sub">
               <span className="material-icons icon-lg">sort</span> SORT
             </Dropdown.Toggle>
             <Dropdown.Menu className="bg-info border-0 vw-100">
-              {tabs.map(([short, title]) => <Dropdown.Item key={short} eventKey={short}><a className="nav-link font-weight-bold">{title}</a></Dropdown.Item>)}
+              {tabs.map(([short, title]) =>
+                <Dropdown.Item key={short} eventKey={short} className="py-2">
+                  <strong>{title}</strong>
+                </Dropdown.Item>
+              )}
             </Dropdown.Menu>
           </Dropdown>
         </li>

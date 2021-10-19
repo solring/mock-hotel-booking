@@ -78,7 +78,7 @@ class HomePage extends React.Component{
           <section className="mb-5 container">
             <div className="d-flex justify-content-between align-items-start">
               <h3 className="mb-4">Get Inspiration</h3>
-              <a href="#" className="btn btn-outline-primary text-uppercase">See More</a>
+              <a href="/blogs" className="btn btn-outline-primary text-uppercase">See More</a>
             </div>
             <BlogPosts posts={blogsPosts} />
           </section>

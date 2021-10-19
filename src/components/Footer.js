@@ -53,7 +53,7 @@ function Footer(props) {
   }
 
   let containerClass = (short === true) ? "col-lg-8 border-top border-info py-4" : "py-3";
-  let navbarClass = (short === true) ? "row justify-content-center p-0" : "border-top border-info";
+  let navbarClass = (short === true) ? "row no-gutters justify-content-center p-0" : "border-top border-info";
   let justifyContentLg = (short === true) ? "" : "justify-content-lg-start";
 
   return (

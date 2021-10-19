@@ -1,25 +1,27 @@
 import Loading from '../Loading';
 
+function CardBtn({className, children, ...props}) {
+  return <button className={"btn btn-light btn-block bg-light p-3 " + className} {...props}>{children}</button>;
+}
+
 function MemberProfile(props) {
   const {member, loading} = props;
 
-  const cardBtnStyles = "btn btn-light btn-block bg-light p-3";
-
   const cardInfo = (cards) => (
-    <ul className="d-flex">
+    <ul className="d-flex align-items-stretch">
       {cards.map((card, idx) => (
         <li key={idx} className="w-50 mr-2">
-          <a className={`${cardBtnStyles} text-left`} href="#">
+          <CardBtn className="text-left">
             <p className="card-subtitle">{card.cardNum}</p>
             <p className="card-subtitle">{card.cardOwner}</p>
             <p className="d-flex justify-content-between card-subtitle">{card.expire} <span className={`icon-${card.type}`}></span></p>
-          </a>
+          </CardBtn>
         </li>
       ))}
       <li key="add" className="w-50">
-        <a className={`${cardBtnStyles} h-100 centering-total`} href="#">
+        <CardBtn className="h-100 centering-total">
           <span className="bg-primary rounded-circle material-icons text-light p-1">add</span>
-        </a>
+        </CardBtn>
       </li>
     </ul>
   );
@@ -39,7 +41,7 @@ function MemberProfile(props) {
         <div className="col-md-6 col-lg-12">
 
           <h6 className="card-title d-inline-block d-md-block d-lg-inline-block">User details</h6>
-          <img src={member.pic} alt="profile picture" className="thumbnail rounded-lg align-top d-inline-block float-right float-md-none float-lg-right" />
+          <img src={member.pic} alt="profile" className="thumbnail rounded-lg align-top d-inline-block float-right float-md-none float-lg-right" />
           <div className="d-inline-block ml-md-3 ml-lg-0">
             <p className="card-subtitle mb-3">{member.name}</p>
             <p className="card-subtitle mb-3">{member.email}</p>
@@ -70,7 +72,7 @@ function MemberProfile(props) {
             </span>
           }
         </h2>
-        <a href="#" className="btn btn-link text-uppercase font-weight-bold">edit</a>
+        <button className="btn btn-link text-uppercase font-weight-bold">edit</button>
       </div>
 
       <div className="card bg-info">

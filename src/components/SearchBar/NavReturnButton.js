@@ -9,15 +9,15 @@ function goBack() {
 function NavReturnButton(props) {
   const { city, start, end, adult, child, room } = props;
   return (
-    <a
-      className="d-md-none btn container py-3 px-3"
+    <button
+      className="d-md-none btn btn-link container py-3 px-3"
       onClick={goBack}
     >
       <span className="material-icons text-dark mr-1">arrow_back</span>
       <span className="text-secondary small">
         {city}・{start} - {end}・{genGuestStr(adult, child, room)}
       </span>
-    </a>
+    </button>
   )
 }
 

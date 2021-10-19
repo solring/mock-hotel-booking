@@ -207,7 +207,7 @@ function SearchBar (props) {
       }
 
     <form className={formStyle} onSubmit={doSearch}>
-      <ul className="Search__options Search__collapse-sm" role="nav">
+      <ul className="Search__options Search__collapse-sm">
 
         {/* Field 1: Destination */}
         <li key="destination">

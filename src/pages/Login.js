@@ -74,7 +74,7 @@ function Page (){
 
 
       <p className="small text-secondary mt-4">
-        By signing in or creating an account, you agree with our <a href="#">Terms & Conditions</a> and <a href="#">Privacy Statement</a>
+        By signing in or creating an account, you agree with our <a href="/terms">Terms and Conditions</a> and <a href="/privacy">Privacy Statement</a>
       </p>
 
       <ul className="mt-3 mb-5">
@@ -89,7 +89,7 @@ function Page (){
 
       <button className="btn btn-primary btn-block btn-lg text-uppercase" type="submit">login</button>
       <p className="text-sub text-secondary mt-2">
-        Don’t have an account yet?  <a href="#" className="font-weight-bold">Sign up</a>
+        Don’t have an account yet?  <a href="/sign-up" className="font-weight-bold">Sign up</a>
       </p>
     </form>
   );

@@ -19,11 +19,6 @@ function HotelCard(props) {
     "noPrepay": "No prepayment",
   };
 
-  // handler
-  const goToRoom = () => {
-    window.location.href = DETAIL;
-  }
-
   // renderers
   const genTags = (indes) => {
     return indes.map((idx) => (
@@ -32,7 +27,7 @@ function HotelCard(props) {
   };
 
   const genOldprice = (room) => {
-    if (room.oldPrice != undefined) {
+    if (room.oldPrice) {
       return (
         <div>
           <p className={`HotelCard__oldPrice`}><del>TWD {room.oldPrice}</del></p>
@@ -61,7 +56,7 @@ function HotelCard(props) {
     >
       {images.map((image, idx) => (
         <SwiperSlide key={idx}>
-          <img className={`HotelCard__cardImg pic-height-sm swiper-lazy`} data-src={image} />
+          <img className={`HotelCard__cardImg pic-height-sm swiper-lazy`} alt={`interior ${idx}`} data-src={image}/>
           <div className="swiper-lazy-preloader"></div>
         </SwiperSlide>
       ))}
@@ -73,7 +68,7 @@ function HotelCard(props) {
 
   return (
     <li key={room.name}>
-      <a className={`d-block text-dark card w-100 hover-shadow noBorder_sm`} onClick={goToRoom}>
+      <a href={DETAIL} className={`d-block text-dark card w-100 hover-shadow noBorder_sm`}>
         <div className="row no-gutters">
 
           <div className="col-5 col-md-4">

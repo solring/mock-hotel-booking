@@ -63,13 +63,16 @@ export const sections = {
 
 function initFilterForm() {
   let state = {};
+  // eslint-disable-next-line
   Object.values(sections).map((sec) =>{
     if(Object.hasOwnProperty("options")){
+      // eslint-disable-next-line
       sec["options"].map((opt) => {
         state[opt.title] = false;
       })
     }
   });
+  // eslint-disable-next-line
   [0,1,2,3,4,5].map((i) => {
     state[`rate${i}`] = false;
   });

@@ -28,7 +28,7 @@ function Header(props) {
               </Dropdown.Toggle>
               <Dropdown.Menu aria-labelledby="languageDropdown">
                 {
-                  LANGUAGES.map((lan) => (<Dropdown.Item key={lan}><a href="#">{lan}</a></Dropdown.Item>))
+                  LANGUAGES.map((lan) => (<Dropdown.Item key={lan}>{lan}</Dropdown.Item>))
                 }
               </Dropdown.Menu>
             </Dropdown>

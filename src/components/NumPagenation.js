@@ -32,7 +32,7 @@ function NumPagenation(props) {
   return (
     <nav className="bg-info rounded-lg p-3 w-100 mt-4 mb-5 d-flex justify-content-between">
       <button className="btn btn-outline-primary text-uppercase"
-        onClick={onPrev} role="button">
+        onClick={onPrev}>
         previous
       </button>
       <ul className="pagination">
@@ -40,9 +40,9 @@ function NumPagenation(props) {
         {min && max > min &&
           <React.Fragment>
           <li key="minPage" className="page-item">
-            <a className="page-link" onClick={() => onIndex(min)} role="button">
+            <button className="page-link" onClick={() => onIndex(min)} >
               {min}
-            </a>
+            </button>
           </li>
           <li key="upperEllipsis" className="page-item text-primary">...</li>
           </React.Fragment>
@@ -50,7 +50,7 @@ function NumPagenation(props) {
         {
           nums.map((n) =>
             <li key={n} className={`page-item d-none d-md-block ${ n === curr ? "active" : ""}`}>
-              <a className="page-link" onClick={() => onIndex(n)} role="button">{n}</a>
+              <button className="page-link" onClick={() => onIndex(n)}>{n}</button>
             </li>
           )
         }
@@ -58,16 +58,16 @@ function NumPagenation(props) {
           <React.Fragment>
           <li key="lowerEllipsis" className="page-item text-primary">...</li>
           <li key="maxPage" className="page-item">
-            <a className="page-link" onClick={()=>onIndex(max)} role="button">
+            <button className="page-link" onClick={()=>onIndex(max)}>
               {max}
-            </a>
+            </button>
           </li>
           </React.Fragment>
         }
 
       </ul>
       <button className="btn btn-primary text-uppercase"
-        onClick={onNext} role="button">
+        onClick={onNext}>
         next
       </button>
     </nav>

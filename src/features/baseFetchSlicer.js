@@ -7,7 +7,7 @@ import {
   AJAX_STATUES_FAILED
 } from './fetchStatus';
 
-export default (feature) => {
+const baseFetchSlicer = (feature) => {
   const path = `${feature}/fetch`;
 
   return ({
@@ -47,5 +47,5 @@ export default (feature) => {
   })
 };
 
-
+export default baseFetchSlicer;
 

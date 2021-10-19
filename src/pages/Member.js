@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import Layout from '../layout/Layout';
 
 import Header from '../components/Header/Header';
@@ -23,6 +23,7 @@ function Page (){
   useEffect(() => {
       dispatch(fetchMemberInfo("fakeId"));
       dispatch(fetchMemberOrder("fakeId"));
+      // eslint-disable-next-line
   },[]);
 
   const Content = () => {

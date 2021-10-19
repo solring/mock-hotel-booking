@@ -48,7 +48,7 @@ function Subscription(props) {
             <button id="subs-btn" className="btn btn-primary" type="submit">Subscribe</button>
           </div>
         </div>
-        { (status === AJAX_STATUES_FAILED || status == AJAX_STATUES_SUCCESS && !subscribed) &&
+        { (status === AJAX_STATUES_FAILED || (status === AJAX_STATUES_SUCCESS && !subscribed)) &&
           <div className="invalid-feedback d-inline">Something is wrong. Please try again later.</div>
         }
       </form>

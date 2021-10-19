@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import qs from 'query-string';
 import Layout from '../layout/Layout';
 
@@ -23,6 +23,7 @@ function Page (props){
 
   useEffect(() => {
     dispatch(fetchOrders(orderId));
+    // eslint-disable-next-line
   },[]);
 
 
@@ -46,7 +47,7 @@ function Page (props){
               <dt className="col-3">Email</dt>
               <dd className="col-9 text-secondary">
                 {member.email}
-                <a href="#" className="small">  Confirmation email sent to this address</a>
+                <p className="small">  Confirmation email sent to this address</p>
               </dd>
 
               <dt className="col-3">Phone</dt>
@@ -70,7 +71,7 @@ function Page (props){
             </dl>
           </li>
           <li className="row no-gutters flex-column flex-md-row justify-content-between justify-content-md-end mb-5">
-            <a href="#" className="btn btn-outline-primary btn-lg text-uppercase mr-md-2">edit reservation</a>
+            <a href="/edit-reservation" className="btn btn-outline-primary btn-lg text-uppercase mr-md-2">edit reservation</a>
             <a href={INDEX} className="btn btn-primary btn-lg text-uppercase mt-2 mt-md-0">Homepage</a>
           </li>
         </ul>

@@ -64,7 +64,7 @@ function OrderPage(props){
         ))}
       </ul>
       <button className="btn btn-lg btn-primary btn-block text-uppercase mt-4" type="submit">reserve</button>
-      <a href="#" className="d-block text-center text-sub mt-2">Reserve now, pay at stay</a>
+      <p className="d-block text-center text-primary text-sub mt-2">Reserve now, pay at stay</p>
     </form>
   );
 

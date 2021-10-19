@@ -43,6 +43,7 @@ function RoomDetail(props) {
   const addToCart = () => {
     // set order data
     let arr = [];
+    // eslint-disable-next-line
     orders.map((c, idx) => {
       if (c>0) {
         let room = availableRooms[idx];
@@ -76,7 +77,7 @@ function RoomDetail(props) {
             <div className="div-badge bg-info">
               {genGuestStr(searchOptions.adult, searchOptions.child, searchOptions.room)}
             </div>
-            <a href="#" className="text-uppercase text font-weight-bold ml-4">edit detail</a>
+            <button className="btn btn-link text-uppercase text font-weight-bold">edit detail</button>
           </div>
           <RoomList
             rooms={availableRooms}

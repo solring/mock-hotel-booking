@@ -3,7 +3,7 @@ import * as data from '../utils/mockdata';
 import * as apis from './mockApi';
 import { genHotel } from '../utils/genHotel';
 
-export default function() {
+function mockServer() {
   return createServer({
     seeds(server) {
       server.db.loadData({
@@ -96,3 +96,5 @@ export default function() {
     }
   });
 }
+
+export default mockServer;

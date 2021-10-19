@@ -55,7 +55,7 @@ function ConfirmedBooking(props) {
                     </div>
                   </li>
                 </ul>
-                <a href="#" className="text-uppercase font-weight-bold">view details</a>
+                <a href="/booking-detail" className="text-uppercase font-weight-bold">view details</a>
               </div>
             </div>
 

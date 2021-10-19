@@ -54,7 +54,7 @@ function HotelDesc(props) {
     >
       {hotelPics.map((img, i) => (
         <SwiperSlide key={i}>
-          <div className="pic-fill-container"><img src={img} alt={`room picture ${i}`} /></div>
+          <div className="pic-fill-container"><img src={img} alt={`room details ${i}`} /></div>
         </SwiperSlide>
       ))}
     </Swiper>
@@ -79,7 +79,7 @@ function HotelDesc(props) {
               <span className="text-secondary text-sub">{hotelInfo.star}.0({hotelInfo.review})</span>
             </div>
           </div>
-          <p className="mb-md-4 mb-3"><a href="#" className="text-primary text-sub">{hotelInfo.addr}</a></p>
+          <p className="mb-md-4 mb-3"><button className="btn btn-link text-primary text-sub p-0">{hotelInfo.addr}</button></p>
           <p className="text-secondary mb-6">{hotelInfo.desc}</p>
         </div>
       </Reveal>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import Layout from '../layout/Layout';
 
 import Header from '../components/Header/Header';
@@ -27,6 +27,7 @@ function DetailPage (props){
   useEffect(() => {
     dispatch(fetchHotelDetail("fakeId"));
     dispatch(fetchHotelRooms("fakeId"));
+  // eslint-disable-next-line
   },[]);
 
   const Content = () => (
