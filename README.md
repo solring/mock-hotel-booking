@@ -16,7 +16,6 @@ It is currently [deployed on Heroku](https://mock-hotel-booking.herokuapp.com) w
 ### Log-in/out.
   ![login](https://raw.githubusercontent.com/solring/mock-hotel-booking/main/docs/aloha-login.gif)
 ### RWD. (Phone/Tablet/PC)
-  ![phone home](https://raw.githubusercontent.com/solring/mock-hotel-booking/main/docs/aloha-phone-home.png)
   ![phone filter](https://raw.githubusercontent.com/solring/mock-hotel-booking/main/docs/aloha-phone-filter.gif)
   ![phone cart](https://raw.githubusercontent.com/solring/mock-hotel-booking/main/docs/aloha-phone-cart.gif)
   ![phone order](https://raw.githubusercontent.com/solring/mock-hotel-booking/main/docs/aloha-phone-order.gif)
