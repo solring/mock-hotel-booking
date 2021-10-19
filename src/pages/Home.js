@@ -20,7 +20,7 @@ class HomePage extends React.Component{
 
     this.state = {
       blogsPosts: [],
-      tops: [],
+      tops: {},
       popCities: [],
       animation: false,
     }
@@ -61,7 +61,7 @@ class HomePage extends React.Component{
           <Banner />
 
           <Reveal effect="fadeInUp" when={animation}>
-            <section className="container" style={{"min-height": "400px"}}>
+            <section className="container" style={{ minHeight: "400px" }}>
               <h3 className="mb-4">Top Choices</h3>
               <TopChoices data={tops}/>
             </section>
