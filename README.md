@@ -3,6 +3,8 @@
 An mock hotel booking site bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 It is currently [deployed on Heroku](https://mock-hotel-booking.herokuapp.com) with client-side routing using [React Router](https://reactrouter.com/).
 
+[Design](https://xd.adobe.com/view/0cf6ec93-07a3-492f-58f2-9767ba1cfdfb-7ac7/) from [Hexschool](https://www.hexschool.com/).
+
 ## Implemented Features
 
 ### Search bar
@@ -21,7 +23,7 @@ It is currently [deployed on Heroku](https://mock-hotel-booking.herokuapp.com) w
   ![phone order](https://raw.githubusercontent.com/solring/mock-hotel-booking/main/docs/aloha-phone-order.gif)
   ![phone member](https://raw.githubusercontent.com/solring/mock-hotel-booking/main/docs/aloha-phone-member.gif)
 
-## Available Scripts
+# NPM Scripts
 
 ### `npm start`
 
@@ -51,6 +53,8 @@ Using Bootstrap 4(4.3.5) and SCSS. Please refer to `src/index.scss` to see the w
 
 # Third-party Components/Library
 
+- Data store: Redux.
+- Routiing: React Router.
 - Sliding bar: [Material-UI](https://material-ui.com/components/slider/)
 - Date picker: [Lite Picker](https://litepicker.com/)
 - Touch Slider: [Swiper](https://swiperjs.com/)
